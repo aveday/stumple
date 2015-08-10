@@ -1,5 +1,4 @@
 
-#include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -7,7 +6,7 @@
 #include "Geometry.h"
 
 void printVec2(Vec2 v) {
-    std::cout << v.x << ", " << v.y << std::endl;
+	printf("%f, %f\n", v.x, v.y);
 }
 
 double normalizeAngle(double a) {

@@ -69,6 +69,8 @@ int main(int argc, char *argv[]) {
     }
 
     graphics->~Graphics();
+    delete world;
+    delete graphics;
     
     return 0;
 }

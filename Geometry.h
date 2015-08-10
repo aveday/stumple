@@ -1,8 +1,6 @@
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
 
-#include <math.h>
-
 #define MAX_VERTICES 8
 
 struct Vec2 {
