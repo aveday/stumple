@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
 
     Vec2 pos = Vec2(10, 10);
     Polygon square = Polygon(8, 2, 0);
-    Entity *player = new Entity(pos, square, 0xffaa0011);
+    Entity *player = new Entity(pos, square, GREY);
     world->AddEntity(player);
 
 
