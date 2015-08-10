@@ -1,4 +1,5 @@
 #include <iostream>
+
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
@@ -13,15 +14,17 @@ void drawShape(SDL_Renderer* ren,
     int n = shape->vertexCount;
     Sint16 x[n], y[n];
     for( int i = 0; i < n; i++ ) {
-        Vec2 v = shape->vertices[i];
+        Vec2 v = *shape->vertices[i];
         rotateVec2(&v, angle);
         v.add(position);
-        x[i] = (Sint16)(v.x * GRID_SIZE);
-        y[i] = (Sint16)(v.y * GRID_SIZE);
-    }
-    filledPolygonColor(ren, x, y, n, color);
-    polygonColor(ren, x, y, n, 0xff000000);
 
+        x[i] = (Sint16)(v.x * GRID_SIZE +0.3); // adding 0.3 corrects floating 
+        y[i] = (Sint16)(v.y * GRID_SIZE +0.3); // point error when typecasting
+    }
+
+    filledPolygonColor(ren, x, y, n, color);
+    for( int i = 0; i < n; i++ )
+        aalineColor(ren, x[i], y[i], x[(i+1)%n], y[(i+1)%n], 0xff000000);
 }
 
 void update(SDL_Renderer* ren, World* world, int dt) {
@@ -30,14 +33,22 @@ void update(SDL_Renderer* ren, World* world, int dt) {
 
     // draw world
     for(int i = 0; i < world->entityCount; i++) {
-        Entity *e = &(world->entities[i]);
+        Entity *e = world->entities[i];
         Polygon *shape = &(e->shape);
-        drawShape(ren, shape, e->coords, e->rotation, e->color);
+        drawShape(ren, shape, e->position, e->rotation, e->color);
     }
 }
 
 int main(int argc, char *argv[]) {
     World *world = new World();
+
+    // scratch code !!!
+
+    Vec2 pos = Vec2(10, 10);
+    Polygon square = Polygon(8, 2, 0);
+    Entity *player = new Entity(pos, square, 0xffaa0011);
+    world->AddEntity(player);
+
 
     /* init SDL, create window and renderer */
     SDL_Init( SDL_INIT_EVERYTHING );
@@ -82,7 +93,7 @@ int main(int argc, char *argv[]) {
 
         /* clear screen, draw background */
         SDL_RenderClear(ren);
-        boxColor(ren, 0, 0, SCR_W, SCR_H, 0xffe06070);
+        boxColor(ren, 0, 0, SCR_W, SCR_H, GREEN);
 
         /* update and draw entities */
         update(ren, world, dt);

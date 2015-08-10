@@ -7,9 +7,11 @@
 
 class World {
     public:
-        Entity entities[MAX_ENTITIES];
+        Entity *entities[MAX_ENTITIES];
         int entityCount;
         void Update(int dt);
+		void AddEntity(Entity *e);
+		World();
 };
 
 #endif

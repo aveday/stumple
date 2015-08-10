@@ -1,17 +1,17 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <stdlib.h>
 #include <stdint.h>
 
 #include "Geometry.h"
 
 class Entity {
     public:
-        uint32_t color;
-        Vec2 coords;
+        Vec2 position;
         Polygon shape;
+        uint32_t color;
         int rotation;
+		Entity(Vec2, Polygon, uint32_t);
 };
 
 
