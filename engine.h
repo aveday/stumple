@@ -1,13 +1,6 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-
-#include "Geometry.h"
-#include "World.h"
-#include "Entity.h"
-#include "Colors.h"
-
-
 static const int SCR_W = 640;
 static const int SCR_H = 480;
 static const int SCR_X = 100;

@@ -7,6 +7,12 @@
 #include "SDL2/SDL2_gfxPrimitives.h"
 #include "SDL2/SDL2_rotozoom.h"
 
+#include "Camera.h"
+#include "Geometry.h"
+#include "World.h"
+#include "Entity.h"
+#include "Colors.h"
+
 #include "engine.h"
 
 void drawShape(SDL_Renderer* ren,
@@ -27,9 +33,15 @@ void drawShape(SDL_Renderer* ren,
         aalineColor(ren, x[i], y[i], x[(i+1)%n], y[(i+1)%n], 0xff000000);
 }
 
-void update(SDL_Renderer* ren, World* world, int dt) {
+void update(SDL_Renderer* ren, World* world, int dt, Camera *cam) {
     // simulate world
     world->Update(dt);
+
+    // draw grid
+    for(int x = (int)(cam->offset.x)%GRID_SIZE; x < SCR_W; x += GRID_SIZE)
+        lineColor(ren, x, 0, x, SCR_H, LIGHTGREEN);
+    for(int y = (int)(cam->offset.y)%GRID_SIZE; y < SCR_H; y += GRID_SIZE)
+        lineColor(ren, 0, y, SCR_W, y, LIGHTGREEN);
 
     // draw world
     for(int i = 0; i < world->entityCount; i++) {
@@ -41,6 +53,7 @@ void update(SDL_Renderer* ren, World* world, int dt) {
 
 int main(int argc, char *argv[]) {
     World *world = new World();
+    Camera *camera = new Camera();
 
     // scratch code !!!
 
@@ -96,7 +109,7 @@ int main(int argc, char *argv[]) {
         boxColor(ren, 0, 0, SCR_W, SCR_H, GREEN);
 
         /* update and draw entities */
-        update(ren, world, dt);
+        update(ren, world, dt, camera);
 
         /* , refresh screen */
         SDL_RenderPresent(ren);
