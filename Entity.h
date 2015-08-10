@@ -14,5 +14,4 @@ class Entity {
 		Entity(Vec2, Polygon, uint32_t);
 };
 
-
 #endif

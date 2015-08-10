@@ -2,7 +2,7 @@ CXX=g++
 CFLAGS=-Wall -std=c++11
 BIN=engine
 LDFLAGS=-lm -lSDL2 -lSDL2_gfx
-DEPS=engine.h Geometry.h Entity.h World.h Camera.h
+DEPS=engine.h Geometry.h Entity.h World.h Graphics.h
 OBJS=$(subst .h,.o,$(DEPS))
 
 .PHONY: default

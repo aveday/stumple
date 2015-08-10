@@ -1,3 +1,6 @@
+#ifndef COLORS_H
+#define COLORS_H
+
 #define BLACK 0xff1c0c14
 #define MAROON 0xff342444
 #define DARKBLUE 0xff6d3430
@@ -14,3 +17,5 @@
 #define LIGHTBLUE 0xffcac26d
 #define YELLOW 0xff5ed4da
 #define WHITE 0xffd6eede
+
+#endif

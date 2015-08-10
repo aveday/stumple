@@ -3,11 +3,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
-#include "SDL2/SDL.h"
-#include "SDL2/SDL2_gfxPrimitives.h"
-#include "SDL2/SDL2_rotozoom.h"
 
-#include "Camera.h"
+#include "Graphics.h"
 #include "Geometry.h"
 #include "World.h"
 #include "Entity.h"
@@ -15,45 +12,12 @@
 
 #include "engine.h"
 
-void drawShape(SDL_Renderer* ren,
-        Polygon *shape, Vec2 position, float angle, Uint32 color) {
-    int n = shape->vertexCount;
-    Sint16 x[n], y[n];
-    for( int i = 0; i < n; i++ ) {
-        Vec2 v = *shape->vertices[i];
-        rotateVec2(&v, angle);
-        v.add(position);
-
-        x[i] = (Sint16)(v.x * GRID_SIZE +0.3); // adding 0.3 corrects floating 
-        y[i] = (Sint16)(v.y * GRID_SIZE +0.3); // point error when typecasting
-    }
-
-    filledPolygonColor(ren, x, y, n, color);
-    for( int i = 0; i < n; i++ )
-        aalineColor(ren, x[i], y[i], x[(i+1)%n], y[(i+1)%n], 0xff000000);
-}
-
-void update(SDL_Renderer* ren, World* world, int dt, Camera *cam) {
-    // simulate world
-    world->Update(dt);
-
-    // draw grid
-    for(int x = (int)(cam->offset.x)%GRID_SIZE; x < SCR_W; x += GRID_SIZE)
-        lineColor(ren, x, 0, x, SCR_H, LIGHTGREEN);
-    for(int y = (int)(cam->offset.y)%GRID_SIZE; y < SCR_H; y += GRID_SIZE)
-        lineColor(ren, 0, y, SCR_W, y, LIGHTGREEN);
-
-    // draw world
-    for(int i = 0; i < world->entityCount; i++) {
-        Entity *e = world->entities[i];
-        Polygon *shape = &(e->shape);
-        drawShape(ren, shape, e->position, e->rotation, e->color);
-    }
-}
 
 int main(int argc, char *argv[]) {
+ 
+    // create game world and graphics
     World *world = new World();
-    Camera *camera = new Camera();
+    Graphics *graphics = new Graphics();
 
     // scratch code !!!
 
@@ -61,14 +25,7 @@ int main(int argc, char *argv[]) {
     Polygon square = Polygon(8, 2, 0);
     Entity *player = new Entity(pos, square, GREY);
     world->AddEntity(player);
-
-
-    /* init SDL, create window and renderer */
-    SDL_Init( SDL_INIT_EVERYTHING );
-    SDL_Window* win = SDL_CreateWindow(WINDOW_TITLE,
-            SCR_X, SCR_Y, SCR_W, SCR_H, SDL_WINDOW_SHOWN);
-    SDL_Renderer* ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
-    
+   
     /* init events, time and random seed */
     int quit = 0;
     SDL_Event e;
@@ -104,20 +61,14 @@ int main(int argc, char *argv[]) {
             }
         }
 
-        /* clear screen, draw background */
-        SDL_RenderClear(ren);
-        boxColor(ren, 0, 0, SCR_W, SCR_H, GREEN);
 
         /* update and draw entities */
-        update(ren, world, dt, camera);
+        world->Update(dt);
+        graphics->Draw(world);
 
-        /* , refresh screen */
-        SDL_RenderPresent(ren);
     }
 
-    SDL_DestroyRenderer(ren);
-    SDL_DestroyWindow(win);
-    SDL_Quit();
+    graphics->~Graphics();
     
     return 0;
 }
