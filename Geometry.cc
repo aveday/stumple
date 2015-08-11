@@ -50,6 +50,7 @@ Polygon::Polygon(int sides, double sideLength, double rotation) {
 		 fprintf(stderr, "Polygon had too many sides!\n");
 	}
 
+	vertexCount = sides;
 
 	double angle = M_PI_2 - M_PI/sides + rotation;
 	double increment = 2*M_PI/sides;
@@ -57,13 +58,5 @@ Polygon::Polygon(int sides, double sideLength, double rotation) {
 
     for(int i = 0; i < sides; i++, angle += increment)
         vertices[i] = new Vec2(radius * cos(angle), radius * sin(angle));
-
-
-    //double internalAngle = M_PI - 2*M_PI/sides;
-    //double radius = sideLength / (2*sin(M_PI/sides));
-    vertexCount = sides;
-    //double angle = rotation + M_PI/sides - M_PI_2;
-    //for(int i = 0; i < sides ; i++, angle += M_PI - 2*M_PI/sides) {
-
 }
 
