@@ -29,7 +29,6 @@ int main(int argc, char *argv[]) {
     world->AddEntity(player);
    
     /* init events, time and random seed */
-    int quit = 0;
     srand(time(NULL));
     int time = SDL_GetTicks();
 
