@@ -23,13 +23,14 @@ int main(int argc, char *argv[]) {
 
     // scratch code !!!
 
-    Vec2 pos = Vec2(10, 10);
-    Polygon square = Polygon(8, 2, 0);
-    Entity *player = new Entity(pos, square, GREY);
+    //Vec2 pos = Vec2(10, 10);
+    //Polygon square = Polygon(8, 2, 0);
+    //Entity *player = new Entity(pos, square, GREY);
+    Entity *player = new Entity( Vec2(10, 10), Polygon(8, 2, 0), GREY );
+
     world->AddEntity(player);
    
     /* init events, time and random seed */
-    srand(time(NULL));
     int time = SDL_GetTicks();
 
     while( input->Run() ) {

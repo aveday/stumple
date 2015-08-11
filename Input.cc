@@ -3,12 +3,10 @@
 Input::Input() { }
 
 bool Input::Run() {
-    bool running = true;
-
 	while(SDL_PollEvent(&event) != 0 ) {
 
 		if ( event.type == SDL_QUIT )
-			running = false;
+			return false;
 		if ( event.key.type == SDL_KEYDOWN && !(event.key.repeat) ) {
 
 			switch( event.key.keysym.sym ) {
@@ -25,5 +23,5 @@ bool Input::Run() {
 			}
 		}
 	}
-	return running;
+	return true;
 }
