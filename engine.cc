@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 
     // scratch code !!!
 
-    Entity *player = new Entity( Vec2(10, 10), Polygon(8, 2, 0), GREY );
+    Entity *player = new Entity( Vec2(10, 10), Polygon(4, 1, 0), GREY );
 
     world->AddEntity(player);
    
@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
         // manage time
         int dt = 0;
         do dt = SDL_GetTicks() - time;
-        while( dt < 1000.0/60.0 );
+        while( dt < 1000.0/FPS );
         time = SDL_GetTicks();
 
         /* update and draw entities */
