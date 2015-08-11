@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "World.h"
 
@@ -7,11 +8,14 @@ World::World():
 }
 
 void World::Update(int dt) {
+    for(int i = 0; i < entityCount; i++) {
+        Entity *e = entities[i];
+	}
 }
 
 void World::AddEntity(Entity *e) {
 	if (entityCount == MAX_ENTITIES)
-		return; // TODO error handle entity overflow
+		exit(EXIT_FAILURE); // TODO error handle entity overflow
 
 	entities[entityCount++] = e;
 	return;

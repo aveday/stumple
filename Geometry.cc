@@ -46,8 +46,8 @@ void Vec2::add(Vec2 v) {
 
 Polygon::Polygon(int sides, double sideLength, double rotation) {
 	if(sides > MAX_VERTICES) {
-		 exit(EXIT_FAILURE);
 		 fprintf(stderr, "Polygon had too many sides!\n");
+		 exit(EXIT_FAILURE);
 	}
 
 	vertexCount = sides;
