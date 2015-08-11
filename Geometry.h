@@ -5,16 +5,16 @@
 
 struct Vec2 {
     double x, y;
-	double getLength();
-	void add(Vec2);
-	Vec2(double x, double y): x(x), y(y) { }
+    double getLength();
+    void add(Vec2);
+    Vec2(double x, double y): x(x), y(y) { }
 };
 
 class Polygon {
-	public:
-		Vec2 *vertices[MAX_VERTICES];
-		int vertexCount;
-		Polygon(int, double, double);
+    public:
+        Vec2 *vertices[MAX_VERTICES];
+        int vertexCount;
+        Polygon(int, double, double);
 };
 
 

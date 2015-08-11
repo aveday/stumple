@@ -8,8 +8,8 @@ static const char* WINDOW_TITLE = "engine";
 static int GRID_SIZE = 16;
 
 Graphics::Graphics():
-		offset(Vec2(0, 0)),
-		zoom(1) {
+        offset(Vec2(0, 0)),
+        zoom(1) {
 
     /* init SDL, create window and renderer */
     SDL_Init( SDL_INIT_EVERYTHING );
@@ -25,9 +25,9 @@ Graphics::~Graphics() {
 }
 
 void Graphics::Draw(World *world) {
-	// clear the screen and draw background
-	SDL_RenderClear(renderer);
-	boxColor(renderer, 0, 0, SCR_W, SCR_H, GREEN);
+    // clear the screen and draw background
+    SDL_RenderClear(renderer);
+    boxColor(renderer, 0, 0, SCR_W, SCR_H, GREEN);
 
     // draw world
     DrawGrid();
@@ -36,8 +36,8 @@ void Graphics::Draw(World *world) {
         Polygon *shape = &(e->shape);
         DrawShape(shape, e->position, e->rotation, e->color);
     }
-	// display the drawn frame
-	SDL_RenderPresent(renderer);
+    // display the drawn frame
+    SDL_RenderPresent(renderer);
 }
 
 void Graphics::DrawGrid() {

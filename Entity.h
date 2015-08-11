@@ -11,7 +11,7 @@ class Entity {
         Polygon shape;
         uint32_t color;
         int rotation;
-		Entity(Vec2, Polygon, uint32_t);
+        Entity(Vec2, Polygon, uint32_t);
 };
 
 #endif

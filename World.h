@@ -10,8 +10,8 @@ class World {
         Entity *entities[MAX_ENTITIES];
         int entityCount;
         void Update(int dt);
-		void AddEntity(Entity *e);
-		World();
+        void AddEntity(Entity *e);
+        World();
 };
 
 #endif

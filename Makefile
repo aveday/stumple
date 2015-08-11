@@ -10,10 +10,10 @@ default: all
 
 .PHONY: clean
 clean:
-	rm -f $(OBJS) $(BIN)
+    rm -f $(OBJS) $(BIN)
 
 %.o: %.cc %.h
-	$(CXX) $(CFLAGS) -c -o $@ $<
+    $(CXX) $(CFLAGS) -c -o $@ $<
 
 all: $(OBJS)
-	$(CXX) $(CFLAGS) $(LDFLAGS) -o $(BIN) $(OBJS)
+    $(CXX) $(CFLAGS) $(LDFLAGS) -o $(BIN) $(OBJS)

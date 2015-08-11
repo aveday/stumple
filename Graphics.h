@@ -15,18 +15,18 @@ static const int FPS = 30;
 
 
 class Graphics {
-	private:
-		Vec2 offset;
-		double zoom;
-		SDL_Renderer* renderer;
-		SDL_Window* window;
+    private:
+        Vec2 offset;
+        double zoom;
+        SDL_Renderer* renderer;
+        SDL_Window* window;
 
-	public:
-		Graphics();
-		~Graphics();
-		void Draw(World *world);
-		void DrawGrid();
-		void DrawShape(Polygon*, Vec2, float, Uint32);
+    public:
+        Graphics();
+        ~Graphics();
+        void Draw(World *world);
+        void DrawGrid();
+        void DrawShape(Polygon*, Vec2, float, Uint32);
 };
 
 #endif

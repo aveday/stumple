@@ -4,10 +4,10 @@
 #include <SDL2/SDL.h>
 
 class Input {
-	public:
-		SDL_Event event;
-		Input();
-		bool Run();
+    public:
+        SDL_Event event;
+        Input();
+        bool Run();
 };
 
 #endif

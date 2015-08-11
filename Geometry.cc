@@ -6,7 +6,7 @@
 #include "Geometry.h"
 
 void printVec2(Vec2 v) {
-	printf("%f, %f\n", v.x, v.y);
+    printf("%f, %f\n", v.x, v.y);
 }
 
 double normalizeAngle(double a) {
@@ -45,16 +45,16 @@ void Vec2::add(Vec2 v) {
 }
 
 Polygon::Polygon(int sides, double sideLength, double rotation) {
-	if(sides > MAX_VERTICES) {
-		 fprintf(stderr, "Polygon had too many sides!\n");
-		 exit(EXIT_FAILURE);
-	}
+    if(sides > MAX_VERTICES) {
+         fprintf(stderr, "Polygon had too many sides!\n");
+         exit(EXIT_FAILURE);
+    }
 
-	vertexCount = sides;
+    vertexCount = sides;
 
-	double angle = M_PI_2 - M_PI/sides + rotation;
-	double increment = 2*M_PI/sides;
-	double radius = sideLength / (2*sin(increment/2));
+    double angle = M_PI_2 - M_PI/sides + rotation;
+    double increment = 2*M_PI/sides;
+    double radius = sideLength / (2*sin(increment/2));
 
     for(int i = 0; i < sides; i++, angle += increment)
         vertices[i] = new Vec2(radius * cos(angle), radius * sin(angle));
