@@ -6,6 +6,7 @@
 
 #include "Graphics.h"
 #include "Input.h"
+#include "Clock.h"
 #include "Geometry.h"
 #include "World.h"
 #include "Entity.h"
@@ -15,34 +16,25 @@
 
 
 int main(int argc, char *argv[]) {
- 
-    // create game world, graphics, and input
-    World *world = new World();
-    Graphics *graphics = new Graphics();
-    Input *input = new Input();
+    
+    // Create engine objects
+    World *world        = new World();
+    Graphics *graphics  = new Graphics();
+    Input *input        = new Input();
+    Clock *clock        = new Clock();
 
-    // scratch code !!!
-
+    // Create game objects
     Entity *player = new Entity( Vec2(10, 10), Polygon(4, 1, 0), GREY );
-
     world->AddEntity(player);
    
-    /* init events, time */
-    int time = SDL_GetTicks();
-
-    while( input->Run() ) {
-
-        // manage time
-        int dt = 0;
-        do dt = SDL_GetTicks() - time;
-        while( dt < 1000.0/FPS );
-        time = SDL_GetTicks();
-
-        /* update and draw entities */
-        world->Update(dt);
-        graphics->Draw(world);
+    // Accept input
+    while(input->Run()) {
+        clock->Sleep();         // Delay to maintain FPS
+        world->Update();        // Update the game world
+        graphics->Draw(world);  // Draw to the screen
     }
 
+    // Destroy all the things
     graphics->~Graphics();
     delete world;
     delete graphics;

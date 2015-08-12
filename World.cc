@@ -7,7 +7,7 @@ World::World():
     entityCount(0) {
 }
 
-void World::Update(int dt) {
+void World::Update() {
     for(int i = 0; i < entityCount; i++) {
         Entity *e = entities[i];
     }

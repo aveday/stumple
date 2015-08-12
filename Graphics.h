@@ -11,7 +11,6 @@ static const int SCR_W = 640;
 static const int SCR_H = 480;
 static const int SCR_X = 100;
 static const int SCR_Y = 100;
-static const int FPS = 30;
 
 
 class Graphics {

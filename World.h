@@ -9,7 +9,7 @@ class World {
     public:
         Entity *entities[MAX_ENTITIES];
         int entityCount;
-        void Update(int dt);
+        void Update();
         void AddEntity(Entity *e);
         World();
 };
