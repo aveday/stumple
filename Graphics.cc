@@ -5,7 +5,7 @@
 #include "Graphics.h"
 
 static const char* WINDOW_TITLE = "engine";
-static int GRID_SIZE = 16;
+static const int GRID_SIZE = 16;
 
 Graphics::Graphics():
         offset(Vec2(0, 0)),

@@ -12,7 +12,6 @@ static const int SCR_H = 480;
 static const int SCR_X = 100;
 static const int SCR_Y = 100;
 
-
 class Graphics {
     private:
         Vec2 offset;
