@@ -10,7 +10,7 @@ class Entity {
         Vec2 position;
         Polygon shape;
         uint32_t color;
-        int rotation;
+        double rotation;
         Entity(Vec2, Polygon, uint32_t);
 };
 
