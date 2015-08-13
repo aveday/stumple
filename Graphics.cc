@@ -50,7 +50,7 @@ void Graphics::DrawGrid() {
 
 
 void Graphics::DrawShape(
-        Polygon *shape, Vec2 position, float angle, Uint32 color) {
+        Polygon *shape, Vec2 position, double angle, Uint32 color) {
     int n = shape->vertexCount;
     Sint16 x[n], y[n];
     for( int i = 0; i < n; i++ ) {

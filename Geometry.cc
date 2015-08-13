@@ -39,6 +39,11 @@ double Vec2::getLength() {
     return sqrt( pow(x, 2) + pow(y, 2) );
 }
 
+void IVec2::add(IVec2 v) {
+    x += v.x;
+    y += v.y;
+}
+
 void Vec2::add(Vec2 v) {
     x += v.x;
     y += v.y;

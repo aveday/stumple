@@ -24,7 +24,7 @@ class Graphics {
         ~Graphics();
         void Draw(World *world);
         void DrawGrid();
-        void DrawShape(Polygon*, Vec2, float, Uint32);
+        void DrawShape(Polygon*, Vec2, double, Uint32);
 };
 
 #endif

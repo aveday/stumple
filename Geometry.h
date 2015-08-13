@@ -3,16 +3,17 @@
 
 #define MAX_VERTICES 8
 
+struct IVec2 {
+	int x, y;
+	void add(IVec2);
+	IVec2(int x, int y): x(x), y(y) { }
+};
+
 struct Vec2 {
     double x, y;
     double getLength();
     void add(Vec2);
     Vec2(double x, double y): x(x), y(y) { }
-};
-
-struct IVec2 {
-	int x, y;
-	IVec2(int x, int y): x(x), y(y) { }
 };
 
 class Polygon {
