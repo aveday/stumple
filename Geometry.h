@@ -10,6 +10,11 @@ struct Vec2 {
     Vec2(double x, double y): x(x), y(y) { }
 };
 
+struct IVec2 {
+	int x, y;
+	IVec2(int x, int y): x(x), y(y) { }
+}
+
 class Polygon {
     public:
         Vec2 *vertices[MAX_VERTICES];
