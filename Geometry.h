@@ -13,7 +13,7 @@ struct Vec2 {
 struct IVec2 {
 	int x, y;
 	IVec2(int x, int y): x(x), y(y) { }
-}
+};
 
 class Polygon {
     public:
