@@ -30,41 +30,38 @@ void Graphics::Draw(World *world) {
     boxColor(renderer, 0, 0, SCR_W, SCR_H, GREEN);
 
     // draw world
-    DrawGrid();
-    for(int i = 0; i < world->entityCount; i++) {
-        Entity *e = world->entities[i];
-        Polygon *shape = &(e->shape);
-        DrawShape(shape, e->position, e->rotation, e->color);
-    }
+    DrawGrid(); // TODO seperate grid from graphics
+    for(int i = 0; i < world->entityCount; i++)
+		Draw(&world->entities[i]->image);
+    
     // display the drawn frame
     SDL_RenderPresent(renderer);
 }
 
 void Graphics::DrawGrid() {
-    // draw grid
     for(int x = (int)(offset.x)%GRID_SIZE; x < SCR_W; x += GRID_SIZE)
         lineColor(renderer, x, 0, x, SCR_H, LIGHTGREEN);
     for(int y = (int)(offset.y)%GRID_SIZE; y < SCR_H; y += GRID_SIZE)
         lineColor(renderer, 0, y, SCR_W, y, LIGHTGREEN);
 }
 
-
-void Graphics::DrawShape(
-        Polygon *shape, Vec2 position, double angle, Uint32 color) {
-    int n = shape->vertexCount;
+void Graphics::Draw(Image *image) {
+	// create seperate ordinate arrays
+    int n = image->shape.vertexCount;
     Sint16 x[n], y[n];
-    for( int i = 0; i < n; i++ ) {
-        Vec2 v = *shape->vertices[i];
-        rotateVec2(&v, angle);
-        v.add(position);
 
-        x[i] = (Sint16)(v.x * GRID_SIZE +0.3); // adding 0.3 corrects floating 
-        y[i] = (Sint16)(v.y * GRID_SIZE +0.3); // point error when typecasting
+    for( int i = 0; i < n; i++ ) {
+		// calculate vertex positions from image position and rotation
+        Vec2 v = *image->shape.vertices[i];
+        rotateVec2(&v, image->rotation);
+        v.add(image->position);
+
+        x[i] = (Sint16)(v.x + 0.3); // adding 0.3 corrects floating 
+        y[i] = (Sint16)(v.y + 0.3); // point error when typecasting
     }
 
-    filledPolygonColor(renderer, x, y, n, color);
+	// draw filled color polygon and border
+    filledPolygonColor(renderer, x, y, n, image->color);
     for( int i = 0; i < n; i++ )
         aalineColor(renderer, x[i], y[i], x[(i+1)%n], y[(i+1)%n], 0xff000000);
 }
-
-

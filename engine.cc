@@ -15,7 +15,10 @@ int main(int argc, char *argv[]) {
     Clock *clock        = new Clock();
 
     // Create game objects
-    Entity *player = new Entity( Vec2(10, 10), Polygon(4, 1, 0), GREY );
+    Entity *player = new Entity( IVec2(10, 10),
+            Image(Vec2(160,160), Polygon(4,10,0), GREY, 0));
+    // TODO link entity coords with image position
+
     world->AddEntity(player);
    
     // Accept input

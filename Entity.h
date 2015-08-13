@@ -4,14 +4,13 @@
 #include <stdint.h>
 
 #include "Geometry.h"
+#include "Image.h"
 
 class Entity {
     public:
-        Vec2 position;
-        Polygon shape;
-        uint32_t color;
-        double rotation;
-        Entity(Vec2, Polygon, uint32_t);
+        IVec2 coords;
+		Image image;
+        Entity(IVec2, Image);
 };
 
 #endif

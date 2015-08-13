@@ -2,6 +2,6 @@
 
 #include "Entity.h"
 
-Entity::Entity(Vec2 p, Polygon s, uint32_t c):
-    position(p), shape(s), color(c) {
+Entity::Entity(IVec2 c, Image i):
+    coords(c), image(i) {
 }

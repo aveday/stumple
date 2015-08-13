@@ -23,6 +23,7 @@ class Graphics {
         Graphics();
         ~Graphics();
         void Draw(World *world);
+        void Draw(Image *image);
         void DrawGrid();
         void DrawShape(Polygon*, Vec2, double, Uint32);
 };
