@@ -34,7 +34,7 @@ void Graphics::Draw(World *world) {
     // draw entities
     for(int i = 0; i < world->entityCount; i++)
         Draw(&world->entities[i]->image);
-    
+
     // display the drawn frame
     SDL_RenderPresent(renderer);
 }
