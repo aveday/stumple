@@ -24,7 +24,7 @@ class Graphics {
         ~Graphics();
         void Draw(World*);
         void Draw(Image*);
-        void Draw(Grid);
+        void Draw(Grid*);
 };
 
 #endif

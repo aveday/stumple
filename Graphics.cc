@@ -25,12 +25,12 @@ Graphics::~Graphics() {
 }
 
 void Graphics::Draw(World *world) {
-    // clear the screen and draw background
+    // clear the screen
     SDL_RenderClear(renderer);
-    boxColor(renderer, 0, 0, SCR_W, SCR_H, GREEN);
 
     // draw grid
-    Draw(world->grid); // TODO seperate grid from graphics
+    Draw(&world->grid);
+
     // draw entities
     for(int i = 0; i < world->entityCount; i++)
         Draw(&world->entities[i]->image);
@@ -39,11 +39,12 @@ void Graphics::Draw(World *world) {
     SDL_RenderPresent(renderer);
 }
 
-void Graphics::Draw(Grid g) {
-    for(int x = (int)(offset.x)%g.size; x < SCR_W; x += g.size)
-        lineColor(renderer, x, 0, x, SCR_H, g.color);
-    for(int y = (int)(offset.y)%g.size; y < SCR_H; y += g.size)
-        lineColor(renderer, 0, y, SCR_W, y, g.color);
+void Graphics::Draw(Grid *g) {
+    boxColor(renderer, 0, 0, SCR_W, SCR_H, g->background);
+    for(int x = (int)(offset.x)%g->size; x < SCR_W; x += g->size)
+        lineColor(renderer, x, 0, x, SCR_H, g->color);
+    for(int y = (int)(offset.y)%g->size; y < SCR_H; y += g->size)
+        lineColor(renderer, 0, y, SCR_W, y, g->color);
 }
 
 void Graphics::Draw(Image *image) {

@@ -26,7 +26,9 @@ struct Vec2 {
 struct Grid {
     int size;
     uint32_t color;
-    Grid(int s, uint32_t c): size(s), color(c) { }
+    uint32_t background;
+    Grid(int s, uint32_t c, uint32_t bg):
+        size(s), color(c), background(bg) { }
     Vec2 GetScreenPosition(IVec2);
 };
 
