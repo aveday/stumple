@@ -1,6 +1,8 @@
 #ifndef GEOMETRY_H
 #define GEOMETRY_H
 
+#include <stdint.h>
+
 #define MAX_VERTICES 8
 
 struct IVec2 {
@@ -23,7 +25,8 @@ struct Vec2 {
 
 struct Grid {
     int size;
-    Grid(int s): size(s) { }
+    uint32_t color;
+    Grid(int s, uint32_t c): size(s), color(c) { }
     Vec2 GetScreenPosition(IVec2);
 };
 

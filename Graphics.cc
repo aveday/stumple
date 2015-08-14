@@ -29,8 +29,9 @@ void Graphics::Draw(World *world) {
     SDL_RenderClear(renderer);
     boxColor(renderer, 0, 0, SCR_W, SCR_H, GREEN);
 
-    // draw world
-    DrawGrid(); // TODO seperate grid from graphics
+    // draw grid
+    Draw(world->grid); // TODO seperate grid from graphics
+    // draw entities
     for(int i = 0; i < world->entityCount; i++)
         Draw(&world->entities[i]->image);
     
@@ -38,11 +39,11 @@ void Graphics::Draw(World *world) {
     SDL_RenderPresent(renderer);
 }
 
-void Graphics::DrawGrid() {
-    for(int x = (int)(offset.x)%GRID_SIZE; x < SCR_W; x += GRID_SIZE)
-        lineColor(renderer, x, 0, x, SCR_H, LIGHTGREEN);
-    for(int y = (int)(offset.y)%GRID_SIZE; y < SCR_H; y += GRID_SIZE)
-        lineColor(renderer, 0, y, SCR_W, y, LIGHTGREEN);
+void Graphics::Draw(Grid g) {
+    for(int x = (int)(offset.x)%g.size; x < SCR_W; x += g.size)
+        lineColor(renderer, x, 0, x, SCR_H, g.color);
+    for(int y = (int)(offset.y)%g.size; y < SCR_H; y += g.size)
+        lineColor(renderer, 0, y, SCR_W, y, g.color);
 }
 
 void Graphics::Draw(Image *image) {

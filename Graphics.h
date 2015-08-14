@@ -22,9 +22,9 @@ class Graphics {
     public:
         Graphics();
         ~Graphics();
-        void Draw(World *world);
-        void Draw(Image *image);
-        void DrawGrid();
+        void Draw(World*);
+        void Draw(Image*);
+        void Draw(Grid);
         void DrawShape(Polygon*, Vec2, double, Uint32);
 };
 
