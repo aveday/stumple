@@ -53,7 +53,7 @@ void Graphics::Draw(Image *image) {
     for( int i = 0; i < n; i++ ) {
         // calculate vertex positions from image position and rotation
         Vec2 v = *image->shape.vertices[i];
-        rotateVec2(&v, image->rotation);
+        v.rotate(image->rotation);
         v += image->position;
 
         x[i] = (Sint16)(v.x + 0.3); // adding 0.3 corrects floating 

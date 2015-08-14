@@ -18,20 +18,20 @@ double normalizeAngle(double a) {
         return a;
 }
 
-void rotateVec2(Vec2* v, double da) {
+void Vec2::rotate(double da) {
     double a;
-    if( v->x == 0 ) {
+    if( x == 0 ) {
         a = M_PI/2.0;
-        if( v->y < 0 )
+        if( y < 0 )
             a -= M_PI;
     } else {
-        a = atan(v->y/v->x);
-        if( v->x < 0 )
+        a = atan(y/x);
+        if( x < 0 )
             a += M_PI;
     }
-    double h = v->getLength();
-    v->x = h*cos(a+da);
-    v->y = h*sin(a+da);
+    double h = getLength();
+    x = h*cos(a+da);
+    y = h*sin(a+da);
 }
 
 double Vec2::getLength() {
@@ -40,6 +40,11 @@ double Vec2::getLength() {
 
 IVec2 IVec2::operator+ (const IVec2 &v) {
     return IVec2(x + v.x, y + v.y);
+}
+
+void IVec2::operator+= (const IVec2 &v) {
+	x += v.x;
+	y += v.y;
 }
 
 IVec2 IVec2::operator* (int i) {
