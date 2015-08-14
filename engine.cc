@@ -9,14 +9,14 @@
 int main(int argc, char *argv[]) {
     
     // Create engine objects
-    World *world        = new World();
+    World *world        = new World( Grid(16) );
     Graphics *graphics  = new Graphics();
     Control *control    = new Control();
     Clock *clock        = new Clock();
 
     // Create game objects
     Entity *player = new Entity( IVec2(10, 10),
-            Image(Vec2(160,160), Polygon(4,10,0), GREY, 0));
+            Image(Vec2(160,160), Polygon(4,16,0), GREY, 0));
     // TODO link entity coords with image position
 
     world->AddEntity(player);

@@ -34,19 +34,29 @@ void rotateVec2(Vec2* v, double da) {
     v->y = h*sin(a+da);
 }
 
-
 double Vec2::getLength() {
     return sqrt( pow(x, 2) + pow(y, 2) );
 }
 
-void IVec2::add(IVec2 v) {
-    x += v.x;
-    y += v.y;
+IVec2 IVec2::operator+ (const IVec2 &v) {
+    return IVec2(x + v.x, y + v.y);
 }
 
-void Vec2::add(Vec2 v) {
-    x += v.x;
-    y += v.y;
+IVec2 IVec2::operator* (int i) {
+    return IVec2(x * i, y * i);
+}
+
+Vec2 Vec2::operator+ (const Vec2 &v) {
+    return Vec2(x + v.x, y + v.y);
+}
+
+void Vec2::operator+= (const Vec2 &v) {
+	x += v.x;
+	y += v.y;
+}
+
+Vec2 Vec2::operator* (double i) {
+    return Vec2(x * i, y * i);
 }
 
 Polygon::Polygon(int sides, double sideLength, double rotation) {
@@ -64,4 +74,3 @@ Polygon::Polygon(int sides, double sideLength, double rotation) {
     for(int i = 0; i < sides; i++, angle += increment)
         vertices[i] = new Vec2(radius * cos(angle), radius * sin(angle));
 }
-

@@ -32,7 +32,7 @@ void Graphics::Draw(World *world) {
     // draw world
     DrawGrid(); // TODO seperate grid from graphics
     for(int i = 0; i < world->entityCount; i++)
-		Draw(&world->entities[i]->image);
+        Draw(&world->entities[i]->image);
     
     // display the drawn frame
     SDL_RenderPresent(renderer);
@@ -46,21 +46,21 @@ void Graphics::DrawGrid() {
 }
 
 void Graphics::Draw(Image *image) {
-	// create seperate ordinate arrays
+    // create seperate ordinate arrays
     int n = image->shape.vertexCount;
     Sint16 x[n], y[n];
 
     for( int i = 0; i < n; i++ ) {
-		// calculate vertex positions from image position and rotation
+        // calculate vertex positions from image position and rotation
         Vec2 v = *image->shape.vertices[i];
         rotateVec2(&v, image->rotation);
-        v.add(image->position);
+        v += image->position;
 
         x[i] = (Sint16)(v.x + 0.3); // adding 0.3 corrects floating 
         y[i] = (Sint16)(v.y + 0.3); // point error when typecasting
     }
 
-	// draw filled color polygon and border
+    // draw filled color polygon and border
     filledPolygonColor(renderer, x, y, n, image->color);
     for( int i = 0; i < n; i++ )
         aalineColor(renderer, x[i], y[i], x[(i+1)%n], y[(i+1)%n], 0xff000000);
