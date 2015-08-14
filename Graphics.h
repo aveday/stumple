@@ -25,7 +25,6 @@ class Graphics {
         void Draw(World*);
         void Draw(Image*);
         void Draw(Grid);
-        void DrawShape(Polygon*, Vec2, double, Uint32);
 };
 
 #endif
