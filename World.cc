@@ -3,8 +3,7 @@
 
 #include "World.h"
 
-World::World(Grid g):
-	grid(g),
+World::World():
     entityCount(0) {
 }
 

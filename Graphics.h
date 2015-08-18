@@ -16,11 +16,12 @@ class Graphics {
     private:
         Vec2 offset;
         double zoom;
+		Grid* grid;
         SDL_Renderer* renderer;
         SDL_Window* window;
 
     public:
-        Graphics();
+        Graphics(Grid*);
         ~Graphics();
         void Draw(World*);
         void Draw(Image*);

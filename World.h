@@ -7,12 +7,11 @@
 
 class World {
     public:
-        Grid grid;
         Entity *entities[MAX_ENTITIES];
         int entityCount;
         void Update();
         void AddEntity(Entity *e);
-        World(Grid);
+        World();
 };
 
 #endif

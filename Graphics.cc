@@ -7,9 +7,10 @@
 static const char* WINDOW_TITLE = "engine";
 static const int GRID_SIZE = 16;
 
-Graphics::Graphics():
+Graphics::Graphics(Grid *g):
         offset(Vec2(0, 0)),
-        zoom(1) {
+        zoom(1),
+        grid(g) {
 
     /* init SDL, create window and renderer */
     SDL_Init( SDL_INIT_EVERYTHING );
@@ -29,7 +30,7 @@ void Graphics::Draw(World *world) {
     SDL_RenderClear(renderer);
 
     // draw grid
-    Draw(&world->grid);
+    Draw(grid);
 
     // draw entities
     for(int i = 0; i < world->entityCount; i++)
@@ -54,6 +55,7 @@ void Graphics::Draw(Image *image) {
 
     for( int i = 0; i < n; i++ ) {
         // calculate vertex positions from image position and rotation
+        // TODO replace with matrix transformations
         Vec2 v = *image->shape.vertices[i];
         v.rotate(image->rotation);
         v += image->position;

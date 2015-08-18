@@ -9,8 +9,8 @@
 int main(int argc, char *argv[]) {
     
     // Create engine objects
-    World *world        = new World( Grid(16, LIGHTGREEN, GREEN) );
-    Graphics *graphics  = new Graphics();
+    World *world        = new World();
+    Graphics *graphics  = new Graphics( new Grid(16, LIGHTGREEN, GREEN) );
     Control *control    = new Control();
     Clock *clock        = new Clock();
 
