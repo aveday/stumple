@@ -6,6 +6,6 @@ Entity::Entity(IVec2 c, Image i):
     coords(c), image(i) {
 }
 
-Entity::Move(IVec2 v) {
+void Entity::Move(IVec2 v) {
 	coords += v;
 }
