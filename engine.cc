@@ -16,8 +16,7 @@ int main(int argc, char *argv[]) {
 
     // Create game objects
     Entity *player = new Entity( IVec2(10, 10),
-            Image(Vec2(160,160), Polygon(4,16,0), GREY, 0));
-    // TODO link entity coords with image position
+            Image(Polygon(4,16,0), GREY, 0));
 
     world->AddEntity(player);
    

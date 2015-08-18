@@ -10,7 +10,7 @@ class Image {
         Polygon shape;
         uint32_t color;
         double rotation;
-        Image(Vec2, Polygon, uint32_t, double);
+        Image(Polygon, uint32_t, double);
 };
 
 #endif

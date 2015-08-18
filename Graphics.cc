@@ -34,7 +34,7 @@ void Graphics::Draw(World *world) {
 
     // draw entities
     for(int i = 0; i < world->entityCount; i++)
-        Draw(&world->entities[i]->image);
+        Draw(world->entities[i]);
 
     // display the drawn frame
     SDL_RenderPresent(renderer);
@@ -51,6 +51,7 @@ void Graphics::Draw(Grid *g) {
 void Graphics::Draw(Entity *e) {
     IVec2 pos = e->coords * grid->size;
     Image *i = &e->image;
+    Draw(i, &pos);
 }
 
 void Graphics::Draw(Image *image, IVec2 *pos) {
@@ -63,7 +64,7 @@ void Graphics::Draw(Image *image, IVec2 *pos) {
         // TODO replace with matrix transformations
         Vec2 v = *image->shape.vertices[i];
         v.rotate(image->rotation);
-        v += pos;
+        v += *pos;
 
         x[i] = (Sint16)(v.x + 0.3); // adding 0.3 corrects floating 
         y[i] = (Sint16)(v.y + 0.3); // point error when typecasting
