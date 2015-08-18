@@ -48,7 +48,12 @@ void Graphics::Draw(Grid *g) {
         lineColor(renderer, 0, y, SCR_W, y, g->color);
 }
 
-void Graphics::Draw(Image *image) {
+void Graphics::Draw(Entity *e) {
+    IVec2 pos = e->coords * grid->size;
+    Image *i = &e->image;
+}
+
+void Graphics::Draw(Image *image, IVec2 *pos) {
     // create seperate ordinate arrays
     int n = image->shape.vertexCount;
     Sint16 x[n], y[n];
@@ -58,7 +63,7 @@ void Graphics::Draw(Image *image) {
         // TODO replace with matrix transformations
         Vec2 v = *image->shape.vertices[i];
         v.rotate(image->rotation);
-        v += image->position;
+        v += pos;
 
         x[i] = (Sint16)(v.x + 0.3); // adding 0.3 corrects floating 
         y[i] = (Sint16)(v.y + 0.3); // point error when typecasting

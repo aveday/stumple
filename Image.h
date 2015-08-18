@@ -7,7 +7,6 @@
 
 class Image {
     public:
-        Vec2 position;
         Polygon shape;
         uint32_t color;
         double rotation;

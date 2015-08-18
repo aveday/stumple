@@ -60,6 +60,11 @@ void Vec2::operator+= (const Vec2 &v) {
 	y += v.y;
 }
 
+void Vec2::operator+= (const IVec2 &v) {
+	x += v.x;
+	y += v.y;
+}
+
 Vec2 Vec2::operator* (double i) {
     return Vec2(x * i, y * i);
 }
