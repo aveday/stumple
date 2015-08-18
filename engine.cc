@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
     world->AddEntity(player);
    
     // Accept input
-    while(control->GetInput()) {
+    while(control->GetInput(player)) {
         clock->Sleep();         // Delay to maintain FPS
         world->Update();        // Update the game world
         graphics->Draw(world);  // Draw to the screen

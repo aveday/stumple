@@ -2,7 +2,7 @@
 
 Control::Control() { }
 
-bool Control::GetInput() {
+bool Control::GetInput(Entity *player) {
     while(SDL_PollEvent(&event) != 0 ) {
 
         if ( event.type == SDL_QUIT )
@@ -11,6 +11,7 @@ bool Control::GetInput() {
 
             switch( event.key.keysym.sym ) {
                 case SDLK_UP:
+					player->Move(IVec2(0,1));
                     break;
                 case SDLK_DOWN:
                     break;

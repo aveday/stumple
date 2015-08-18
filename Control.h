@@ -3,11 +3,13 @@
 
 #include <SDL2/SDL.h>
 
+#include "Entity.h"
+
 class Control {
     public:
         SDL_Event event;
         Control();
-        bool GetInput();
+        bool GetInput(Entity*);
 };
 
 #endif

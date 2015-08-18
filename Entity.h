@@ -11,6 +11,7 @@ class Entity {
         IVec2 coords;
 		Image image;
         Entity(IVec2, Image);
+		Move(IVec2 v);
 };
 
 #endif
