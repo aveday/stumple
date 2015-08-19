@@ -50,6 +50,7 @@ void Graphics::Draw(Grid *g) {
 
 void Graphics::Draw(Entity *e) {
     IVec2 pos = e->coords * grid->size;
+    pos += IVec2(grid->size/2, grid->size/2);
     Image *i = &e->image;
     Draw(i, &pos);
 }
