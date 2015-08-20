@@ -3,7 +3,8 @@
 
 #include "World.h"
 
-World::World():
+World::World(b2Vec2 g):
+		b2World(g),
 		entityCount(0) {
 	for(int i = 0; i < WORLD_SIZE; i++)
 		for(int j = 0; j < WORLD_SIZE; j++)
