@@ -1,7 +1,7 @@
 CXX=g++
 CFLAGS=-Wall -std=c++11
 BIN=engine
-LDFLAGS=-lm -lSDL2 -lSDL2_gfx
+LDFLAGS=-lm -lSDL2 -lSDL2_gfx -lSDL2_image
 DEPS=engine.h Geometry.h Entity.h World.h Graphics.h Control.h Clock.h Image.h
 OBJS=$(subst .h,.o,$(DEPS))
 

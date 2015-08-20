@@ -1,5 +1,6 @@
 #include <SDL2/SDL2_gfxPrimitives.h>
 #include <SDL2/SDL2_rotozoom.h>
+#include <SDL2/SDL_image.h>
 
 #include "Colors.h"
 #include "Graphics.h"
@@ -23,6 +24,17 @@ Graphics::~Graphics() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+}
+
+SDL_Texture* Graphics::GetTexture(const char* file) {
+	// check if the texture has already been cached
+    TextureCacheEntry entry = tCache.find(file);
+	if(entry != tCache.end())
+		return entry->second;
+	// otherwise load the texture into the cache
+	SDL_Texture *t = IMG_LoadTexture(renderer, file);
+	tCache[file] = t;
+	return t;
 }
 
 void Graphics::Draw(World *world) {

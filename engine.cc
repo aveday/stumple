@@ -14,6 +14,8 @@ int main(int argc, char *argv[]) {
     Control *control    = new Control();
     Clock *clock        = new Clock();
 
+    graphics->GetTexture("assets/brick.png");
+
     // Create game objects
     Entity *player = new Entity( IVec2(10, 10),
             Image(Polygon(4,16,0), GREY, 0));
