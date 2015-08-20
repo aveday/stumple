@@ -9,5 +9,6 @@
 #include "World.h"
 #include "Entity.h"
 #include "Colors.h"
+#include "Tile.h"
 
 #endif

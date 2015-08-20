@@ -34,6 +34,7 @@ class Graphics {
 		void Draw(Entity*);
         void Draw(Image*, IVec2*);
         void Draw(Grid*);
+        void Draw(Tile*, IVec2);
 };
 
 #endif

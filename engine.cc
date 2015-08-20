@@ -10,11 +10,16 @@ int main(int argc, char *argv[]) {
     
     // Create engine objects
     World *world        = new World();
-    Graphics *graphics  = new Graphics( new Grid(16, LIGHTGREEN, GREEN) );
+    Graphics *graphics  = new Graphics( new Grid(32, LIGHTGREEN, GREEN) );
     Control *control    = new Control();
     Clock *clock        = new Clock();
 
-    graphics->GetTexture("assets/brick.png");
+	// Create tiles
+    SDL_Texture *t = graphics->GetTexture("assets/brick.png");
+	Tile *tile = new Tile(t, 0, 0, 16, 16);
+	world->AddTile(tile, 1, 1);
+	world->AddTile(tile, 2, 1);
+	world->AddTile(tile, 3, 1);
 
     // Create game objects
     Entity *player = new Entity( IVec2(10, 10),

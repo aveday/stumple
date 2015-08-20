@@ -44,6 +44,15 @@ void Graphics::Draw(World *world) {
     // draw grid
     Draw(grid);
 
+	// draw tiles
+	for(int i = 0; i < WORLD_SIZE; i++) {
+		for(int j = 0; j < WORLD_SIZE; j++) {
+			if (world->tiles[i][j] == NULL)
+				continue;
+			Draw(world->tiles[i][j], IVec2(i*grid->size, j*grid->size));
+		}
+	}
+
     // draw entities
     for(int i = 0; i < world->entityCount; i++)
         Draw(world->entities[i]);
@@ -88,3 +97,9 @@ void Graphics::Draw(Image *image, IVec2 *pos) {
     for( int i = 0; i < n; i++ )
         aalineColor(renderer, x[i], y[i], x[(i+1)%n], y[(i+1)%n], 0xff000000);
 }
+
+void Graphics::Draw(Tile *tile, IVec2 pos) {
+	SDL_Rect dst = {pos.x, pos.y, grid->size, grid->size};
+    SDL_RenderCopy(renderer, tile->texture, &tile->src, &dst);
+}
+
