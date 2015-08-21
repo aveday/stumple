@@ -8,6 +8,7 @@
 
 #include "Geometry.h"
 #include "World.h"
+#include "Sprite.h"
 
 static const int SCR_W = 640;
 static const int SCR_H = 480;
@@ -16,21 +17,6 @@ static const int SCR_Y = 100;
 
 typedef std::map<std::string, SDL_Texture*> TextureCache;
 typedef TextureCache::iterator TextureCacheEntry;
-
-struct Sprite {
-	SDL_Texture *texture;
-	SDL_Rect *src;
-	Sprite(SDL_Texture* t, SDL_Rect* r):
-		texture(t), src(r) { }
-};
-
-struct Spritesheet {
-	SDL_Texture *texture;
-	int w, h, nx, ny;
-	Spritesheet(SDL_Texture* t, int w, int h, int nx, int ny):
-		texture(t), w(w), h(h), nx(nx), ny(ny) { }
-	Sprite* GetSprite(int, int);
-};
 
 class Graphics {
     private:
