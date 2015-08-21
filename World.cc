@@ -11,10 +11,6 @@ World::World(b2Vec2 g):
 	def.type = b2_staticBody;
 	def.position.Set(0,0);
 	body = CreateBody(&def);
-
-	for(int i = 0; i < WORLD_SIZE; i++)
-		for(int j = 0; j < WORLD_SIZE; j++)
-			tiles[i][j] = NULL;
 }
 
 void World::Update() {
@@ -22,7 +18,7 @@ void World::Update() {
     ClearForces();
 }
 
-Entity* World::AddEntity( SDL_Texture *texture, Rect *src, float x, float y) {
+Entity* World::AddEntity(Sprite *sprite, float x, float y) {
     if (entityCount == MAX_ENTITIES)
         exit(EXIT_FAILURE); // TODO error handle entity overflow
 	
@@ -38,24 +34,18 @@ Entity* World::AddEntity( SDL_Texture *texture, Rect *src, float x, float y) {
 	square.SetAsBox(0.5f, 0.5f);
 	b2Fixture *fixture = body->CreateFixture((b2Shape*)&square, 10);
 
-	Rect *dst = new Rect(-16, -16, 32, 32);
-	Image *i = new Image(texture, src, dst);
-
-	fixture->SetUserData(i);
+	fixture->SetUserData(sprite);
+	b2Vec2 center= fixture->GetAABB(0).GetCenter();
+	printf("%.2f ,%.2f\n", center.x, center.y);
 
 	return new Entity(body);
 }
 
-void World::AddTile(SDL_Texture *t, Rect *src, int x, int y) {
+void World::AddTile(Sprite *sprite, int x, int y) {
+	// create a tile fixture with userdata pointing to sprite
 	b2PolygonShape box;
 	box.SetAsBox(0.5f, 0.5f, b2Vec2(x+0.5f, y+0.5f), 0.0f);
-
 	b2Fixture *fixture = body->CreateFixture((b2Shape*)&box, 10);
-
-	Rect *dst = new Rect(x*32, y*32, 32, 32);
-	Image *i = new Image(t, src, dst); 
-	fixture->SetUserData(i);
-
-	tiles[x][y] = i;
+	fixture->SetUserData(sprite);
 }
 

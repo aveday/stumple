@@ -2,7 +2,6 @@
 #define ENGINE_H
 
 #include "Graphics.h"
-#include "Image.h"
 #include "Control.h"
 #include "Clock.h"
 #include "Geometry.h"

@@ -6,7 +6,6 @@
 #include <Box2D/Box2D.h>
 
 #include "Geometry.h"
-#include "Image.h"
 
 class Entity {
 	public:

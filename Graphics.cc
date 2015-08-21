@@ -61,6 +61,7 @@ void Graphics::Draw(World *world) {
 }
 
 void Graphics::Draw(Grid *g) {
+	// draw background and orthogonal lines
     boxColor(renderer, 0, 0, SCR_W, SCR_H, g->background);
     for(int x = (int)(offset.x)%g->size; x < SCR_W; x += g->size)
         lineColor(renderer, x, 0, x, SCR_H, g->color);
@@ -69,28 +70,25 @@ void Graphics::Draw(Grid *g) {
 }
 
 void Graphics::Draw(b2Body *body) {
-    b2Vec2 pos = body->GetPosition();
-	pos *= grid->size;
-
 	float angle = body->GetAngle() / M_PI * 180;
 
 	for(b2Fixture *f = body->GetFixtureList(); f; f = f->GetNext()) {
-		Image *image = (Image*)f->GetUserData();
-
+		// calculate the destination rectangle
+		b2Vec2 center= f->GetAABB(0).GetCenter();
 		SDL_Rect dst = {
-			(int)(pos.x + image->dst->x),
-			(int)(pos.y + image->dst->y),
+			(int)((center.x - 0.5f) * grid->size),
+			(int)((center.y - 0.5f) * grid->size),
 			grid->size, grid->size};
 
-		SDL_RenderCopyEx(renderer, image->texture, image->src, &dst,
+		// draw the sprite
+		Sprite *sprite = (Sprite*)f->GetUserData();
+		SDL_RenderCopyEx(renderer, sprite->texture, sprite->src, &dst,
 				angle, NULL, SDL_FLIP_NONE);
-
-		if(DEBUG)
-			Draw((b2PolygonShape*)f->GetShape(), pos);
 	}
 }
 
 void Graphics::Draw(b2PolygonShape *shape, b2Vec2 pos) {
+	// draw a transparent overlay (used for testing)
     int n = shape->GetVertexCount();
     Sint16 x[n], y[n];
     for( int i = 0; i < n; i++ ) {

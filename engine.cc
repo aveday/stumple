@@ -14,26 +14,20 @@ int main(int argc, char *argv[]) {
     Control *control    = new Control();
     Clock *clock        = new Clock();
 
-    // Load textures
-    SDL_Texture *t = graphics->GetTexture("assets/brick.png");
-
+    // Load textures and create sprites
     Spritesheet *blocks = graphics->CreateSpritesheet(
 	    "assets/brick.png", 16, 16, 2, 5);
-
     Sprite *crate = blocks->GetSprite(1,0);
+    Sprite *brick = blocks->GetSprite(0,0);
 
     // Create tiles
-    for(int i = 0; i < 12; i++) {
-	    Rect *src = new Rect(0, 16*(i%4), 16, 16);
-	    world->AddTile(t, src, i, 12);
-    }
+    for(int i = 0; i < 12; i++)
+	world->AddTile(brick, i, 12);
 
     // Create game objects
-    Rect *src = new Rect(0, 0, 16, 16);
-    Entity *player = world->AddEntity(t, src, 3.0f, 0.0f);
-
+    Entity *player = world->AddEntity(crate, 3.0f, 0.0f);
     for(int i = 0; i < 18; i++)
-	world->AddEntity(t, src, 1.0f, -i);
+	world->AddEntity(crate, 1.0f, -i);
 
     // Accept input
     while(control->GetInput(player)) {

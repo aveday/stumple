@@ -15,12 +15,11 @@ static const int32 positionIterations = 2;
 class World : b2World {
     public:
         Entity *entities[MAX_ENTITIES];
-		Image *tiles[WORLD_SIZE][WORLD_SIZE];
 		b2Body *body;
         int entityCount;
         void Update();
-        Entity *AddEntity( SDL_Texture*, Rect*, float, float);
-        void AddTile(SDL_Texture*, Rect*, int, int);
+        Entity *AddEntity(Sprite*, float, float);
+        void AddTile(Sprite*, int, int);
         World(b2Vec2);
 };
 
