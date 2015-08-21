@@ -39,7 +39,7 @@ Entity* World::AddEntity( SDL_Texture *texture, Rect *src, float x, float y) {
 	b2Fixture *fixture = body->CreateFixture((b2Shape*)&square, 10);
 
 	Rect *dst = new Rect(-16, -16, 32, 32);
-	Image *i = new Image(texture, src, dst, fixture);
+	Image *i = new Image(texture, src, dst);
 
 	fixture->SetUserData(i);
 
@@ -53,7 +53,7 @@ void World::AddTile(SDL_Texture *t, Rect *src, int x, int y) {
 	b2Fixture *fixture = body->CreateFixture((b2Shape*)&box, 10);
 
 	Rect *dst = new Rect(x*32, y*32, 32, 32);
-	Image *i = new Image(t, src, dst, fixture); 
+	Image *i = new Image(t, src, dst); 
 	fixture->SetUserData(i);
 
 	tiles[x][y] = i;
