@@ -5,8 +5,9 @@
 #include "Colors.h"
 #include "Graphics.h"
 
+static const bool DEBUG = false;
+
 static const char* WINDOW_TITLE = "engine";
-static const int GRID_SIZE = 16;
 
 Graphics::Graphics(Grid *g):
         offset(Vec2(0, 0)),
@@ -49,13 +50,14 @@ void Graphics::Draw(World *world) {
 		for(int j = 0; j < WORLD_SIZE; j++) {
 			if (world->tiles[i][j] == NULL)
 				continue;
-			Draw(world->tiles[i][j], IVec2(i*grid->size, j*grid->size));
+			//Draw(world->tiles[i][j], b2Vec2(i*grid->size, j*grid->size));
 		}
 	}
+	Draw(world->body);
 
     // draw entities
     for(int i = 0; i < world->entityCount; i++)
-        Draw(world->entities[i]);
+        Draw(world->entities[i]->body);
 
     // display the drawn frame
     SDL_RenderPresent(renderer);
@@ -69,37 +71,31 @@ void Graphics::Draw(Grid *g) {
         lineColor(renderer, 0, y, SCR_W, y, g->color);
 }
 
-void Graphics::Draw(Entity *e) {
-    IVec2 pos = e->coords * grid->size;
-    pos += IVec2(grid->size/2, grid->size/2);
-    Image *i = &e->image;
-    Draw(i, &pos);
+void Graphics::Draw(b2Body *body) {
+    b2Vec2 pos = body->GetPosition();
+	pos *= grid->size;
+
+	for(b2Fixture *f = body->GetFixtureList(); f; f = f->GetNext()) {
+		Image *image = (Image*)f->GetUserData();
+
+		SDL_Rect dst = {
+			(int)(pos.x + image->dst->x),
+			(int)(pos.y + image->dst->y),
+			grid->size, grid->size};
+
+		SDL_RenderCopy(renderer, image->texture, image->src, &dst);
+
+		if(DEBUG)
+			Draw((b2PolygonShape*)f->GetShape(), pos);
+	}
 }
 
-void Graphics::Draw(Image *image, IVec2 *pos) {
-    // create seperate ordinate arrays
-    int n = image->shape.vertexCount;
+void Graphics::Draw(b2PolygonShape *shape, b2Vec2 pos) {
+    int n = shape->GetVertexCount();
     Sint16 x[n], y[n];
-
     for( int i = 0; i < n; i++ ) {
-        // calculate vertex positions from image position and rotation
-        // TODO replace with matrix transformations
-        Vec2 v = *image->shape.vertices[i];
-        v.rotate(image->rotation);
-        v += *pos;
-
-        x[i] = (Sint16)(v.x + 0.3); // adding 0.3 corrects floating 
-        y[i] = (Sint16)(v.y + 0.3); // point error when typecasting
+        x[i] = grid->size * shape->GetVertex(i).x + pos.x;
+        y[i] = grid->size * shape->GetVertex(i).y + pos.y;
     }
-
-    // draw filled color polygon and border
-    filledPolygonColor(renderer, x, y, n, image->color);
-    for( int i = 0; i < n; i++ )
-        aalineColor(renderer, x[i], y[i], x[(i+1)%n], y[(i+1)%n], 0xff000000);
+    filledPolygonColor(renderer, x, y, n, 0x80800000);
 }
-
-void Graphics::Draw(Tile *tile, IVec2 pos) {
-	SDL_Rect dst = {pos.x, pos.y, grid->size, grid->size};
-    SDL_RenderCopy(renderer, tile->texture, &tile->src, &dst);
-}
-

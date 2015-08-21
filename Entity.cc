@@ -2,10 +2,7 @@
 
 #include "Entity.h"
 
-Entity::Entity(IVec2 c, Image i):
-    coords(c), image(i) {
-}
 
-void Entity::Move(IVec2 v) {
-	coords += v;
+Entity::Entity(b2Body* b):
+		body(b) {
 }

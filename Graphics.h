@@ -31,10 +31,9 @@ class Graphics {
         ~Graphics();
 		SDL_Texture *GetTexture(const char*);
         void Draw(World*);
-		void Draw(Entity*);
-        void Draw(Image*, IVec2*);
+		void Draw(b2Body*);
         void Draw(Grid*);
-        void Draw(Tile*, IVec2);
+		void Draw(b2PolygonShape*, b2Vec2);
 };
 
 #endif

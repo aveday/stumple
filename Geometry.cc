@@ -5,6 +5,13 @@
 
 #include "Geometry.h"
 
+Rect::Rect(int x, int y, int w, int h) {
+	this->x = x;
+	this->y = y;
+	this->w = w;
+	this->h = h;
+}
+
 void printVec2(Vec2 v) {
     printf("%f, %f\n", v.x, v.y);
 }
