@@ -75,13 +75,14 @@ void Graphics::Draw(b2Body *body) {
 	for(b2Fixture *f = body->GetFixtureList(); f; f = f->GetNext()) {
 		// calculate the destination rectangle
 		b2Vec2 center= f->GetAABB(0).GetCenter();
+		Sprite *sprite = (Sprite*)f->GetUserData();
 		SDL_Rect dst = {
-			(int)((center.x - 0.5f) * grid->size),
-			(int)((center.y - 0.5f) * grid->size),
-			grid->size, grid->size};
+			(int)((center.x - sprite->src->w/32.0f) * grid->size),
+			(int)((center.y - sprite->src->h/32.0f) * grid->size),
+			sprite->src->w*2, sprite->src->h*2
+		};
 
 		// draw the sprite
-		Sprite *sprite = (Sprite*)f->GetUserData();
 		SDL_RenderCopyEx(renderer, sprite->texture, sprite->src, &dst,
 				angle, NULL, SDL_FLIP_NONE);
 	}

@@ -1,6 +1,5 @@
 #include "Sprite.h"
 
-
 Sprite* Spritesheet::GetSprite(int x, int y) {
 	SDL_Rect *src = new SDL_Rect();	
 	src->x = w*x;

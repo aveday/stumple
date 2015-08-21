@@ -24,15 +24,15 @@ Entity* World::AddEntity(Sprite *sprite, float x, float y) {
 	
 	b2BodyDef bDef;
 	bDef.type = b2_dynamicBody;
-	bDef.position.Set(x+0.5f, y+0.5f);
+	bDef.position.Set(x, y);
 
 	b2Body *body = CreateBody(&bDef);
 	entities[entityCount++] = new Entity(body);
 
 	// TODO allow for multiple fixtures
-	b2PolygonShape square;
-	square.SetAsBox(0.5f, 0.5f);
-	b2Fixture *fixture = body->CreateFixture((b2Shape*)&square, 10);
+	b2PolygonShape box;
+	box.SetAsBox(sprite->src->w/32.0f, sprite->src->h/32.0f);
+	b2Fixture *fixture = body->CreateFixture((b2Shape*)&box, 10);
 
 	fixture->SetUserData(sprite);
 	b2Vec2 center= fixture->GetAABB(0).GetCenter();
