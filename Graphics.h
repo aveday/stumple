@@ -17,6 +17,13 @@ static const int SCR_Y = 100;
 typedef std::map<std::string, SDL_Texture*> TextureCache;
 typedef TextureCache::iterator TextureCacheEntry;
 
+class Spritesheet {
+	public:
+		SDL_Texture *texture;
+		int x, y, nx, ny;
+		Spritesheet(SDL_Texture*, int, int, int, int);
+};
+
 class Graphics {
     private:
         Vec2 offset;
@@ -29,6 +36,7 @@ class Graphics {
     public:
         Graphics(Grid*);
         ~Graphics();
+		Spritesheet *CreateSpritesheet(const char*, int, int, int, int);
 		SDL_Texture *GetTexture(const char*);
         void Draw(World*);
 		void Draw(b2Body*);

@@ -17,6 +17,9 @@ int main(int argc, char *argv[]) {
     // Load textures
     SDL_Texture *t = graphics->GetTexture("assets/brick.png");
 
+    Spritesheet *sprites = graphics->CreateSpritesheet(
+	    "assets/brick.png", 16, 16, 2, 5);
+
     // Create tiles
     for(int i = 0; i < 12; i++) {
 	    Rect *src = new Rect(0, 16*(i%4), 16, 16);

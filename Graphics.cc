@@ -9,6 +9,16 @@ static const bool DEBUG = false;
 
 static const char* WINDOW_TITLE = "engine";
 
+Spritesheet::Spritesheet(SDL_Texture* t, int x, int y, int nx, int ny):
+		texture(t), x(x), y(y), nx(nx), ny(ny) {
+}
+
+Spritesheet* Graphics::CreateSpritesheet(
+		const char* fname, int x, int y, int nx, int ny) {
+	SDL_Texture *t = GetTexture(fname);
+	return new Spritesheet(t, x, y, nx, ny);
+}
+
 Graphics::Graphics(Grid *g):
         offset(Vec2(0, 0)),
         zoom(1),
