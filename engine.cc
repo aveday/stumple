@@ -15,18 +15,18 @@ int main(int argc, char *argv[]) {
     Clock *clock        = new Clock();
 
     // Load textures and create sprites
-    Spritesheet *blocks = graphics->CreateSpritesheet("assets/brick.png", 16, 16, 2, 5);
-    Spritesheet *test   = graphics->CreateSpritesheet("assets/test.png",  16, 32, 2, 2);
-    Sprite *crate = blocks->GetSprite(1,0);
-    Sprite *brick = blocks->GetSprite(0,0);
-    Sprite *t1    = test->GetSprite(0,1);
+    Spritesheet *bricks = graphics->CreateSpritesheet("assets/brick.png", 16, 16, 2, 5);
+    Spritesheet *rocks  = graphics->CreateSpritesheet("assets/rocks.png",  32, 16, 4, 8);
+    Sprite *crate = bricks->GetSprite(1,0);
+    Sprite *brick = bricks->GetSprite(0,0);
+    Sprite *rock  = rocks->GetSprite(0,1);
 
     // Create tiles
     for(int i = 0; i < 12; i++)
 	world->AddTile(brick, i, 12);
 
     // Create game objects
-    world->AddEntity(t1, 5.0f, 0.0f);
+    world->AddEntity(rock, 5.0f, 0.0f);
 
     Entity *player = world->AddEntity(crate, 3.0f, 0.0f);
     for(int i = 0; i < 18; i++)
