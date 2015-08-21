@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "World.h"
+#include "Clock.h"
 
 World::World(b2Vec2 g):
 		b2World(g),
@@ -17,8 +18,7 @@ World::World(b2Vec2 g):
 }
 
 void World::Update() {
-    float step = 60.0 / 1000.0;
-    Step(step, velocityIterations, positionIterations);
+    Step(SPF, velocityIterations, positionIterations);
     ClearForces();
 }
 

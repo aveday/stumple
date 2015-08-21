@@ -1,15 +1,15 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include "Box2D/Box2D.h"
+#include <Box2D/Box2D.h>
 
 #include "Entity.h"
 
 #define MAX_ENTITIES 1000
 #define WORLD_SIZE 128
 
-static const int32 positionIterations = 8;
-static const int32 velocityIterations = 10;
+static const int32 velocityIterations = 6;
+static const int32 positionIterations = 2;
 
 class World : b2World {
     public:

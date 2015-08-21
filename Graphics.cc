@@ -42,17 +42,8 @@ void Graphics::Draw(World *world) {
     // clear the screen
     SDL_RenderClear(renderer);
 
-    // draw grid
+    // draw grid and tiles
     Draw(grid);
-
-	// draw tiles
-	for(int i = 0; i < WORLD_SIZE; i++) {
-		for(int j = 0; j < WORLD_SIZE; j++) {
-			if (world->tiles[i][j] == NULL)
-				continue;
-			//Draw(world->tiles[i][j], b2Vec2(i*grid->size, j*grid->size));
-		}
-	}
 	Draw(world->body);
 
     // draw entities
@@ -75,6 +66,8 @@ void Graphics::Draw(b2Body *body) {
     b2Vec2 pos = body->GetPosition();
 	pos *= grid->size;
 
+	float angle = body->GetAngle() / M_PI * 180;
+
 	for(b2Fixture *f = body->GetFixtureList(); f; f = f->GetNext()) {
 		Image *image = (Image*)f->GetUserData();
 
@@ -83,7 +76,8 @@ void Graphics::Draw(b2Body *body) {
 			(int)(pos.y + image->dst->y),
 			grid->size, grid->size};
 
-		SDL_RenderCopy(renderer, image->texture, image->src, &dst);
+		SDL_RenderCopyEx(renderer, image->texture, image->src, &dst,
+				angle, NULL, SDL_FLIP_NONE);
 
 		if(DEBUG)
 			Draw((b2PolygonShape*)f->GetShape(), pos);
