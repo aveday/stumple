@@ -9,8 +9,13 @@ static const bool DEBUG = false;
 
 static const char* WINDOW_TITLE = "engine";
 
-Spritesheet::Spritesheet(SDL_Texture* t, int x, int y, int nx, int ny):
-		texture(t), x(x), y(y), nx(nx), ny(ny) {
+Sprite* Spritesheet::GetSprite(int x, int y) {
+	SDL_Rect *src = new SDL_Rect();	
+	src->x = w*x;
+	src->y = h*y;
+	src->w = w;
+	src->h = h;
+	return new Sprite(texture, src);
 }
 
 Spritesheet* Graphics::CreateSpritesheet(

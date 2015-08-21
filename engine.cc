@@ -17,8 +17,10 @@ int main(int argc, char *argv[]) {
     // Load textures
     SDL_Texture *t = graphics->GetTexture("assets/brick.png");
 
-    Spritesheet *sprites = graphics->CreateSpritesheet(
+    Spritesheet *blocks = graphics->CreateSpritesheet(
 	    "assets/brick.png", 16, 16, 2, 5);
+
+    Sprite *crate = blocks->GetSprite(1,0);
 
     // Create tiles
     for(int i = 0; i < 12; i++) {
@@ -27,8 +29,9 @@ int main(int argc, char *argv[]) {
     }
 
     // Create game objects
-    Rect *src = new Rect(16, 0, 16, 16);
+    Rect *src = new Rect(0, 0, 16, 16);
     Entity *player = world->AddEntity(t, src, 3.0f, 0.0f);
+
     for(int i = 0; i < 18; i++)
 	world->AddEntity(t, src, 1.0f, -i);
 

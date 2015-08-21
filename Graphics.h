@@ -17,11 +17,19 @@ static const int SCR_Y = 100;
 typedef std::map<std::string, SDL_Texture*> TextureCache;
 typedef TextureCache::iterator TextureCacheEntry;
 
-class Spritesheet {
-	public:
-		SDL_Texture *texture;
-		int x, y, nx, ny;
-		Spritesheet(SDL_Texture*, int, int, int, int);
+struct Sprite {
+	SDL_Texture *texture;
+	SDL_Rect *src;
+	Sprite(SDL_Texture* t, SDL_Rect* r):
+		texture(t), src(r) { }
+};
+
+struct Spritesheet {
+	SDL_Texture *texture;
+	int w, h, nx, ny;
+	Spritesheet(SDL_Texture* t, int w, int h, int nx, int ny):
+		texture(t), w(w), h(h), nx(nx), ny(ny) { }
+	Sprite* GetSprite(int, int);
 };
 
 class Graphics {
