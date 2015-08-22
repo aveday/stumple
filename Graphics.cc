@@ -81,9 +81,10 @@ void Graphics::Draw(b2Body *body) {
 		// calculate the destination rectangle
 		b2Vec2 center= f->GetAABB(0).GetCenter();
 		SDL_Rect dst = {
-			(int)(center.x * grid->size - src->w),
-			(int)(center.y * grid->size - src->h),
-			src->w*2, src->h*2
+			(int)(grid->size * (center.x - src->w/32.0f)),
+			(int)(grid->size * (center.y - src->h/32.0f)),
+			(int)(grid->size * src->w/16.0f),
+			(int)(grid->size * src->h/16.0f)
 		};
 
 		// draw the sprite
