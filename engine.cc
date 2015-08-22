@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
     
     // Create engine objects
     World *world        = new World(b2Vec2(0.0f, 5.0f));
-    Graphics *graphics  = new Graphics( new Grid(64, 0xff101010, 0xff000000) );
+    Graphics *graphics  = new Graphics( new Grid(32, 0xff101010, 0xff000000) );
     Control *control    = new Control();
     Clock *clock        = new Clock();
 
