@@ -31,12 +31,9 @@ Entity* World::AddEntity(Sprite *sprite, float x, float y) {
 
 	// TODO allow for multiple fixtures
 	b2PolygonShape box;
-	box.SetAsBox(sprite->src->w/32.0f, sprite->src->h/32.0f);
+	box.SetAsBox(sprite->srcs[0]->w/32.0f, sprite->srcs[0]->h/32.0f);
 	b2Fixture *fixture = body->CreateFixture((b2Shape*)&box, 10);
-
 	fixture->SetUserData(sprite);
-	b2Vec2 center= fixture->GetAABB(0).GetCenter();
-	printf("%.2f ,%.2f\n", center.x, center.y);
 
 	return new Entity(body);
 }

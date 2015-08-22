@@ -73,17 +73,21 @@ void Graphics::Draw(b2Body *body) {
 	float angle = body->GetAngle() / M_PI * 180;
 
 	for(b2Fixture *f = body->GetFixtureList(); f; f = f->GetNext()) {
+		// select sprite variant based on fixture pointer value
+		Sprite *sprite = (Sprite*)f->GetUserData();
+		int i = (int)(uintptr_t)f / 32 % sprite->n_srcs;
+		SDL_Rect *src = sprite->srcs[i];
+
 		// calculate the destination rectangle
 		b2Vec2 center= f->GetAABB(0).GetCenter();
-		Sprite *sprite = (Sprite*)f->GetUserData();
 		SDL_Rect dst = {
-			(int)((center.x - sprite->src->w/32.0f) * grid->size),
-			(int)((center.y - sprite->src->h/32.0f) * grid->size),
-			sprite->src->w*2, sprite->src->h*2
+			(int)((center.x - src->w/32.0f) * grid->size),
+			(int)((center.y - src->h/32.0f) * grid->size),
+			src->w*2, src->h*2
 		};
 
 		// draw the sprite
-		SDL_RenderCopyEx(renderer, sprite->texture, sprite->src, &dst,
+		SDL_RenderCopyEx(renderer, sprite->texture, sprite->srcs[i], &dst,
 				angle, NULL, SDL_FLIP_NONE);
 	}
 }

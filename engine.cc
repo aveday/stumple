@@ -17,16 +17,17 @@ int main(int argc, char *argv[]) {
     // Load textures and create sprites
     Spritesheet *bricks = graphics->CreateSpritesheet("assets/brick.png", 16, 16, 2, 5);
     Spritesheet *rocks  = graphics->CreateSpritesheet("assets/rocks.png",  32, 16, 4, 8);
-    Sprite *crate = bricks->GetSprite(1,0);
-    Sprite *brick = bricks->GetSprite(0,0);
-    Sprite *rock  = rocks->GetSprite(0,1);
+    Sprite *crate = bricks->GetSprite(1, 0, 1, 1);
+    Sprite *brick = bricks->GetSprite(0, 0, 1, 1);
+    Sprite *rock  = rocks->GetSprite(0, 0, 4, 8);
 
     // Create tiles
     for(int i = 0; i < 12; i++)
-	world->AddTile(brick, i, 12);
+		world->AddTile(brick, i, 12);
 
     // Create game objects
-    world->AddEntity(rock, 5.0f, 0.0f);
+    for(int i = 0; i < 6; i++)
+    world->AddEntity(rock, 5.0f, i*2.0f);
 
     Entity *player = world->AddEntity(crate, 3.0f, 0.0f);
     for(int i = 0; i < 18; i++)
