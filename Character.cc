@@ -22,33 +22,29 @@ Character::Character(World *world, Spritesheet *sheet) {
 	// load the sprites
     Sprite *head1  = sheet->GetSprite(0, 0,.4,.4, 1, 1);
     Sprite *torso1 = sheet->GetSprite(0, 1,.5, 1, 1, 1);
-    Sprite *waist1 = sheet->GetSprite(0, 2,.4,.4, 1, 1);
 
-    Sprite *thigh1 = sheet->GetSprite(0, 3,.3,.8, 1, 1);
-    Sprite *calf1  = sheet->GetSprite(0, 4,.3,.8, 1, 1);
-    Sprite *foot1  = sheet->GetSprite(0, 5,.3,.3, 1, 1);
+    Sprite *thigh1 = sheet->GetSprite(0, 2,.3,.8, 1, 1);
+    Sprite *calf1  = sheet->GetSprite(0, 3,.3,.8, 1, 1);
+    Sprite *foot1  = sheet->GetSprite(0, 4,.4,.3, 1, 1);
 
 	Sprite *fore1  = sheet->GetSprite(1, 1,.2,.6, 1, 1);
 	Sprite *upper1 = sheet->GetSprite(1, 2,.2,.6, 1, 1);
 	Sprite *hand1  = sheet->GetSprite(1, 3,.2,.2, 1, 1);
 
 
-	// start with the torso
+	// start with the head & torso
 	Entity *head  = world->AddEntity(head1,  7, 4);
 	Entity *torso = world->AddEntity(torso1, 7, 5);
-	Entity *waist = world->AddEntity(waist1, 7, 6);
-	waist->body->SetFixedRotation(true);
+	torso->body->SetFixedRotation(true);
 	head->body->SetFixedRotation(true);
-
 	Join(world, head,  b2Vec2(0,0.2), torso, b2Vec2(0,-0.5), -b2_pi/3.0, b2_pi/3.0);
-	Join(world, torso, b2Vec2(0,0.5), waist, b2Vec2(0,0),    -b2_pi/2.0, b2_pi/6.0);
 
 	// then create some legs
 	for(int i = 0; i < 2; i++) {
 		Entity *thigh = world->AddEntity(thigh1,7, 7);
 		Entity *calf  = world->AddEntity(calf1, 7, 8);
 		Entity *foot  = world->AddEntity(foot1, 7, 9);
-		Join(world, waist, b2Vec2(0,0.2), thigh, b2Vec2(0,-0.4), -2*b2_pi/3.0, b2_pi/3.0);
+		Join(world, torso, b2Vec2(0,0.5), thigh, b2Vec2(0,-0.4), -2*b2_pi/3.0, b2_pi/6.0);
 		Join(world, thigh, b2Vec2(0,0.4), calf,  b2Vec2(0,-0.4), 0.0, 2*b2_pi/3.0);
 		Join(world, calf,  b2Vec2(0,0.4), foot,  b2Vec2(0,-0.2), -b2_pi/6.0,   b2_pi/3.0);
 	}
