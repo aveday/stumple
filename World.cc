@@ -30,9 +30,7 @@ Entity* World::AddEntity(Sprite *sprite, float x, float y) {
 	entities[entityCount++] = new Entity(body);
 
 	// TODO allow for multiple fixtures
-	b2PolygonShape box;
-	box.SetAsBox(sprite->srcs[0]->w/32.0f, sprite->srcs[0]->h/32.0f);
-	b2Fixture *fixture = body->CreateFixture((b2Shape*)&box, 10);
+	b2Fixture *fixture = body->CreateFixture(sprite->shape, 10);
 	fixture->SetUserData(sprite);
 
 	return new Entity(body);
