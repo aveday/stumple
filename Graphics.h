@@ -10,9 +10,9 @@
 #include "World.h"
 #include "Sprite.h"
 
-static const int SCR_W = 640;
-static const int SCR_H = 480;
-static const int SCR_X = 100;
+static const int SCR_W = 1280;
+static const int SCR_H = 720;
+static const int SCR_X = 180;
 static const int SCR_Y = 100;
 
 typedef std::map<std::string, SDL_Texture*> TextureCache;
