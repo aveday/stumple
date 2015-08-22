@@ -2,7 +2,7 @@
 
 Control::Control() { }
 
-bool Control::GetInput(Entity *player) {
+bool Control::GetInput(Character *player) {
     while(SDL_PollEvent(&event) != 0 ) {
 
         if ( event.type == SDL_QUIT )

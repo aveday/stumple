@@ -10,7 +10,7 @@ int main(int argc, char *argv[]) {
     
     // Create engine objects
     World *world        = new World(b2Vec2(0.0f, 5.0f));
-    Graphics *graphics  = new Graphics( new Grid(32, 0xff101010, 0xff000000) );
+    Graphics *graphics  = new Graphics( new Grid(64, 0xff101010, 0xff000000) );
     Control *control    = new Control();
     Clock *clock        = new Clock();
 
@@ -21,24 +21,22 @@ int main(int argc, char *argv[]) {
     Spritesheet *tests  = graphics->CreateSpritesheet("assets/test.png",  32, 32, 2, 2);
 	//                                ords, size, amt
     Sprite *crate = bricks->GetSprite(1, 0, 1, 1, 1, 1);
-    Sprite *brick = bricks->GetSprite(0, 0, 1, 1, 1, 1);
-    Sprite *shoe  =  items->GetSprite(0, 0,.5,.5, 1, 1);
+    Sprite *brick = bricks->GetSprite(0, 0, 1, 1, 1, 4);
     Sprite *rock  =  rocks->GetSprite(0, 0, 2, 1, 4, 8);
     Sprite *test  =  tests->GetSprite(0, 0, 1, 1, 1, 1);
 
+	Character *player = new Character(world, items);
+
     // Create tiles
     for(int i = 0; i < 12; i++)
-		world->AddTile(brick, i, 12);
+		world->AddTile(brick, i, 10);
 
     // Create game objects
     for(int i = 0; i < 6; i++) {
 		world->AddEntity(test, 5.0f, -5-i*2.0f);
 		world->AddEntity(rock, 5.0f, i*2.0f);
-		world->AddEntity(shoe, 7.0f, i);
 	}
 
-
-    Entity *player = world->AddEntity(crate, 3.0f, 0.0f);
     for(int i = 0; i < 18; i++)
 		world->AddEntity(crate, 1.0f, -i);
 

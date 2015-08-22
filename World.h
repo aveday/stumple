@@ -12,7 +12,7 @@
 static const int32 velocityIterations = 6;
 static const int32 positionIterations = 2;
 
-class World : b2World {
+class World : public b2World {
     public:
         Entity *entities[MAX_ENTITIES];
 		b2Body *body;

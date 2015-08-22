@@ -7,6 +7,7 @@
 #include "Geometry.h"
 #include "World.h"
 #include "Entity.h"
+#include "Character.h"
 #include "Colors.h"
 
 #endif
