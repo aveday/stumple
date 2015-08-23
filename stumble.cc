@@ -26,6 +26,7 @@ int main(int argc, char *argv[]) {
     Sprite *test  =  tests->GetSprite(0, 0, 1, 1, 1, 1);
 
 	Character *player = new Character(world, items);
+    world->characters[world->characterCount++] = player;
 
     // Create tiles
     for(int i = 0; i < 12; i++)
@@ -35,7 +36,7 @@ int main(int argc, char *argv[]) {
     for(int i = 0; i < 6; i++) {
 		world->AddEntity(test, 5.0f, -5-i*2.0f, 0, 0);
 		world->AddEntity(rock, 5.0f, i*2.0f, 0, 0);
-	}
+    }
 
     for(int i = 0; i < 18; i++)
 		world->AddEntity(crate, 1.0f, -i, 0, 0);

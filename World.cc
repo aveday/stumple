@@ -5,8 +5,9 @@
 #include "Clock.h"
 
 World::World(b2Vec2 g):
-		b2World(g),
-		entityCount(0) {
+		b2World(g) {
+    entityCount = 0;
+    characterCount = 0;
 	b2BodyDef def;
 	def.type = b2_staticBody;
 	def.position.Set(0,0);
@@ -14,6 +15,10 @@ World::World(b2Vec2 g):
 }
 
 void World::Update(int t) {
+    for(int n = 0; n < characterCount; n++) {
+        characters[n]->Update(t);
+    }
+
     Step(SPF, velocityIterations, positionIterations);
     ClearForces();
 }
