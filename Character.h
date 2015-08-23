@@ -8,6 +8,7 @@
 class Character {
 	public:
 		Character(World*, Spritesheet*);
+        Entity *head, *foot[2], *hand[2];
 };
 
 #endif

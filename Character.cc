@@ -38,6 +38,7 @@ Character::Character(World *world, Spritesheet *sheet) {
 	torso->body->SetFixedRotation(true);
 	head->body->SetFixedRotation(true);
 	Join(world, head,  b2Vec2(0,0.2), torso, b2Vec2(0,-0.5), -b2_pi/3.0, b2_pi/3.0);
+    this->head = head;
 
 	// then create some legs
 	for(int i = 0; i < 2; i++) {
@@ -47,6 +48,7 @@ Character::Character(World *world, Spritesheet *sheet) {
 		Join(world, torso, b2Vec2(0,0.5), thigh, b2Vec2(0,-0.4), -2*b2_pi/3.0, b2_pi/6.0);
 		Join(world, thigh, b2Vec2(0,0.4), calf,  b2Vec2(0,-0.4), 0.0, 2*b2_pi/3.0);
 		Join(world, calf,  b2Vec2(0,0.4), foot,  b2Vec2(0,-0.2), -b2_pi/6.0,   b2_pi/3.0);
+        this->foot[i] = foot;
 	}
 
 	// and some arms
@@ -57,5 +59,7 @@ Character::Character(World *world, Spritesheet *sheet) {
 		Join(world, torso, b2Vec2(0,-0.4), upper, b2Vec2(0,-0.3), -b2_pi, b2_pi/3.0);
 		Join(world, upper, b2Vec2(0, 0.3), fore,  b2Vec2(0,-0.3), -5*b2_pi/6, 0);
 		Join(world, fore,  b2Vec2(0, 0.3), hand,  b2Vec2(0,-0.1), -b2_pi/6.0,   b2_pi/3.0);
+        this->hand[i] = hand;
 	}
+    
 }
