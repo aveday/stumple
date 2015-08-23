@@ -1,5 +1,5 @@
-#ifndef ENGINE_H
-#define ENGINE_H
+#ifndef STUMBLE_H
+#define STUMBLE_H
 
 #include "Graphics.h"
 #include "Control.h"

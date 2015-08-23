@@ -7,7 +7,7 @@
 
 static const bool DEBUG = false;
 
-static const char* WINDOW_TITLE = "engine";
+static const char* WINDOW_TITLE = "Stumble";
 
 Spritesheet* Graphics::CreateSpritesheet(
 		const char* fname, int x, int y, int nx, int ny) {
