@@ -37,8 +37,8 @@ int main(int argc, char *argv[]) {
 		world->AddEntity(rock, 2, i*2.0f, 0, 0);
 
     for(int i = 0; i < 16; i++) {
-		world->AddEntity(crate, 9, -i, 0, 0);
-		world->AddEntity(crate, 10, -i, -2, 0);
+		world->AddEntity(crate, 9-i, 6-i, 0, 0);
+		world->AddEntity(crate, 11-i,6-i, -2, 0);
     }
 
     // Accept input

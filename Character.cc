@@ -38,8 +38,8 @@ Character::Character(World *w, Spritesheet *sheet):
 	// start with the head & torso
 	Entity *head  = w->AddEntity(head1,  7, 4, 1, 2);
 	Entity *torso = w->AddEntity(torso1, 7, 5, 1, 2);
-	torso->body->SetFixedRotation(true);
-	head->body->SetFixedRotation(true);
+	// torso->body->SetFixedRotation(true);
+	// head->body->SetFixedRotation(true);
 	Join(world, head,  b2Vec2(0,0.2), torso, b2Vec2(0,-0.5), -b2_pi/3.0, b2_pi/3.0);
     this->head = head;
 
@@ -67,19 +67,20 @@ Character::Character(World *w, Spritesheet *sheet):
 
 void Character::Update(int t) {
     float d = foot[0]->body->GetPosition().y - head->body->GetPosition().y;
-    float n = 4;
+    float n = 3.5;
     float forceX = 0, forceY = 0;
 
+    float feetD = abs(foot[0]->body->GetPosition().x - foot[1]->body->GetPosition().x - 2);
     float feetX = ( foot[0]->body->GetPosition().x +
                     foot[1]->body->GetPosition().x ) / 2;
-    forceX = feetX - head->body->GetPosition().x;
+    forceX = (feetX - head->body->GetPosition().x)+1;
 
     if(d < n && d > 0)
-        forceY = -pow((n-d)/n, 2) * 1000;
+        forceY = -pow((n-d)/n, 1.2) * 500;
 
     head->body->ApplyForceToCenter(b2Vec2(forceX, forceY), true);
 
-    foot[0]->body->ApplyForceToCenter(b2Vec2(-3, 10), true);
-    foot[1]->body->ApplyForceToCenter(b2Vec2( 3, 10), true);
+    foot[0]->body->ApplyForceToCenter(b2Vec2(-feetD, 10), true);
+    foot[1]->body->ApplyForceToCenter(b2Vec2( feetD, 10), true);
 }
 
