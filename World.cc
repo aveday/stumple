@@ -18,7 +18,7 @@ void World::Update() {
     ClearForces();
 }
 
-Entity* World::AddEntity(Sprite *sprite, float x, float y) {
+Entity* World::AddEntity(Sprite *sprite, float x, float y, int gid) {
     if (entityCount == MAX_ENTITIES)
         exit(EXIT_FAILURE); // TODO error handle entity overflow
 	
@@ -30,8 +30,12 @@ Entity* World::AddEntity(Sprite *sprite, float x, float y) {
 	entities[entityCount++] = new Entity(body);
 
 	// TODO allow for multiple fixtures
-	b2Fixture *fixture = body->CreateFixture(sprite->shape, 10);
-	fixture->SetUserData(sprite);
+    b2FixtureDef fDef;
+    fDef.shape = sprite->shape;
+    fDef.userData = sprite;
+    fDef.density = 10;
+    fDef.filter.groupIndex = -gid; //TODO change filtering to use masks
+	body->CreateFixture(&fDef);
 
 	return new Entity(body);
 }

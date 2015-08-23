@@ -18,7 +18,7 @@ class World : public b2World {
 		b2Body *body;
         int entityCount;
         void Update();
-        Entity *AddEntity(Sprite*, float, float);
+        Entity *AddEntity(Sprite*, float, float, int);
         void AddTile(Sprite*, int, int);
         World(b2Vec2);
 };
