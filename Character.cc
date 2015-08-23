@@ -33,8 +33,8 @@ Character::Character(World *world, Spritesheet *sheet) {
 
 
 	// start with the head & torso
-	Entity *head  = world->AddEntity(head1,  7, 4, 1);
-	Entity *torso = world->AddEntity(torso1, 7, 5, 1);
+	Entity *head  = world->AddEntity(head1,  7, 4, 1, 2);
+	Entity *torso = world->AddEntity(torso1, 7, 5, 1, 2);
 	torso->body->SetFixedRotation(true);
 	head->body->SetFixedRotation(true);
 	Join(world, head,  b2Vec2(0,0.2), torso, b2Vec2(0,-0.5), -b2_pi/3.0, b2_pi/3.0);
@@ -42,9 +42,9 @@ Character::Character(World *world, Spritesheet *sheet) {
 
 	// legs
 	for(int i = 0; i < 2; i++) {
-        Entity *upper = world->AddEntity(upper1,7, 6, 1);
-        Entity *fore  = world->AddEntity(fore1, 7, 5, 1);
-        Entity *hand  = world->AddEntity(hand1, 7, 7, 1);
+        Entity *upper = world->AddEntity(upper1,7, 6, 1, i*2+1);
+        Entity *fore  = world->AddEntity(fore1, 7, 5, 1, i*2+1);
+        Entity *hand  = world->AddEntity(hand1, 7, 7, 1, i*2+1);
         Join(world, torso, b2Vec2(0,-0.4), upper, b2Vec2(0,-0.3), -b2_pi, b2_pi/3.0);
         Join(world, upper, b2Vec2(0, 0.3), fore,  b2Vec2(0,-0.3), -5*b2_pi/6, 0);
         Join(world, fore,  b2Vec2(0, 0.3), hand,  b2Vec2(0,-0.1), -b2_pi/6.0,   b2_pi/3.0);
@@ -52,9 +52,9 @@ Character::Character(World *world, Spritesheet *sheet) {
     }
     // arms
 	for(int i = 0; i < 2; i++) {
-        Entity *thigh = world->AddEntity(thigh1,7, 7, 1);
-        Entity *calf  = world->AddEntity(calf1, 7, 8, 1);
-        Entity *foot  = world->AddEntity(foot1, 7, 9, 1);
+        Entity *thigh = world->AddEntity(thigh1,7, 7, 1, i*3+1);
+        Entity *calf  = world->AddEntity(calf1, 7, 8, 1, i*3+1);
+        Entity *foot  = world->AddEntity(foot1, 7, 9, 1, i*3+1);
         Join(world, torso, b2Vec2(0,0.5), thigh, b2Vec2(0,-0.4), -2*b2_pi/3.0, b2_pi/6.0);
         Join(world, thigh, b2Vec2(0,0.4), calf,  b2Vec2(0,-0.4), 0.0, 2*b2_pi/3.0);
         Join(world, calf,  b2Vec2(0,0.4), foot,  b2Vec2(0,-0.2), -b2_pi/6.0,   b2_pi/3.0);

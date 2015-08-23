@@ -9,8 +9,9 @@
 
 class Entity {
 	public:
-		Entity(b2Body*);
+		Entity(b2Body*, int);
 		b2Body *body;
+        int depth;
 };
 
 #endif

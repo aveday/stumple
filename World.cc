@@ -18,7 +18,7 @@ void World::Update(int t) {
     ClearForces();
 }
 
-Entity* World::AddEntity(Sprite *sprite, float x, float y, int gid) {
+Entity* World::AddEntity(Sprite *sprite, float x, float y, int gid, int depth) {
     if (entityCount == MAX_ENTITIES)
         exit(EXIT_FAILURE); // TODO error handle entity overflow
 	
@@ -27,7 +27,19 @@ Entity* World::AddEntity(Sprite *sprite, float x, float y, int gid) {
 	bDef.position.Set(x, y);
 
 	b2Body *body = CreateBody(&bDef);
-	entities[entityCount++] = new Entity(body);
+    Entity *added = new Entity(body, depth);
+
+    // insert the entities into the depth-sorted entity array
+    entities[entityCount++] = added;
+    if(depth > 0) {
+        for(int n = 0; n < entityCount-1; n++) {
+            if(entities[n]->depth < entities[entityCount-1]->depth) {
+                Entity *swap = entities[n];
+                entities[n] = entities[entityCount-1];
+                entities[entityCount-1] = swap;
+            }
+        }
+    }
 
 	// TODO allow for multiple fixtures
     b2FixtureDef fDef;
@@ -37,7 +49,7 @@ Entity* World::AddEntity(Sprite *sprite, float x, float y, int gid) {
     fDef.filter.groupIndex = -gid; //TODO change filtering to use masks
 	body->CreateFixture(&fDef);
 
-	return new Entity(body);
+	return added;
 }
 
 void World::AddTile(Sprite *sprite, int x, int y) {

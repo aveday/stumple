@@ -33,12 +33,12 @@ int main(int argc, char *argv[]) {
 
     // Create game objects
     for(int i = 0; i < 6; i++) {
-		world->AddEntity(test, 5.0f, -5-i*2.0f, 0);
-		world->AddEntity(rock, 5.0f, i*2.0f, 0);
+		world->AddEntity(test, 5.0f, -5-i*2.0f, 0, 0);
+		world->AddEntity(rock, 5.0f, i*2.0f, 0, 0);
 	}
 
     for(int i = 0; i < 18; i++)
-		world->AddEntity(crate, 1.0f, -i, 0);
+		world->AddEntity(crate, 1.0f, -i, 0, 0);
 
     // Accept input
     while(control->GetInput(player)) {
