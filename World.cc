@@ -13,7 +13,7 @@ World::World(b2Vec2 g):
 	body = CreateBody(&def);
 }
 
-void World::Update() {
+void World::Update(int t) {
     Step(SPF, velocityIterations, positionIterations);
     ClearForces();
 }

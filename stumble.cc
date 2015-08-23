@@ -42,9 +42,9 @@ int main(int argc, char *argv[]) {
 
     // Accept input
     while(control->GetInput(player)) {
-        clock->Sleep();         // Delay to maintain FPS
-        world->Update();        // Update the game world
-        graphics->Draw(world);  // Draw to the screen
+        int t = clock->Sleep();         // Delay to maintain FPS
+                world->Update(t);       // Update the game world
+                graphics->Draw(world);  // Draw to the screen
     }
 
     // Destroy all the things

@@ -11,7 +11,7 @@ class Clock {
     public:
         Clock();
         int GetTimeDiff();
-        void Sleep();
+        int Sleep();
 };
 
 #endif
