@@ -14,6 +14,7 @@ struct Sprite {
 };
 
 struct Spritesheet {
+    Spritesheet(const Spritesheet&) = delete;
 	SDL_Texture *texture;
 	int width, height, nx, ny;
 	Spritesheet(SDL_Texture* t, int w, int h, int nx, int ny):

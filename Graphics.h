@@ -28,7 +28,8 @@ class Graphics {
         TextureCache tCache;
 
     public:
-        Graphics(Grid*);
+        Graphics(const Graphics&) = delete;
+        Graphics(Grid&);
         ~Graphics();
 		Spritesheet *CreateSpritesheet(const char*, int, int, int, int);
 		SDL_Texture *GetTexture(const char*);

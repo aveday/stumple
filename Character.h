@@ -9,7 +9,7 @@ class Entity;
 
 class Character {
 	public:
-		Character(World *w, Spritesheet *s);
+		Character(World &w, Spritesheet *s);
         World *world;
         Entity *head, *foot[2], *hand[2];
         void Update(int);

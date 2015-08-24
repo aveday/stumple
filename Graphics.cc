@@ -15,10 +15,10 @@ Spritesheet* Graphics::CreateSpritesheet(
 	return new Spritesheet(t, x, y, nx, ny);
 }
 
-Graphics::Graphics(Grid *g):
+Graphics::Graphics(Grid &g):
         offset(Vec2(0, 0)),
         zoom(1),
-        grid(g) {
+        grid(&g) {
 
     /* init SDL, create window and renderer */
     SDL_Init( SDL_INIT_EVERYTHING );

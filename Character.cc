@@ -20,8 +20,8 @@ void Join(World *world,
     world->CreateJoint(&jointDef);
 }
 
-Character::Character(World *w, Spritesheet *sheet):
-        world(w) {
+Character::Character(World &w, Spritesheet *sheet):
+        world(&w) {
 	// load the sprites
     Sprite *head1  = sheet->GetSprite(0, 0,.4,.4, 1, 1);
     Sprite *torso1 = sheet->GetSprite(0, 1,.5, 1, 1, 1);
@@ -36,8 +36,8 @@ Character::Character(World *w, Spritesheet *sheet):
 
 
 	// start with the head & torso
-	Entity *head  = w->AddEntity(head1,  7, 4, 1, 2);
-	Entity *torso = w->AddEntity(torso1, 7, 5, 1, 2);
+	Entity *head  = w.AddEntity(head1,  7, 4, 1, 2);
+	Entity *torso = w.AddEntity(torso1, 7, 5, 1, 2);
 	// torso->body->SetFixedRotation(true);
 	// head->body->SetFixedRotation(true);
 	Join(world, head,  b2Vec2(0,0.2), torso, b2Vec2(0,-0.5), -b2_pi/3.0, b2_pi/3.0);
