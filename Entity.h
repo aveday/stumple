@@ -10,6 +10,7 @@
 class Entity {
 	public:
 		Entity(b2Body*, int);
+        Entity(const Entity&) = delete;
 		b2Body *body;
         int depth;
 };
