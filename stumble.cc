@@ -51,9 +51,9 @@ int main(int argc, char *argv[]) {
 
     // Accept input
     while(control.GetInput((Character*)NULL)) { // FIXME
-        int t = clock.Sleep();         // Delay to maintain FPS
-                world.Update(t);       // Update the game world
-                graphics.Draw(&world);  // Draw to the screen
+        int ms = clock.Sleep();         // Delay to maintain FPS
+        world.Update(ms);       // Update the game world
+        graphics.Draw(&world);  // Draw to the screen
     }
 
     return 0;

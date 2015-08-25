@@ -62,7 +62,7 @@ Character::Character(World &w, Spritesheet *sheet):
     }
 }
 
-void Character::Update(int t) {
+void Character::Update(int ms) {
     float d = foot[0]->body->GetPosition().y - head->body->GetPosition().y;
     float n = 3.5;
     float forceX = 0, forceY = 0;
