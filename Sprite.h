@@ -14,11 +14,11 @@ struct Sprite {
 };
 
 struct Spritesheet {
-    Spritesheet(const Spritesheet&) = delete;
 	SDL_Texture *texture;
 	int width, height, nx, ny;
 	Spritesheet(SDL_Texture* t, int w, int h, int nx, int ny):
 		texture(t), width(w), height(h), nx(nx), ny(ny) { }
+    Spritesheet(const Spritesheet&) = delete;
 	Sprite* GetSprite(int, int, float, float, int, int);
 };
 

@@ -23,7 +23,6 @@ class World : public b2World {
         int characterCount;
 		b2Body *body;
         void Update(int);
-        Entity *AddEntity(Sprite*, float, float, int, int);
         void AddTile(Sprite*, int, int);
         World(b2Vec2);
 };

@@ -36,29 +36,28 @@ Character::Character(World &w, Spritesheet *sheet):
 
 
 	// start with the head & torso
-	head = w.AddEntity(head1,  7, 4, 1, 2);
-	Entity *torso = w.AddEntity(torso1, 7, 5, 1, 2);
-	// torso->body->SetFixedRotation(true);
-	// head->body->SetFixedRotation(true);
-	Join(world, head,  b2Vec2(0,0.2), torso, b2Vec2(0,-0.5), -b2_pi/3.0, b2_pi/3.0);
+	head = std::unique_ptr<Entity>( new Entity(w, *head1,  7, 4, 1, 2) );
+    torso = std::unique_ptr<Entity>(  new Entity(w, *torso1, 7, 5, 1, 2) );
+
+	Join(world, head.get(),  b2Vec2(0,0.2), torso.get(), b2Vec2(0,-0.5), -b2_pi/3.0, b2_pi/3.0);
 
 	// arms
 	for(int i = 0; i < 2; i++) {
-        Entity *upper = world->AddEntity(upper1,7, 6, 1, i*2+1);
-        Entity *fore  = world->AddEntity(fore1, 7, 5, 1, i*2+1);
-        hand[i] = world->AddEntity(hand1, 7, 7, 1, i*2+1);
-        Join(world, torso, b2Vec2(0,-0.4), upper,   b2Vec2(0,-0.3), -b2_pi, b2_pi/3.0);
-        Join(world, upper, b2Vec2(0, 0.3), fore,    b2Vec2(0,-0.3), -5*b2_pi/6, 0);
-        Join(world, fore,  b2Vec2(0, 0.3), hand[i], b2Vec2(0,-0.1), -b2_pi/6.0,   b2_pi/3.0);
+        upper[i] = std::unique_ptr<Entity>( new Entity(w, *upper1,7, 6, 1, i*2+1) );
+        fore[i]  = std::unique_ptr<Entity>( new Entity(w, *fore1, 7, 5, 1, i*2+1) );
+        hand[i] = std::unique_ptr<Entity>( new Entity(w, *hand1, 7, 7, 1, i*2+1) );
+        Join(world, torso.get(), b2Vec2(0,-0.4), upper[i].get(),   b2Vec2(0,-0.3), -b2_pi, b2_pi/3.0);
+        Join(world, upper[i].get(), b2Vec2(0, 0.3), fore[i].get(),    b2Vec2(0,-0.3), -5*b2_pi/6, 0);
+        Join(world, fore[i].get(),  b2Vec2(0, 0.3), hand[i].get(), b2Vec2(0,-0.1), -b2_pi/6.0,   b2_pi/3.0);
     }
     // legs
 	for(int i = 0; i < 2; i++) {
-        Entity *thigh = world->AddEntity(thigh1,7, 7, 1, i*3+1);
-        Entity *calf  = world->AddEntity(calf1, 7, 8, 1, i*3+1);
-        foot[i] = world->AddEntity(foot1, 7, 9, 1, i*3+1);
-        Join(world, torso, b2Vec2(0,0.5), thigh,   b2Vec2(0,-0.4), -2*b2_pi/3.0, b2_pi/6.0);
-        Join(world, thigh, b2Vec2(0,0.4), calf,    b2Vec2(0,-0.4), 0.0, 2*b2_pi/3.0);
-        Join(world, calf,  b2Vec2(0,0.4), foot[i], b2Vec2(0,-0.0), -b2_pi/6.0,   b2_pi/3.0);
+        thigh[i] = std::unique_ptr<Entity>( new Entity(w, *thigh1,7, 7, 1, i*3+1) );
+        calf[i]  = std::unique_ptr<Entity>( new Entity(w, *calf1, 7, 8, 1, i*3+1) );
+        foot[i] = std::unique_ptr<Entity>( new Entity(w, *foot1, 7, 9, 1, i*3+1) );
+        Join(world, torso.get(), b2Vec2(0,0.5), thigh[i].get(),   b2Vec2(0,-0.4), -2*b2_pi/3.0, b2_pi/6.0);
+        Join(world, thigh[i].get(), b2Vec2(0,0.4), calf[i].get(),    b2Vec2(0,-0.4), 0.0, 2*b2_pi/3.0);
+        Join(world, calf[i].get(),  b2Vec2(0,0.4), foot[i].get(), b2Vec2(0,-0.0), -b2_pi/6.0,   b2_pi/3.0);
     }
 }
 
