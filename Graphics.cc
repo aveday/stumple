@@ -4,6 +4,7 @@
 
 #include "Colors.h"
 #include "Graphics.h"
+#include "Entity.h"
 
 static const bool DEBUG = false;
 

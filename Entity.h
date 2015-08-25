@@ -8,7 +8,6 @@
 #include "World.h"
 #include "Sprite.h"
 
-class World;
 class Entity {
 	public:
         Entity(World&, Sprite&, float x, float y, int gid, int depth);

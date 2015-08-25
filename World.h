@@ -3,8 +3,6 @@
 
 #include <Box2D/Box2D.h>
 
-#include "Entity.h"
-#include "Character.h"
 #include "Control.h"
 #include "Sprite.h"
 
@@ -14,6 +12,9 @@
 
 static const int32 velocityIterations = 6;
 static const int32 positionIterations = 2;
+
+class Character;
+class Entity;
 
 class World : public b2World {
     public:
