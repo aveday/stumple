@@ -6,7 +6,6 @@
 #include <map>
 #include <string>
 
-#include "Geometry.h"
 #include "World.h"
 #include "Sprite.h"
 
@@ -18,9 +17,16 @@ static const int SCR_Y = 100;
 typedef std::map<std::string, SDL_Texture*> TextureCache;
 typedef TextureCache::iterator TextureCacheEntry;
 
+struct Grid {
+    int size;
+    uint32_t color;
+    uint32_t background;
+    Grid(int s, uint32_t c, uint32_t bg):
+        size(s), color(c), background(bg) { }
+};
+
 class Graphics {
     private:
-        Vec2 offset;
         double zoom;
 		Grid* grid;
         SDL_Renderer* renderer;

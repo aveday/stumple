@@ -16,7 +16,6 @@ Spritesheet* Graphics::CreateSpritesheet(
 }
 
 Graphics::Graphics(Grid &g):
-        offset(Vec2(0, 0)),
         zoom(1),
         grid(&g) {
 
@@ -63,9 +62,9 @@ void Graphics::Draw(World *world) {
 void Graphics::Draw(Grid *g) {
 	// draw background and orthogonal lines
     boxColor(renderer, 0, 0, SCR_W, SCR_H, g->background);
-    for(int x = (int)(offset.x)%g->size; x < SCR_W; x += g->size)
+    for(int x = 0; x < SCR_W; x += g->size)
         lineColor(renderer, x, 0, x, SCR_H, g->color);
-    for(int y = (int)(offset.y)%g->size; y < SCR_H; y += g->size)
+    for(int y = 0; y < SCR_H; y += g->size)
         lineColor(renderer, 0, y, SCR_W, y, g->color);
 }
 

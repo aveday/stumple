@@ -5,8 +5,6 @@
 #include <SDL2/SDL.h>
 #include <Box2D/Box2D.h>
 
-#include "Geometry.h"
-
 class Entity {
 	public:
 		Entity(b2Body*, int);
