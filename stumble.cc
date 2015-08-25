@@ -20,18 +20,18 @@ int main(int argc, char *argv[]) {
     Clock clock;
 
     // Load textures and create sprites
-    Spritesheet *bricks = graphics.CreateSpritesheet("assets/brick.png", 16, 16, 2, 5);
-    Spritesheet *bricks2= graphics.CreateSpritesheet("assets/brick2.png",16, 16, 4, 4);
+    Spritesheet *items  = graphics.CreateSpritesheet("assets/items.png", 16, 16, 2, 5);
+    Spritesheet *bricks = graphics.CreateSpritesheet("assets/bricks.png",16, 16, 4, 4);
     Spritesheet *rocks  = graphics.CreateSpritesheet("assets/rocks.png", 32, 16, 4, 8);
-    Spritesheet *items  = graphics.CreateSpritesheet("assets/items.png", 16, 16, 4, 4);
+    Spritesheet *body   = graphics.CreateSpritesheet("assets/body.png",  16, 16, 4, 4);
     Spritesheet *tests  = graphics.CreateSpritesheet("assets/test.png",  32, 32, 2, 2);
 	//                                 ords, size, amt
-    Sprite *brick = bricks2->GetSprite(0, 0, 1, 1, 4, 4);
-    Sprite *crate =  bricks->GetSprite(1, 0, 1, 1, 1, 1);
+    Sprite *brick = bricks->GetSprite(0, 0, 1, 1, 4, 4);
+    Sprite *crate =  items->GetSprite(1, 0, 1, 1, 1, 1);
     Sprite *rock  =   rocks->GetSprite(0, 0, 2, 1, 4, 8);
     Sprite *test  =   tests->GetSprite(0, 0, 1, 1, 1, 1);
 
-	Character player = Character(world, items);
+	Character player = Character(world, body);
     world.characters[world.characterCount++] = &player;
 
     int tx = SCR_W/grid.size;
