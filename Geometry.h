@@ -6,7 +6,6 @@
 
 #define MAX_VERTICES 8
 
-SDL_Rect* CreateRect(int, int, int, int);
 struct Rect : public SDL_Rect {
 	public:
 		Rect(int, int, int, int);
