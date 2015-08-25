@@ -3,8 +3,8 @@
 #include "World.h"
 
 void Join(World &w,
-		Entity *e1, b2Vec2 p1,
-		Entity *e2, b2Vec2 p2,
+		std::unique_ptr<Entity> const &e1, b2Vec2 p1,
+		std::unique_ptr<Entity> const &e2, b2Vec2 p2,
 		float low, float high) {
 
 	b2RevoluteJointDef jointDef;
@@ -38,25 +38,24 @@ Character::Character(World &w, Spritesheet *sheet) {
 	head.reset( new Entity(w, *head1,  7, 4, 1, 2) );
     torso.reset(  new Entity(w, *torso1, 7, 5, 1, 2) );
 
-	Join(w, head.get(),  b2Vec2(0,0.2), torso.get(), b2Vec2(0,-0.5), -b2_pi/3.0, b2_pi/3.0);
+	Join(w, head,  b2Vec2(0,0.2), torso, b2Vec2(0,-0.5), -1.3, 1.1);
 
-	// arms
 	for(int i = 0; i < 2; i++) {
+        // arms
         upper[i].reset(new Entity(w, *upper1,7, 6, 1, i*2+1) );
         fore[i].reset( new Entity(w, *fore1, 7, 5, 1, i*2+1) );
         hand[i].reset( new Entity(w, *hand1, 7, 7, 1, i*2+1) );
-        Join(w, torso.get(), b2Vec2(0,-0.4), upper[i].get(),   b2Vec2(0,-0.3), -b2_pi, b2_pi/3.0);
-        Join(w, upper[i].get(), b2Vec2(0, 0.3), fore[i].get(),    b2Vec2(0,-0.3), -5*b2_pi/6, 0);
-        Join(w, fore[i].get(),  b2Vec2(0, 0.3), hand[i].get(), b2Vec2(0,-0.1), -b2_pi/6.0,   b2_pi/3.0);
-    }
-    // legs
-	for(int i = 0; i < 2; i++) {
+        Join(w, torso,    b2Vec2(0,-0.4), upper[i], b2Vec2(0,-0.3), -3.1, 1.1);
+        Join(w, upper[i], b2Vec2(0, 0.3), fore[i],  b2Vec2(0,-0.3), -2.6, 0.0);
+        Join(w, fore[i],  b2Vec2(0, 0.3), hand[i],  b2Vec2(0,-0.1), -0.5, 1);
+
+        // legs
         thigh[i].reset(new Entity(w, *thigh1,7, 7, 1, i*3+1) );
         calf[i].reset( new Entity(w, *calf1, 7, 8, 1, i*3+1) );
         foot[i].reset( new Entity(w, *foot1, 7, 9, 1, i*3+1) );
-        Join(w, torso.get(), b2Vec2(0,0.5), thigh[i].get(),   b2Vec2(0,-0.4), -2*b2_pi/3.0, b2_pi/6.0);
-        Join(w, thigh[i].get(), b2Vec2(0,0.4), calf[i].get(),    b2Vec2(0,-0.4), 0.0, 2*b2_pi/3.0);
-        Join(w, calf[i].get(),  b2Vec2(0,0.4), foot[i].get(), b2Vec2(0,-0.0), -b2_pi/6.0,   b2_pi/3.0);
+        Join(w, torso,    b2Vec2(0,0.5), thigh[i],b2Vec2(0,-0.4), -2.1, 0.5);
+        Join(w, thigh[i], b2Vec2(0,0.4), calf[i], b2Vec2(0,-0.4), -0.0, 2.1);
+        Join(w, calf[i],  b2Vec2(0,0.4), foot[i], b2Vec2(0,-0.0), -0.5, 1.1);
     }
 }
 
