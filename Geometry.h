@@ -6,10 +6,6 @@
 
 #define MAX_VERTICES 8
 
-struct Rect : public SDL_Rect {
-	public:
-		Rect(int, int, int, int);
-};
 
 struct IVec2 {
     int x, y;
