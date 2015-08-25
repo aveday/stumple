@@ -92,14 +92,3 @@ void Graphics::Draw(b2Body *body) {
 				angle, NULL, SDL_FLIP_NONE);
 	}
 }
-
-void Graphics::Draw(b2PolygonShape *shape, b2Vec2 pos) {
-	// draw a transparent overlay (used for testing)
-    int n = shape->GetVertexCount();
-    Sint16 x[n], y[n];
-    for( int i = 0; i < n; i++ ) {
-        x[i] = grid->size * shape->GetVertex(i).x + pos.x;
-        y[i] = grid->size * shape->GetVertex(i).y + pos.y;
-    }
-    filledPolygonColor(renderer, x, y, n, 0x80800000);
-}

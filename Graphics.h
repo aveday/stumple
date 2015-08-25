@@ -36,7 +36,6 @@ class Graphics {
         void Draw(World*);
 		void Draw(b2Body*);
         void Draw(Grid*);
-		void Draw(b2PolygonShape*, b2Vec2);
 };
 
 #endif
