@@ -3,14 +3,13 @@
 
 #include <memory>
 #include <Box2D/Box2D.h>
-#include "Sprite.h"
 
 class World;
 class Entity;
 
 class Character {
 	public:
-		Character(World &w, Spritesheet *s);
+		Character(World &w);
         void Update(int);
     private:
         std::unique_ptr<Entity>

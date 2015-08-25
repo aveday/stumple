@@ -4,7 +4,6 @@
 #include <Box2D/Box2D.h>
 
 #include "Control.h"
-#include "Sprite.h"
 
 #define MAX_ENTITIES 1000
 #define MAX_CHARACTERS 100
@@ -15,6 +14,7 @@ static const int32 positionIterations = 2;
 
 class Character;
 class Entity;
+class Sprite;
 
 class World : public b2World {
     public:

@@ -2,6 +2,7 @@
 
 #include <Box2D/Box2D.h>
 #include "Entity.h"
+#include "Sprite.h"
 
 Entity::Entity(World &w, Sprite &sprite, float x, float y, int gid, int d):
         depth(d) {

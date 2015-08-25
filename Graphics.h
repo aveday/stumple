@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include <SDL2/SDL.h>
-#include <map>
+#include <Box2D/Box2D.h>
 #include <string>
 
 #include "World.h"
@@ -13,9 +13,6 @@ static const int SCR_W = 1280;
 static const int SCR_H = 720;
 static const int SCR_X = 180;
 static const int SCR_Y = 100;
-
-typedef std::map<std::string, SDL_Texture*> TextureCache;
-typedef TextureCache::iterator TextureCacheEntry;
 
 struct Grid {
     int size;
@@ -29,16 +26,13 @@ class Graphics {
     private:
         double zoom;
 		Grid* grid;
-        SDL_Renderer* renderer;
         SDL_Window* window;
-        TextureCache tCache;
 
     public:
+        static SDL_Renderer* renderer;
         Graphics(const Graphics&) = delete;
         Graphics(Grid&);
         ~Graphics();
-		Spritesheet *CreateSpritesheet(const char*, int, int, int, int);
-		SDL_Texture *GetTexture(const char*);
         void Draw(World*);
 		void Draw(b2Body*);
         void Draw(Grid*);

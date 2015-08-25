@@ -10,11 +10,7 @@ static const bool DEBUG = false;
 
 static const char* WINDOW_TITLE = "Stumble";
 
-Spritesheet* Graphics::CreateSpritesheet(
-		const char* fname, int x, int y, int nx, int ny) {
-	SDL_Texture *t = GetTexture(fname);
-	return new Spritesheet(t, x, y, nx, ny);
-}
+SDL_Renderer* Graphics::renderer;
 
 Graphics::Graphics(Grid &g):
         zoom(1),
@@ -31,17 +27,6 @@ Graphics::~Graphics() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
-}
-
-SDL_Texture* Graphics::GetTexture(const char* file) {
-	// check if the texture has already been cached
-    TextureCacheEntry entry = tCache.find(file);
-	if(entry != tCache.end())
-		return entry->second;
-	// otherwise load the texture into the cache
-	SDL_Texture *t = IMG_LoadTexture(renderer, file);
-	tCache[file] = t;
-	return t;
 }
 
 void Graphics::Draw(World *world) {

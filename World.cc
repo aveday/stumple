@@ -3,6 +3,7 @@
 
 #include "World.h"
 #include "Clock.h"
+#include "Sprite.h"
 
 World::World(b2Vec2 g):
 		b2World(g) {
