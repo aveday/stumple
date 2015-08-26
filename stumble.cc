@@ -33,11 +33,11 @@ int main(int argc, char *argv[]) {
 
     // Create some game objects
     for(int y = ty-12; y < ty-5; y++)
-        new Entity(world, rock, 2, y, 0, 0);
+        world.Add( new Entity(world, rock, 2, y, 0, 0) );
 
     for(int y = 0; y < 4; y++)
         for(int x = 0; x < tx; x+=4)
-            new Entity(world, crate, x, y, 0, 0);
+            world.Add( new Entity(world, crate, x, y, 0, 0) );
 
     // Accept input
     while(control.GetInput(&player)) {

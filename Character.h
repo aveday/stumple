@@ -4,8 +4,9 @@
 #include <memory>
 #include <Box2D/Box2D.h>
 
+#include "Entity.h"
+
 class World;
-class Entity;
 
 class Character {
 	public:

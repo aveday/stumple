@@ -1,6 +1,7 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+#include <list>
 #include <Box2D/Box2D.h>
 
 #include "Control.h"
@@ -18,12 +19,13 @@ class Sprite;
 
 class World : public b2World {
     public:
-        Entity *entities[MAX_ENTITIES];
+        std::list<Entity> entities;
         Character *characters[MAX_CHARACTERS];
 		b2Body *body;
         void Update(int);
         void AddTile(const Sprite&, int, int);
         World(b2Vec2);
+        void Add(Entity *e);
 };
 
 #endif

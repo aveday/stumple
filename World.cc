@@ -13,6 +13,10 @@ World::World(b2Vec2 g):
 	body = CreateBody(&def);
 }
 
+void World::Add(Entity *e) {
+    entities.insert(entities.begin(), *e);
+}
+
 void World::Update(int t) {
     for(int n = 0; n < Character::GetCount(); n++) {
         characters[n]->Update(t);

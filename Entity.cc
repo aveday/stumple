@@ -3,16 +3,13 @@
 #include <Box2D/Box2D.h>
 #include "Entity.h"
 #include "Sprite.h"
+#include "World.h"
 
 int Entity::count = 0;
 
 Entity::Entity(World &w, const Sprite &sprite, float x, float y, int gid, int d):
         depth(d) {
-	
-    if (count >= MAX_ENTITIES)
-        exit(EXIT_FAILURE); // TODO error handle entity overflow
 
-    w.entities[count++] = this;
 
 	b2BodyDef bDef;
 	bDef.type = b2_dynamicBody;

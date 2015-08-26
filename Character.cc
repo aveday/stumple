@@ -61,6 +61,18 @@ Character::Character(World &w) {
         Join(w, thigh[i], b2Vec2(0,0.4), calf[i], b2Vec2(0,-0.4), -0.0, 2.1);
         Join(w, calf[i],  b2Vec2(0,0.4), foot[i], b2Vec2(0.2,-0), -0.5, 1.1);
     }
+    // FIXME give character its own entity list
+    w.Add(head.get());
+    w.Add(torso.get());
+	for(int i = 0; i < 2; i++) {
+        w.Add(upper[i].get());
+        w.Add(fore[i].get());
+        w.Add(hand[i].get());
+        w.Add(thigh[i].get());
+        w.Add(calf[i].get());
+        w.Add(foot[i].get());
+        w.Add(upper[i].get());
+    }
 }
 
 void Character::Update(int ms) {
