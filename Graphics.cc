@@ -29,35 +29,35 @@ Graphics::~Graphics() {
     SDL_Quit();
 }
 
-void Graphics::Draw(World *world) {
+void Graphics::Draw(const World &world) {
     // clear the screen
     SDL_RenderClear(renderer);
 
     // draw grid and tiles
-    Draw(grid);
-	Draw(world->body);
+    Draw(*grid);
+	Draw(*world.body);
 
     // draw entities
     for(int i = 0; i < Entity::GetCount(); i++)
-        Draw(world->entities[i]->body);
+        Draw(*world.entities[i]->body);
 
     // display the drawn frame
     SDL_RenderPresent(renderer);
 }
 
-void Graphics::Draw(Grid *g) {
+void Graphics::Draw(const Grid &g) {
 	// draw background and orthogonal lines
-    boxColor(renderer, 0, 0, SCR_W, SCR_H, g->background);
-    for(int x = 0; x < SCR_W; x += g->size)
-        lineColor(renderer, x, 0, x, SCR_H, g->color);
-    for(int y = 0; y < SCR_H; y += g->size)
-        lineColor(renderer, 0, y, SCR_W, y, g->color);
+    boxColor(renderer, 0, 0, SCR_W, SCR_H, g.background);
+    for(int x = 0; x < SCR_W; x += g.size)
+        lineColor(renderer, x, 0, x, SCR_H, g.color);
+    for(int y = 0; y < SCR_H; y += g.size)
+        lineColor(renderer, 0, y, SCR_W, y, g.color);
 }
 
-void Graphics::Draw(b2Body *body) {
-	float angle = body->GetAngle() / M_PI * 180;
+void Graphics::Draw(const b2Body &body) {
+	float angle = body.GetAngle() / M_PI * 180;
 
-	for(b2Fixture *f = body->GetFixtureList(); f; f = f->GetNext()) {
+	for(const b2Fixture *f = body.GetFixtureList(); f; f = f->GetNext()) {
 		// select sprite variant based on fixture pointer value
 		Sprite *sprite = (Sprite*)f->GetUserData();
 		int i = (int)(uintptr_t)f / 32 % sprite->n_srcs;

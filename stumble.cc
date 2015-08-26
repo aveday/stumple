@@ -18,9 +18,9 @@ int main(int argc, char *argv[]) {
     Clock clock;
 
     // Load textures and create sprites
-    Sprite brick("assets/bricks.png", 16, 16, {0,0,4,4}, {0,0,16,16});
-    Sprite crate("assets/items.png",  16, 16, {1,0,1,1}, {0,0,16,16});
-    Sprite rock( "assets/rocks.png",  32, 16, {0,0,4,8}, {0,0,32,16});
+    const Sprite brick("assets/bricks.png", 16, 16, {0,0,4,4}, {0,0,16,16});
+    const Sprite crate("assets/items.png",  16, 16, {1,0,1,1}, {0,0,16,16});
+    const Sprite rock( "assets/rocks.png",  32, 16, {0,0,4,8}, {0,0,32,16});
 
 	Character player(world);
 
@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
     // Create tiles
     for(int x = 0; x < tx; x++)
         for(int y = ty-2; y < ty; y++)
-            world.AddTile(&brick, x, y);
+            world.AddTile(brick, x, y);
 
     // Create some game objects
     for(int y = ty-12; y < ty-5; y++)
@@ -40,10 +40,10 @@ int main(int argc, char *argv[]) {
             new Entity(world, crate, x, y, 0, 0);
 
     // Accept input
-    while(control.GetInput((Character*)NULL)) { // FIXME
+    while(control.GetInput(&player)) {
         int ms = clock.Sleep();         // Delay to maintain FPS
         world.Update(ms);       // Update the game world
-        graphics.Draw(&world);  // Draw to the screen
+        graphics.Draw(world);  // Draw to the screen
     }
 
     return 0;

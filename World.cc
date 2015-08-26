@@ -22,11 +22,11 @@ void World::Update(int t) {
     ClearForces();
 }
 
-void World::AddTile(Sprite *sprite, int x, int y) {
+void World::AddTile(const Sprite &sprite, int x, int y) {
 	// create a tile fixture with userdata pointing to sprite
 	b2PolygonShape box;
 	box.SetAsBox(0.5f, 0.5f, b2Vec2(x+0.5f, y+0.5f), 0.0f);
 	b2Fixture *fixture = body->CreateFixture((b2Shape*)&box, 10);
-	fixture->SetUserData(sprite);
+	fixture->SetUserData((void*)&sprite);
 }
 

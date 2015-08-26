@@ -33,9 +33,9 @@ class Graphics {
         Graphics(const Graphics&) = delete;
         Graphics(Grid&);
         ~Graphics();
-        void Draw(World*);
-		void Draw(b2Body*);
-        void Draw(Grid*);
+        void Draw(const World&);
+		void Draw(const b2Body&);
+        void Draw(const Grid&);
 };
 
 #endif

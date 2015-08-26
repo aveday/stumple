@@ -10,7 +10,7 @@
 
 class Entity {
 	public:
-        Entity(World&, Sprite&, float x, float y, int gid, int depth);
+        Entity(World&, const Sprite&, float x, float y, int gid, int depth);
         Entity(const Entity&) = delete;
 		b2Body *body;
         int depth;

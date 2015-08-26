@@ -6,7 +6,7 @@
 
 int Entity::count = 0;
 
-Entity::Entity(World &w, Sprite &sprite, float x, float y, int gid, int d):
+Entity::Entity(World &w, const Sprite &sprite, float x, float y, int gid, int d):
         depth(d) {
 	
     if (count >= MAX_ENTITIES)
@@ -23,7 +23,7 @@ Entity::Entity(World &w, Sprite &sprite, float x, float y, int gid, int d):
 	// TODO allow for multiple fixtures
     b2FixtureDef fDef;
     fDef.shape = sprite.shape;
-    fDef.userData = &sprite;
+    fDef.userData = (void*)&sprite;
     fDef.density = 10;
     fDef.filter.groupIndex = -gid; //TODO change filtering to use masks
 	body->CreateFixture(&fDef);
