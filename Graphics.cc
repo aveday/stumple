@@ -6,14 +6,11 @@
 #include "Graphics.h"
 #include "Entity.h"
 
-static const bool DEBUG = false;
-
 static const char* WINDOW_TITLE = "Stumble";
-
 SDL_Renderer* Graphics::renderer;
 
-Graphics::Graphics(Grid &g):
-        zoom(1),
+Graphics::Graphics(int z, Grid &g):
+        zoom(z),
         grid(&g) {
 
     /* init SDL, create window and renderer */
@@ -48,9 +45,9 @@ void Graphics::Draw(const World &world) {
 void Graphics::Draw(const Grid &g) {
 	// draw background and orthogonal lines
     boxColor(renderer, 0, 0, SCR_W, SCR_H, g.background);
-    for(int x = 0; x < SCR_W; x += g.size)
+    for(int x = 0; x < SCR_W; x += PPM)
         lineColor(renderer, x, 0, x, SCR_H, g.color);
-    for(int y = 0; y < SCR_H; y += g.size)
+    for(int y = 0; y < SCR_H; y += PPM)
         lineColor(renderer, 0, y, SCR_W, y, g.color);
 }
 
@@ -61,15 +58,15 @@ void Graphics::Draw(const b2Body &body) {
 		// select sprite variant based on fixture pointer value
 		Sprite *sprite = (Sprite*)f->GetUserData();
 		int i = (int)(uintptr_t)f / 32 % sprite->n_srcs;
-		SDL_Rect *src = sprite->srcs[i];
+		SDL_Rect &src = *sprite->srcs[i];
 
 		// calculate the destination rectangle
-		b2Vec2 center= f->GetAABB(0).GetCenter();
+        b2Vec2 center = f->GetAABB(0).GetCenter();
 		SDL_Rect dst = {
-			(int)(grid->size * (center.x - src->w/32.0f)),
-			(int)(grid->size * (center.y - src->h/32.0f)),
-			(int)(grid->size * src->w/16.0f),
-			(int)(grid->size * src->h/16.0f)
+			(int)(zoom * (center.x * PPM - src.w / 2.0)),
+			(int)(zoom * (center.y * PPM - src.h / 2.0)),
+			(int)(zoom * src.w),
+			(int)(zoom * src.h)
 		};
 
 		// draw the sprite

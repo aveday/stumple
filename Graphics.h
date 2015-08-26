@@ -13,13 +13,13 @@ static const int SCR_W = 1280;
 static const int SCR_H = 720;
 static const int SCR_X = 180;
 static const int SCR_Y = 100;
+static const int PPM = 16;
 
 struct Grid {
-    int size;
     uint32_t color;
     uint32_t background;
-    Grid(int s, uint32_t c, uint32_t bg):
-        size(s), color(c), background(bg) { }
+    Grid(uint32_t c, uint32_t bg):
+        color(c), background(bg) { }
 };
 
 class Graphics {
@@ -31,7 +31,7 @@ class Graphics {
     public:
         static SDL_Renderer* renderer;
         Graphics(const Graphics&) = delete;
-        Graphics(Grid&);
+        Graphics(int z, Grid&);
         ~Graphics();
         void Draw(const World&);
 		void Draw(const b2Body&);

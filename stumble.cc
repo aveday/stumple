@@ -7,13 +7,13 @@
 #include "stumble.h"
 
 int main(int argc, char *argv[]) {
-    int gs = (argc > 1) ? atoi(argv[1]) : 32;
+    int z = (argc > 1) ? atoi(argv[1]) : 2;
     
     // Create engine objects
     b2Vec2 gravity(0, 5);
-    Grid grid(gs, 0xff101010, 0xff000000);
+    Grid grid(0xff101010, 0xff000000);
     World world(gravity);
-    Graphics graphics(grid);
+    Graphics graphics(z, grid);
     Control control;
     Clock clock;
 
@@ -24,8 +24,8 @@ int main(int argc, char *argv[]) {
 
 	Character player(world);
 
-    int tx = SCR_W/grid.size;
-    int ty = SCR_H/grid.size;
+    int tx = SCR_W/(z*PPM);
+    int ty = SCR_H/(z*PPM);
     // Create tiles
     for(int x = 0; x < tx; x++)
         for(int y = ty-2; y < ty; y++)
@@ -41,9 +41,9 @@ int main(int argc, char *argv[]) {
 
     // Accept input
     while(control.GetInput(&player)) {
-        int ms = clock.Sleep();         // Delay to maintain FPS
+        int ms = clock.Sleep(); // Delay to maintain FPS
         world.Update(ms);       // Update the game world
-        graphics.Draw(world);  // Draw to the screen
+        graphics.Draw(world);   // Draw to the screen
     }
 
     return 0;
