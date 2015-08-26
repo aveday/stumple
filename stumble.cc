@@ -7,9 +7,7 @@
 #include "stumble.h"
 
 int main(int argc, char *argv[]) {
-    int gs = 32;
-    if(argc > 1) 
-        gs = atoi(argv[1]);
+    int gs = (argc > 1) ? atoi(argv[1]) : 32;
     
     // Create engine objects
     b2Vec2 gravity(0, 5);
