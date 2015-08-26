@@ -38,7 +38,7 @@ void Graphics::Draw(World *world) {
 	Draw(world->body);
 
     // draw entities
-    for(int i = 0; i < world->entityCount; i++)
+    for(int i = 0; i < Entity::GetCount(); i++)
         Draw(world->entities[i]->body);
 
     // display the drawn frame

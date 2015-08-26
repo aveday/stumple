@@ -25,7 +25,6 @@ int main(int argc, char *argv[]) {
     Sprite rock( "assets/rocks.png",  32, 16, {0,0,4,8}, {0,0,32,16});
 
 	Character player(world);
-    world.characters[world.characterCount++] = &player;
 
     int tx = SCR_W/grid.size;
     int ty = SCR_H/grid.size;

@@ -11,7 +11,9 @@ class Character {
 	public:
 		Character(World &w);
         void Update(int);
+        static int GetCount() { return count; }
     private:
+        static int count;
         std::unique_ptr<Entity>
             head, torso,
             foot[2], calf[2], thigh[2],

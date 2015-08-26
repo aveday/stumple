@@ -14,6 +14,9 @@ class Entity {
         Entity(const Entity&) = delete;
 		b2Body *body;
         int depth;
+        static int GetCount() { return count; }
+    private:
+        static int count;
 };
 
 #endif

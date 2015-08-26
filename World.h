@@ -20,8 +20,6 @@ class World : public b2World {
     public:
         Entity *entities[MAX_ENTITIES];
         Character *characters[MAX_CHARACTERS];
-        int entityCount;
-        int characterCount;
 		b2Body *body;
         void Update(int);
         void AddTile(Sprite*, int, int);

@@ -21,7 +21,10 @@ void Join(World &w,
     w.CreateJoint(&jointDef);
 }
 
+int Character::count = 0;
 Character::Character(World &w) {
+    w.characters[count++] = this;
+
 	// load the sprites
     Sprite *head1  = new Sprite("assets/body.png", 16, 16, {0,0,1,1}, {6,4,5,10});
     Sprite *torso1 = new Sprite("assets/body.png", 16, 16, {0,1,1,1}, {5,1,7,13});
