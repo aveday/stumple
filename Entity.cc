@@ -2,7 +2,7 @@
 
 #include <Box2D/Box2D.h>
 #include "Entity.h"
-#include "Sprite.h"
+#include "Model.h"
 #include "World.h"
 
 int Entity::count = 0;
@@ -11,7 +11,7 @@ int Entity::count = 0;
 Entity::Entity(World &w, const std::string sid, float x, float y, int gid, int d):
         depth(d) {
 
-    Sprite &sprite = Sprite::cache[sid];
+    Model &model = Model::cache[sid];
 	b2BodyDef bDef;
 	bDef.type = b2_dynamicBody;
 	bDef.position.Set(x, y);
@@ -20,8 +20,8 @@ Entity::Entity(World &w, const std::string sid, float x, float y, int gid, int d
 
 	// TODO allow for multiple fixtures
     b2FixtureDef fDef;
-    fDef.shape = sprite.shape;
-    fDef.userData = (void*)&sprite;
+    fDef.shape = model.shape;
+    fDef.userData = (void*)&model;
     fDef.density = 10;
     fDef.filter.groupIndex = -gid; //TODO change filtering to use masks
 	body->CreateFixture(&fDef);

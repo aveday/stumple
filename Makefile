@@ -2,7 +2,7 @@ CXX=g++
 CFLAGS=-Wall -std=c++11
 BIN=stumble
 LDFLAGS=-lm -lSDL2 -lSDL2_gfx -lSDL2_image -lBox2D
-DEPS=stumble.h Entity.h World.h Graphics.h Control.h Clock.h Sprite.h Character.h
+DEPS=stumble.h Entity.h World.h Graphics.h Control.h Clock.h Model.h Character.h
 OBJS=$(subst .h,.o,$(DEPS))
 
 .PHONY: default

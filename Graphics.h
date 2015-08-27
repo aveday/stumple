@@ -7,7 +7,7 @@
 #include <string>
 
 #include "World.h"
-#include "Sprite.h"
+#include "Model.h"
 
 static const int SCR_W = 1280;
 static const int SCR_H = 720;

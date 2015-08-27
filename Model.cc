@@ -1,18 +1,18 @@
 #include <SDL2/SDL_image.h>
 #include <string>
 
-#include "Sprite.h"
+#include "Model.h"
 #include "Graphics.h"
 
-TextureCache Sprite::tCache;
-SpriteCache Sprite::cache;
+TextureCache Model::tCache;
+ModelCache Model::cache;
 
-void LoadSprites(SpriteCache &cache, const SpriteDef_v &defs) {
+void LoadModels(ModelCache &cache, const ModelDef_v &defs) {
     for(auto it = defs.begin(); it != defs.end(); it++)
-        cache.insert( std::make_pair(it->name, Sprite(*it)) );
+        cache.insert( std::make_pair(it->name, Model(*it)) );
 }
 
-Sprite::Sprite(const SpriteDef &def) {
+Model::Model(const ModelDef &def) {
     // load the texture into/from the texture cache
     auto entry = tCache.find(def.texture_file);
     if(entry == tCache.end()) {
@@ -36,13 +36,13 @@ Sprite::Sprite(const SpriteDef &def) {
     }
 
     // set the shape of the fixture // TODO allow for other shapes
-    float mx = def.sprite.x - def.cellw/2.0f;
-    float my = def.sprite.y - def.cellh/2.0f;
+    float mx = def.model.x - def.cellw/2.0f;
+    float my = def.model.y - def.cellh/2.0f;
     b2Vec2 points[] = {
         1.0/PPM * b2Vec2(mx,     my),
-        1.0/PPM * b2Vec2(mx+def.sprite.w, my),
-        1.0/PPM * b2Vec2(mx+def.sprite.w, my+def.sprite.h),
-        1.0/PPM * b2Vec2(mx,     my+def.sprite.h)
+        1.0/PPM * b2Vec2(mx+def.model.w, my),
+        1.0/PPM * b2Vec2(mx+def.model.w, my+def.model.h),
+        1.0/PPM * b2Vec2(mx,     my+def.model.h)
     };
 
     b2PolygonShape *sh= new b2PolygonShape();

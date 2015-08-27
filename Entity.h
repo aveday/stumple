@@ -5,7 +5,7 @@
 #include <SDL2/SDL.h>
 #include <Box2D/Box2D.h>
 
-#include "Sprite.h"
+#include "Model.h"
 
 class World;
 class Entity {

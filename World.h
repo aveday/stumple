@@ -15,7 +15,7 @@ static const int32 positionIterations = 2;
 
 class Character;
 class Entity;
-class Sprite;
+class Model;
 
 class World : public b2World {
     public:

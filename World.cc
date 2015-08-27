@@ -3,7 +3,7 @@
 
 #include "World.h"
 #include "Clock.h"
-#include "Sprite.h"
+#include "Model.h"
 
 World::World(b2Vec2 g):
 		b2World(g) {
@@ -27,11 +27,11 @@ void World::Update(int t) {
 }
 
 void World::AddTile(const std::string sid, int x, int y) {
-	// create a tile fixture with userdata pointing to sprite
-    Sprite &sprite = Sprite::cache[sid];
+	// create a tile fixture with userdata pointing to model
+    Model &model = Model::cache[sid];
 	b2PolygonShape box;
 	box.SetAsBox(0.5f, 0.5f, b2Vec2(x+0.5f, y+0.5f), 0.0f);
 	b2Fixture *fixture = body->CreateFixture((b2Shape*)&box, 10);
-	fixture->SetUserData((void*)&sprite);
+	fixture->SetUserData((void*)&model);
 }
 

@@ -1,15 +1,15 @@
-#ifndef SPRITEDEFS_H
-#define SPRITEDEFS_H
+#ifndef MODELDEFS_H
+#define MODELDEFS_H
 
-#include "Sprite.h"
+#include "Model.h"
 
-SpriteDef_v spritedefs = { // FIXME change def names to an enum or something
-    // environment sprites
+ModelDef_v modeldefs = { // FIXME change def names to an enum or something
+    // environment models
     {"brick", "assets/bricks.png", 16, 16, {0,0,4,4}, {0,0,16,16}},
     {"crate", "assets/items.png",  16, 16, {1,0,1,1}, {0,0,16,16}},
     {"rock",  "assets/rocks.png",  32, 16, {0,0,4,8}, {0,0,32,16}},
 
-    // character sprites
+    // character models
     {"head",  "assets/body.png", 16, 16, {0,0,1,1}, {6,4,5,10}},
     {"torso", "assets/body.png", 16, 16, {0,1,1,1}, {5,1,7,13}},
     {"thigh", "assets/body.png", 16, 16, {0,2,1,1}, {5,1,5,14}},

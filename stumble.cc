@@ -4,7 +4,7 @@
 #include <math.h>
 
 #include "stumble.h"
-#include "spritedefs.h"
+#include "modeldefs.h"
 
 int main(int argc, char *argv[]) {
     int z = (argc > 1) ? atoi(argv[1]) : 2;
@@ -17,8 +17,8 @@ int main(int argc, char *argv[]) {
     Control control;
     Clock clock;
 
-    // Load textures and create sprites
-    LoadSprites(Sprite::cache, spritedefs);
+    // Load textures and create models
+    LoadModels(Model::cache, modeldefs);
 
 	Character player(world);
 
