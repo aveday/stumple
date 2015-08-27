@@ -57,7 +57,7 @@ void Graphics::Draw(const b2Body &body) {
 	for(const b2Fixture *f = body.GetFixtureList(); f; f = f->GetNext()) {
 		// select sprite variant based on fixture pointer value
 		Sprite *sprite = (Sprite*)f->GetUserData();
-		int i = (int)(uintptr_t)f / 32 % sprite->n_srcs;
+		int i = (int)(uintptr_t)f / 32 % sprite->n_srcs; //FIXME this is hacky
 		SDL_Rect &src = *sprite->srcs[i];
 
 		// calculate the destination rectangle

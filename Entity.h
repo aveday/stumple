@@ -10,7 +10,7 @@
 class World;
 class Entity {
 	public:
-        Entity(World&, const Sprite&, float x, float y, int gid, int depth);
+        Entity(World &w, const std::string, float x, float y, int gid, int d);
         //Entity(const Entity&) = delete; // FIXME list requires copy constructor?
 		b2Body *body;
         int depth;

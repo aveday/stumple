@@ -23,7 +23,7 @@ class World : public b2World {
         Character *characters[MAX_CHARACTERS];
 		b2Body *body;
         void Update(int);
-        void AddTile(const Sprite&, int, int);
+        void AddTile(const std::string sid, int, int);
         World(b2Vec2);
         void Add(Entity *e);
 };

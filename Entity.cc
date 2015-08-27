@@ -7,10 +7,11 @@
 
 int Entity::count = 0;
 
-Entity::Entity(World &w, const Sprite &sprite, float x, float y, int gid, int d):
+
+Entity::Entity(World &w, const std::string sid, float x, float y, int gid, int d):
         depth(d) {
 
-
+    Sprite &sprite = Sprite::cache[sid];
 	b2BodyDef bDef;
 	bDef.type = b2_dynamicBody;
 	bDef.position.Set(x, y);
