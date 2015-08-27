@@ -1,19 +1,31 @@
-CXX=g++
-CFLAGS=-Wall -std=c++11
-BIN=stumble
-LDFLAGS=-lm -lSDL2 -lSDL2_gfx -lSDL2_image -lBox2D
-DEPS=stumble.h Entity.h World.h Graphics.h Control.h Clock.h Model.h Character.h
-OBJS=$(subst .h,.o,$(DEPS))
+CXX := g++
+CXXFLAGS := -Wall -std=c++11 -Werror
+BIN := stumble
+LDFLAGS := -lm -lSDL2 -lSDL2_gfx -lSDL2_image -lBox2D
 
-.PHONY: default
-default: all
+OBJS := stumble.o Entity.o World.o Graphics.o Control.o Clock.o Model.o Character.o
+SRCS := $(OBJS:.o=.cc)
+DEPS := $(OBJS:.o=.d)
 
-.PHONY: clean
+ifneq ($(MAKECMDGOALS),clean)
+	-include $(DEPS)
+endif
+
+.DEFAULT_GOAL := all
+
+.PHONY: default clean deps all
+default: deps all
+
 clean:
-	rm -f $(OBJS) $(BIN)
-
-%.o: %.cc %.h
-	$(CXX) $(CFLAGS) -c -o $@ $<
+	rm -f $(OBJS) $(BIN) $(DEPS)
+deps: $(DEPS)
 
 all: $(OBJS)
-	$(CXX) $(CFLAGS) $(LDFLAGS) -o $(BIN) $(OBJS)
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $(BIN) $(OBJS)
+
+%.o: %.cc
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
+
+%.d: %.cc
+	$(CXX) -MM -MF $@ $<
+
