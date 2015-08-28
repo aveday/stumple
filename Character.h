@@ -15,7 +15,7 @@ class Character {
         static int GetCount() { return count; }
     private:
         static int count;
-        std::unique_ptr<Entity>
+        Entity_sp
             head, torso,
             foot[2], calf[2], thigh[2],
             hand[2], fore[2], upper[2];

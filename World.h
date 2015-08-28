@@ -4,7 +4,7 @@
 #include <list>
 #include <Box2D/Box2D.h>
 
-#include "Control.h"
+#include "Entity.h"
 
 #define MAX_ENTITIES 1000
 #define MAX_CHARACTERS 100
@@ -14,18 +14,16 @@ static const int32 velocityIterations = 6;
 static const int32 positionIterations = 2;
 
 class Character;
-class Entity;
-class Model;
 
 class World : public b2World {
     public:
-        std::list<Entity> entities;
+        Entity_spl entities;
         Character *characters[MAX_CHARACTERS];
 		b2Body *body;
         void Update(int);
         void AddTile(const std::string sid, int, int);
         World(b2Vec2);
-        void Add(Entity *e);
+        Entity_sp Add(Entity *e);
 };
 
 #endif

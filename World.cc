@@ -4,6 +4,7 @@
 #include "World.h"
 #include "Clock.h"
 #include "Model.h"
+#include "Character.h"
 
 World::World(b2Vec2 g):
 		b2World(g) {
@@ -13,8 +14,11 @@ World::World(b2Vec2 g):
 	body = CreateBody(&def);
 }
 
-void World::Add(Entity *e) {
-    entities.insert(entities.begin(), *e);
+// Add an entity to the world, returning a shared pointer
+Entity_sp World::Add(Entity *e) {
+    Entity_sp sp(e);
+    entities.insert(entities.begin(), sp);
+    return sp;
 }
 
 void World::Update(int t) {

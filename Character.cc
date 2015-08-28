@@ -4,8 +4,8 @@
 #include "Graphics.h"
 
 void Join(World &w,
-		std::unique_ptr<Entity> const &e1, b2Vec2 p1,
-		std::unique_ptr<Entity> const &e2, b2Vec2 p2,
+		const Entity_sp &e1, b2Vec2 p1,
+		const Entity_sp &e2, b2Vec2 p2,
 		float low, float high) {
 
 	b2RevoluteJointDef jointDef;
@@ -26,39 +26,27 @@ Character::Character(World &w) {
     w.characters[count++] = this;
 
 	// start with the head & torso
-	head.reset( new Entity(w, "head",  7, 4, 1, 2) );
-    torso.reset(new Entity(w, "torso", 7, 5, 1, 2) );
+    head  = w.Add( new Entity(w, "head",  7, 4, 1, 2) );
+    torso = w.Add( new Entity(w, "torso", 7, 5, 1, 2) );
 
 	Join(w, head,  b2Vec2(0,0.2), torso, b2Vec2(0,-0.5), -1.3, 1.1);
 
 	for(int i = 0; i < 2; i++) {
         // arms
-        upper[i].reset(new Entity(w, "upper",7, 6, 1, i*2+1) );
-        fore[i].reset( new Entity(w, "fore", 7, 5, 1, i*2+1) );
-        hand[i].reset( new Entity(w, "hand", 7, 7, 1, i*2+1) );
+        upper[i] = w.Add( new Entity(w, "upper",7, 6, 1, i*2+1) );
+        fore[i]  = w.Add(  new Entity(w, "fore", 7, 5, 1, i*2+1) );
+        hand[i]  = w.Add(  new Entity(w, "hand", 7, 7, 1, i*2+1) );
         Join(w, torso,    b2Vec2(0,-0.4), upper[i], b2Vec2(0,-0.3), -3.1, 1.1);
         Join(w, upper[i], b2Vec2(0, 0.3), fore[i],  b2Vec2(0,-0.3), -2.6, 0.0);
         Join(w, fore[i],  b2Vec2(0, 0.1), hand[i],  b2Vec2(0,-0.0), -0.5, 1.0);
 
         // legs
-        thigh[i].reset(new Entity(w, "thigh",7, 7, 1, i*3+1) );
-        calf[i].reset( new Entity(w, "calf", 7, 8, 1, i*3+1) );
-        foot[i].reset( new Entity(w, "foot", 7, 9, 1, i*3+1) );
+        thigh[i] = w.Add( new Entity(w, "thigh",7, 7, 1, i*3+1) );
+        calf[i]  = w.Add(  new Entity(w, "calf", 7, 8, 1, i*3+1) );
+        foot[i]  = w.Add(  new Entity(w, "foot", 7, 9, 1, i*3+1) );
         Join(w, torso,    b2Vec2(0,0.4), thigh[i],b2Vec2(0,-0.4), -2.1, 0.5);
         Join(w, thigh[i], b2Vec2(0,0.4), calf[i], b2Vec2(0,-0.4), -0.0, 2.1);
         Join(w, calf[i],  b2Vec2(0,0.4), foot[i], b2Vec2(0.2,-0), -0.5, 1.1);
-    }
-    // FIXME give character its own entity list
-    w.Add(head.get());
-    w.Add(torso.get());
-	for(int i = 0; i < 2; i++) {
-        w.Add(upper[i].get());
-        w.Add(fore[i].get());
-        w.Add(hand[i].get());
-        w.Add(thigh[i].get());
-        w.Add(calf[i].get());
-        w.Add(foot[i].get());
-        w.Add(upper[i].get());
     }
 }
 
