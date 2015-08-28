@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
     // Load textures and create models
     LoadModels(Model::cache, modeldefs);
 
-	Character player(world);
+	world.Add( new Character(world) );
 
     int tx = SCR_W/(z*PPM);
     int ty = SCR_H/(z*PPM);
@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
             world.Add( new Entity(world, "crate", x, y, 0, 0) );
 
     // Accept input
-    while(control.GetInput(&player)) {
+    while(control.GetInput(*world.characters.begin())) { // FIXME
         int ms = clock.Sleep(); // Delay to maintain FPS
         world.Update(ms);       // Update the game world
         graphics.Draw(world);   // Draw to the screen

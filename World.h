@@ -4,28 +4,24 @@
 #include <Box2D/Box2D.h>
 
 #include "Entity.h"
-
-#define MAX_ENTITIES 1000
-#define MAX_CHARACTERS 100
-#define WORLD_SIZE 128
+#include "Character.h"
 
 static const int32 velocityIterations = 6;
 static const int32 positionIterations = 2;
 
-class Character;
-
 class World : public b2World {
     public:
         Entity_wpl entities;
-        Character *characters[MAX_CHARACTERS];
+        Character_spl characters;
 		b2Body *body;
         void Update(int);
         void AddTile(const std::string sid, int, int);
         World(b2Vec2);
         void Insert(const Entity_sp &e);
-        void Add(Entity *e); // TODO privatise
+        void Add(Entity *e);
+        void Add(Character *c);
     private:
-        Entity_spl ownEntities; //FIXME move to main?
+        Entity_spl ownEntities; //FIXME move/rename?
 };
 
 #endif

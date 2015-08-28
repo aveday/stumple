@@ -3,9 +3,6 @@
 #include "Model.h"
 #include "World.h"
 
-int Entity::count = 0;
-
-
 Entity::Entity(World &w, const std::string sid, float x, float y, int gid, int d):
         depth(d) {
 

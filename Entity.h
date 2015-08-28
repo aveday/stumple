@@ -19,9 +19,6 @@ class Entity {
         //Entity(const Entity&) = delete; // FIXME list requires copy constructor?
 		b2Body *body;
         int depth;
-        static int GetCount() { return count; }
-    private:
-        static int count;
 };
 
 #endif

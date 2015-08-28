@@ -14,6 +14,11 @@ World::World(b2Vec2 g):
 	body = CreateBody(&def);
 }
 
+// Add a character to the world
+void World::Add(Character *c) {
+    characters.insert(characters.begin(), Character_sp(c));
+}
+
 // Add an entity to the world
 void World::Add(Entity *e) {
     ownEntities.insert(ownEntities.begin(), Entity_sp(e));
@@ -25,9 +30,8 @@ void World::Insert(const Entity_sp &e) {
 }
 
 void World::Update(int t) {
-    for(int n = 0; n < Character::GetCount(); n++) {
-        characters[n]->Update(t);
-    }
+    for(auto it = characters.begin(); it != characters.end(); it++)
+        (*it)->Update(t);
 
     Step(SPF, velocityIterations, positionIterations);
     ClearForces();

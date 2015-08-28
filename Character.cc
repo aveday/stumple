@@ -26,9 +26,7 @@ Entity_sp &Character::Add(World &w, Entity *e) {
     return *parts.begin();
 }
 
-int Character::count = 0;
 Character::Character(World &w) {
-    w.characters[count++] = this;
 
 	// start with the head & torso
     auto head  = Add( w, new Entity(w, "head",  7, 4, 1, 2) );
