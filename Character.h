@@ -13,6 +13,6 @@ class Character {
     private:
         static int count;
         Entity_spl parts;
-        void Add(World &w, Entity *e);
+        Entity_sp &Add(World &w, Entity *e);
 };
 #endif
