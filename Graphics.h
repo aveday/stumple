@@ -2,12 +2,12 @@
 #define GRAPHICS_H
 
 #include <stdint.h>
-#include <SDL2/SDL.h>
-#include <Box2D/Box2D.h>
-#include <string>
 
 #include "World.h"
-#include "Model.h"
+
+class b2Body;
+class SDL_Window;
+class SDL_Renderer;
 
 static const int SCR_W = 1280;
 static const int SCR_H = 720;

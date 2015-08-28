@@ -1,7 +1,6 @@
 #include "Character.h"
 #include "Entity.h"
 #include "World.h"
-#include "Graphics.h"
 
 void Join(World &w,
 		const Entity_sp &e1, b2Vec2 p1,

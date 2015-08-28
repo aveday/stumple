@@ -1,10 +1,9 @@
 #include <SDL2/SDL2_gfxPrimitives.h>
-#include <SDL2/SDL2_rotozoom.h>
-#include <SDL2/SDL_image.h>
+#include <Box2D/Box2D.h>
 
-#include "Colors.h"
 #include "Graphics.h"
 #include "Entity.h"
+#include "Model.h"
 
 static const char* WINDOW_TITLE = "Stumble";
 SDL_Renderer* Graphics::renderer;

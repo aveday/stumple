@@ -1,7 +1,6 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include <list>
 #include <Box2D/Box2D.h>
 
 #include "Entity.h"

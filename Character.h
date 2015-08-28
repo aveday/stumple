@@ -1,9 +1,6 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-#include <memory>
-#include <Box2D/Box2D.h>
-
 #include "Entity.h"
 
 class World;
@@ -20,5 +17,4 @@ class Character {
             foot[2], calf[2], thigh[2],
             hand[2], fore[2], upper[2];
 };
-
 #endif

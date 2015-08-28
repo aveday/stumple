@@ -1,5 +1,3 @@
-#include <stdint.h>
-
 #include <Box2D/Box2D.h>
 #include "Entity.h"
 #include "Model.h"
@@ -11,7 +9,7 @@ int Entity::count = 0;
 Entity::Entity(World &w, const std::string sid, float x, float y, int gid, int d):
         depth(d) {
 
-    Model &model = Model::cache[sid];
+    Model &model = Model::cache[sid]; //FIXME this looks bad for some reason
 	b2BodyDef bDef;
 	bDef.type = b2_dynamicBody;
 	bDef.position.Set(x, y);

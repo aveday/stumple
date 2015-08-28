@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <SDL2/SDL.h>
 
 #include "Clock.h"

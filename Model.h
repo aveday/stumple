@@ -5,8 +5,8 @@
 #include <string>
 #include <vector>
 #include <SDL2/SDL.h>
-#include <Box2D/Box2D.h>
 
+class b2Shape;
 
 typedef struct {
     std::string name;

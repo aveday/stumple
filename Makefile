@@ -3,7 +3,8 @@ CXXFLAGS := -Wall -std=c++11 -Werror
 BIN := stumble
 LDFLAGS := -lm -lSDL2 -lSDL2_gfx -lSDL2_image -lBox2D
 
-OBJS := stumble.o Entity.o World.o Graphics.o Control.o Clock.o Model.o Character.o
+OBJS := stumble.o Entity.o World.o Graphics.o Control.o Clock.o \
+	Model.o Character.o
 SRCS := $(OBJS:.o=.cc)
 DEPS := $(OBJS:.o=.d)
 
