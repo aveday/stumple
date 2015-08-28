@@ -1,5 +1,5 @@
 CXX := g++
-CXXFLAGS := -Wall -std=c++11 -Werror
+CXXFLAGS := -Wall -std=c++11 -Wextra
 BIN := stumble
 LDFLAGS := -lm -lSDL2 -lSDL2_gfx -lSDL2_image -lBox2D
 
