@@ -41,7 +41,7 @@ void World::Update(int t) {
     ClearForces();
 }
 
-void World::AddTile(const std::string sid, int x, int y) {
+void World::AddTile(const std::string &sid, int x, int y) {
 	// create a tile fixture with userdata pointing to model
     Model &model = Model::cache[sid];
 	b2PolygonShape box;

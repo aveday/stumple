@@ -23,11 +23,10 @@ typedef std::vector<ModelDef> ModelDef_v;
 class Model {
     public:
         Model() {}; // required for map
-        Model(const ModelDef&);
+        explicit Model(const ModelDef&);
         b2Shape *shape;
         SDL_Texture *texture;
-        SDL_Rect **srcs;
-        int n_srcs;
+        std::vector<SDL_Rect> srcs;
         static ModelCache cache;
     private:
         static TextureCache tCache;

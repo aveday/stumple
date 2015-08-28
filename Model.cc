@@ -22,18 +22,12 @@ Model::Model(const ModelDef &def) {
         texture = entry->second;
     
     // construct all the source rectangles of the texture
-    srcs = new SDL_Rect*[def.grid.w*def.grid.h]; //FIXME replace with array
-    n_srcs = 0;
-    for(int x = 0; x < def.grid.w; x++) {
-        for(int y = 0; y < def.grid.h; y++) {
-            srcs[n_srcs] = new SDL_Rect();
-            srcs[n_srcs]->x = (x + def.grid.x) * def.cellw;
-            srcs[n_srcs]->y = (y + def.grid.y) * def.cellh;
-            srcs[n_srcs]->w = def.cellw;
-            srcs[n_srcs]->h = def.cellh;
-            n_srcs++;
-        }
-    }
+    for(int x = 0; x < def.grid.w; x++)
+        for(int y = 0; y < def.grid.h; y++)
+            srcs.push_back( {
+                (x + def.grid.x) * def.cellw,
+                (y + def.grid.y) * def.cellh,
+                def.cellw, def.cellh });
 
     // set the shape of the fixture // TODO allow for other shapes
     float mx = def.model.x - def.cellw/2.0f;
@@ -47,5 +41,5 @@ Model::Model(const ModelDef &def) {
 
     b2PolygonShape *sh= new b2PolygonShape();
     sh->Set(points, 4);
-    shape = (b2Shape*)sh;
+    shape = static_cast<b2Shape*>(sh);
 }

@@ -3,13 +3,13 @@
 #include "Model.h"
 #include "World.h"
 
-Entity::Entity(World &w, const std::string sid, float x, float y, int gid, int d):
+Entity::Entity(World &w, const std::string &sid, b2Vec2 pos, int gid, int d):
         depth(d) {
 
     Model &model = Model::cache[sid]; //FIXME this looks bad for some reason
 	b2BodyDef bDef;
 	bDef.type = b2_dynamicBody;
-	bDef.position.Set(x, y);
+	bDef.position = pos;
 
 	body = w.CreateBody(&bDef);
 

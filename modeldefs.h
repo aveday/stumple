@@ -3,7 +3,9 @@
 
 #include "Model.h"
 
-ModelDef_v modeldefs = { // FIXME change def names to an enum or something
+// FIXME change def names to an enum or something
+// maybe use a map like CharacterDefs
+ModelDef_v modeldefs = {
     // environment models
     {"brick", "assets/bricks.png", 16, 16, {0,0,4,4}, {0,0,16,16}},
     {"crate", "assets/items.png",  16, 16, {1,0,1,1}, {0,0,16,16}},

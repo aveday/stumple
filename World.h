@@ -15,8 +15,8 @@ class World : public b2World {
         Character_spl characters;
 		b2Body *body;
         void Update(int);
-        void AddTile(const std::string sid, int, int);
-        World(b2Vec2);
+        void AddTile(const std::string &sid, int, int);
+        explicit World(b2Vec2);
         void Insert(const Entity_sp &e);
         void Add(Entity *e);
         void Add(Character *c);

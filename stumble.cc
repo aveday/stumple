@@ -4,6 +4,7 @@
 int main(int argc, char *argv[]) {
     int z = (argc > 1) ? atoi(argv[1]) : 2;
     
+
     // Create engine objects
     b2Vec2 gravity(0, 5);
     Grid grid(0xff101010, 0xff000000);
@@ -15,7 +16,7 @@ int main(int argc, char *argv[]) {
     // Load textures and create models
     LoadModels(Model::cache, modeldefs);
 
-	world.Add( new Character(world) );
+	world.Add( new Character(world, "human", b2Vec2(7,0)) );
 
     int tx = SCR_W/(z*PPM);
     int ty = SCR_H/(z*PPM);
@@ -26,11 +27,11 @@ int main(int argc, char *argv[]) {
 
     // Create some game objects
     for(int y = ty-12; y < ty-5; y++)
-        world.Add( new Entity(world, "rock", 2, y, 0, 0) );
+        world.Add( new Entity(world, "rock", b2Vec2(2,y), 0, 0) );
 
     for(int y = 0; y < 4; y++)
         for(int x = 0; x < tx; x+=4)
-            world.Add( new Entity(world, "crate", x, y, 0, 0) );
+            world.Add( new Entity(world, "crate", b2Vec2(x,y), 0, 0) );
 
     // Accept input
     while(control.GetInput(*world.characters.begin())) { // FIXME

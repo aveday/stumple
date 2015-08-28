@@ -54,11 +54,11 @@ void Graphics::Draw(const b2Body &body) {
 	float angle = body.GetAngle() / M_PI * 180;
 
 	for(const b2Fixture *f = body.GetFixtureList(); f; f = f->GetNext()) {
-		const Model &model = *(Model*)f->GetUserData();
+		Model &model = *static_cast<Model*>(f->GetUserData());
 
 		// select sprite variant based on fixture pointer value
-		int i = (int)(uintptr_t)f / 32 % model.n_srcs; //FIXME this is hacky
-		SDL_Rect &src = *model.srcs[i];
+		int i = (int)(uintptr_t)f / 32 % model.srcs.size(); //FIXME this is hacky
+		SDL_Rect &src = model.srcs.at(i);
 
 		// calculate the destination rectangle
         b2Vec2 center = f->GetAABB(0).GetCenter();
@@ -70,7 +70,7 @@ void Graphics::Draw(const b2Body &body) {
 		};
 
 		// draw the fixture sprite
-		SDL_RenderCopyEx(renderer, model.texture, model.srcs[i], &dst,
+		SDL_RenderCopyEx(renderer, model.texture, &model.srcs.at(i), &dst,
 				angle, NULL, SDL_FLIP_NONE);
 	}
 }
