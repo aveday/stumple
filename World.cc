@@ -26,7 +26,11 @@ void World::Add(Entity *e) {
 }
 
 void World::Insert(const Entity_sp &e) {
-    entities.insert(entities.begin(), Entity_wp(e)); // TODO put depth code here
+    auto pos = entities.begin();
+    for(; pos != entities.end(); pos++)
+        if( Entity_sp(*pos)->depth <= (*e).depth )
+            break;
+    entities.insert(pos, Entity_wp(e));
 }
 
 void World::Update(int t) {
