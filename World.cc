@@ -14,11 +14,14 @@ World::World(b2Vec2 g):
 	body = CreateBody(&def);
 }
 
-// Add an entity to the world, returning a shared pointer
-Entity_sp World::Add(Entity *e) {
-    Entity_sp sp(e);
-    entities.insert(entities.begin(), sp);
-    return sp;
+// Add an entity to the world
+void World::Add(Entity *e) {
+    ownEntities.insert(ownEntities.begin(), Entity_sp(e));
+    Insert(*ownEntities.begin());
+}
+
+void World::Insert(const Entity_sp &e) {
+    entities.insert(entities.begin(), Entity_wp(e)); // TODO put depth code here
 }
 
 void World::Update(int t) {

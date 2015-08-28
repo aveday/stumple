@@ -20,36 +20,42 @@ void Join(World &w,
     w.CreateJoint(&jointDef);
 }
 
+void Character::Add(World &w, Entity *e) {
+    parts.insert(parts.begin(), Entity_sp(e));
+    w.Insert(*parts.begin());
+}
+
 int Character::count = 0;
 Character::Character(World &w) {
     w.characters[count++] = this;
 
 	// start with the head & torso
-    head  = w.Add( new Entity(w, "head",  7, 4, 1, 2) );
-    torso = w.Add( new Entity(w, "torso", 7, 5, 1, 2) );
+    Add( w, new Entity(w, "head",  7, 4, 1, 2) );
+    Add( w, new Entity(w, "torso", 7, 5, 1, 2) );
 
-	Join(w, head,  b2Vec2(0,0.2), torso, b2Vec2(0,-0.5), -1.3, 1.1);
+	//Join(w, head,  b2Vec2(0,0.2), torso, b2Vec2(0,-0.5), -1.3, 1.1);
 
 	for(int i = 0; i < 2; i++) {
         // arms
-        upper[i] = w.Add( new Entity(w, "upper",7, 6, 1, i*2+1) );
-        fore[i]  = w.Add(  new Entity(w, "fore", 7, 5, 1, i*2+1) );
-        hand[i]  = w.Add(  new Entity(w, "hand", 7, 7, 1, i*2+1) );
-        Join(w, torso,    b2Vec2(0,-0.4), upper[i], b2Vec2(0,-0.3), -3.1, 1.1);
-        Join(w, upper[i], b2Vec2(0, 0.3), fore[i],  b2Vec2(0,-0.3), -2.6, 0.0);
-        Join(w, fore[i],  b2Vec2(0, 0.1), hand[i],  b2Vec2(0,-0.0), -0.5, 1.0);
+        Add( w, new Entity(w, "upper",7, 6, 1, i*2+1) );
+        Add( w, new Entity(w, "fore", 7, 5, 1, i*2+1) );
+        Add( w, new Entity(w, "hand", 7, 7, 1, i*2+1) );
+        //Join(w, torso,    b2Vec2(0,-0.4), upper[i], b2Vec2(0,-0.3), -3.1, 1.1);
+        //Join(w, upper[i], b2Vec2(0, 0.3), fore[i],  b2Vec2(0,-0.3), -2.6, 0.0);
+        //Join(w, fore[i],  b2Vec2(0, 0.1), hand[i],  b2Vec2(0,-0.0), -0.5, 1.0);
 
         // legs
-        thigh[i] = w.Add( new Entity(w, "thigh",7, 7, 1, i*3+1) );
-        calf[i]  = w.Add(  new Entity(w, "calf", 7, 8, 1, i*3+1) );
-        foot[i]  = w.Add(  new Entity(w, "foot", 7, 9, 1, i*3+1) );
-        Join(w, torso,    b2Vec2(0,0.4), thigh[i],b2Vec2(0,-0.4), -2.1, 0.5);
-        Join(w, thigh[i], b2Vec2(0,0.4), calf[i], b2Vec2(0,-0.4), -0.0, 2.1);
-        Join(w, calf[i],  b2Vec2(0,0.4), foot[i], b2Vec2(0.2,-0), -0.5, 1.1);
+        Add( w, new Entity(w, "thigh",7, 7, 1, i*3+1) );
+        Add( w, new Entity(w, "calf", 7, 8, 1, i*3+1) );
+        Add( w, new Entity(w, "foot", 7, 9, 1, i*3+1) );
+        //Join(w, torso,    b2Vec2(0,0.4), thigh[i],b2Vec2(0,-0.4), -2.1, 0.5);
+        //Join(w, thigh[i], b2Vec2(0,0.4), calf[i], b2Vec2(0,-0.4), -0.0, 2.1);
+        //Join(w, calf[i],  b2Vec2(0,0.4), foot[i], b2Vec2(0.2,-0), -0.5, 1.1);
     }
 }
 
 void Character::Update(int ms) {
+    /*
     float d = foot[0]->body->GetPosition().y - head->body->GetPosition().y;
     float n = 3.5;
     float forceX = 0, forceY = 0;
@@ -66,5 +72,6 @@ void Character::Update(int ms) {
 
     foot[0]->body->ApplyForceToCenter(b2Vec2(-feetD, 10), true);
     foot[1]->body->ApplyForceToCenter(b2Vec2( feetD, 10), true);
+    */
 }
 

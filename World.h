@@ -16,13 +16,16 @@ class Character;
 
 class World : public b2World {
     public:
-        Entity_spl entities;
+        Entity_wpl entities;
         Character *characters[MAX_CHARACTERS];
 		b2Body *body;
         void Update(int);
         void AddTile(const std::string sid, int, int);
         World(b2Vec2);
-        Entity_sp Add(Entity *e);
+        void Insert(const Entity_sp &e);
+        void Add(Entity *e); // TODO privatise
+    private:
+        Entity_spl ownEntities; //FIXME move to main?
 };
 
 #endif
