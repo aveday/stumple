@@ -1,7 +1,10 @@
 CXX := g++
-CXXFLAGS := -Wall -std=c++11 -Wextra
+CXXFLAGS := -Wall -Wextra -std=c++11
 BIN := stumble
 LDFLAGS := -lm -lSDL2 -lSDL2_gfx -lSDL2_image -lBox2D
+CLEAN := rm -f
+
+.DEFAULT_GOAL := all
 
 SRCS := $(wildcard *.cc)
 OBJS := $(SRCS:.cc=.o)
@@ -11,21 +14,24 @@ ifneq ($(MAKECMDGOALS),clean)
 	-include $(DEPS)
 endif
 
-.DEFAULT_GOAL := all
+.PHONY: all clean
 
-.PHONY: default clean deps all
-default: deps all
+all: $(BIN)
+	@echo Finished!
 
 clean:
-	rm -f $(OBJS) $(BIN) $(DEPS)
-deps: $(DEPS)
+	@echo Cleaning...
+	@$(CLEAN) $(OBJS) $(BIN) $(DEPS)
 
-all: $(OBJS)
-	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $(BIN) $(OBJS)
+$(BIN): $(DEPS) $(OBJS)
+	@echo Linking executable $(BIN)
+	@$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $(BIN) $(OBJS)
 
-%.o: %.cc
-	$(CXX) $(CXXFLAGS) -c -o $@ $<
+$(OBJS): %.o : %.cc %.d
+	@echo Compiling $<
+	@$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-%.d: %.cc
-	$(CXX) -MM -MF $@ $<
+$(DEPS): %.d : %.cc %.h
+	@echo Generating dependencies for $<
+	@$(CXX) -MM -MF $@ $<
 
