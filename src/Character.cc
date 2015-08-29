@@ -16,12 +16,13 @@ void Character::JoinPart(World &w, JointDef &j, b2Vec2 pos) {
 
 void Character::AddPart(World &w, PartDef &p, b2Vec2 pos) {
     pos += 1.0/PPM * p.pos;
-    auto sp = Entity_sp( new Entity(w, p.sid, pos, 1, p.depth) );
+    auto sp = Entity_sp( new Entity(w, p.sid, pos, gid, p.depth) );
     parts.insert( std::make_pair(p.name, sp) );
     w.Insert(sp);
 }
 
-Character::Character(World &w, std::string cid, b2Vec2 pos) {
+Character::Character(World &w, std::string cid, b2Vec2 pos, int g):
+        gid(g) {
     CharacterDef def = characterdefs[cid]; // FIXME same as above
 
     // create the parts mentions in the definition

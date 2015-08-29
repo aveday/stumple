@@ -19,7 +19,10 @@ int main(int argc, char *argv[]) {
     int ty = SCR_H/(z*PPM);
 
     // Create player
-    world.Add( new Character(world, "human", b2Vec2(tx/2,ty-2)) );
+    for(int x = 0; x < 3; x++)
+        world.Add( new Character(world, "human",
+                    b2Vec2(tx/2 - x, ty-2),
+                    world.characters.size()+1) );
 
     // Create tiles
     for(int x = 0; x < tx; x++)
