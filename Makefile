@@ -3,10 +3,9 @@ CXXFLAGS := -Wall -std=c++11 -Wextra
 BIN := stumble
 LDFLAGS := -lm -lSDL2 -lSDL2_gfx -lSDL2_image -lBox2D
 
-OBJS := stumble.o Entity.o World.o Graphics.o Control.o Clock.o \
-	Model.o Character.o
-SRCS := $(OBJS:.o=.cc)
-DEPS := $(OBJS:.o=.d)
+SRCS := $(wildcard *.cc)
+OBJS := $(SRCS:.cc=.o)
+DEPS := $(SRCS:.cc=.d)
 
 ifneq ($(MAKECMDGOALS),clean)
 	-include $(DEPS)
