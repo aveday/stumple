@@ -11,6 +11,8 @@ class b2Body;
 class World;
 class Entity;
 
+static const int PPM = 16;
+
 typedef std::shared_ptr<Entity> Entity_sp;
 typedef std::weak_ptr<Entity> Entity_wp;
 typedef std::list<std::shared_ptr<Entity>> Entity_spl;

@@ -5,8 +5,9 @@
 #include "characterdefs.h" //FIXME this should probably be somewhere else
 
 void Character::JoinPart(World &w, JointDef &j, b2Vec2 pos) {
+    pos += 1.0/PPM * j.pos;
 	b2RevoluteJointDef jointDef;
-    jointDef.Initialize(parts[j.p1]->body, parts[j.p2]->body, pos+j.pos);
+    jointDef.Initialize(parts[j.p1]->body, parts[j.p2]->body, pos);
 	jointDef.enableLimit = true;
 	jointDef.lowerAngle = j.min;
 	jointDef.upperAngle = j.max;
@@ -14,7 +15,8 @@ void Character::JoinPart(World &w, JointDef &j, b2Vec2 pos) {
 }
 
 void Character::AddPart(World &w, PartDef &p, b2Vec2 pos) {
-    auto sp = Entity_sp( new Entity(w, p.sid, pos+p.pos, 1, p.depth) );
+    pos += 1.0/PPM * p.pos;
+    auto sp = Entity_sp( new Entity(w, p.sid, pos, 1, p.depth) );
     parts.insert( std::make_pair(p.name, sp) );
     w.Insert(sp);
 }

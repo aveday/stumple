@@ -13,7 +13,6 @@ static const int SCR_W = 1280;
 static const int SCR_H = 720;
 static const int SCR_X = 180;
 static const int SCR_Y = 100;
-static const int PPM = 16;
 
 struct Grid {
     uint32_t color;
