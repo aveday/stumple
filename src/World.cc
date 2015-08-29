@@ -27,6 +27,7 @@ void World::Add(Entity *e) {
 
 void World::Insert(const Entity_sp &e) {
     auto pos = entities.begin();
+    // FIXME there's probably a std method for this
     for(; pos != entities.end(); pos++)
         if( Entity_sp(*pos)->depth <= (*e).depth )
             break;
@@ -41,11 +42,13 @@ void World::Update(int t) {
     ClearForces();
 }
 
-void World::AddTile(const std::string &sid, int x, int y) {
+void World::Tile(const std::string &sid, int x, int y) {
 	// create a tile fixture with userdata pointing to model
     Model &model = Model::cache[sid];
+    double w2 = (double)model.srcs[0].w / PPM / 2;
+    double h2 = (double)model.srcs[0].w / PPM / 2;
 	b2PolygonShape box;
-	box.SetAsBox(0.5f, 0.5f, b2Vec2(x+0.5f, y+0.5f), 0.0f);
+	box.SetAsBox(w2, h2, b2Vec2(x+0.5f, y+0.5f), 0.0f);//FIXME
 	b2Fixture *fixture = body->CreateFixture((b2Shape*)&box, 10);
 	fixture->SetUserData((void*)&model);
 }

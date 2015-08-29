@@ -2,10 +2,10 @@
 #include "modeldefs.h"
 
 int main(int argc, char *argv[]) {
-    int z = (argc > 1) ? atoi(argv[1]) : 2;
+    float z = (argc > 1) ? atoi(argv[1]) : 1;
     
     // Create engine objects
-    b2Vec2 gravity(0, 9.8);
+    b2Vec2 gravity(0, 2);
     Grid grid(0xff101010, 0xff000000);
     World world(gravity);
     Graphics graphics(z, grid);
@@ -18,18 +18,17 @@ int main(int argc, char *argv[]) {
     int tx = SCR_W/(z*PPM);
     int ty = SCR_H/(z*PPM);
 
+    // Create player
+    world.Add( new Character(world, "human", b2Vec2(tx/2,ty-2)) );
+
     // Create tiles
     for(int x = 0; x < tx; x++)
-        for(int y = ty-2; y < ty; y++)
-            world.AddTile("brick", x, y);
+        world.Tile("brick", x, ty);
 
-    for(int x = 4; x < tx-8; x+=4) {
-        world.Add( new Character(world, "human", b2Vec2(x,0)) );
-        for(int y = 3; y < 8; y++) {
-            world.Add( new Entity(world, "rock", b2Vec2(x+2,y), 0, 0) );
-            world.Add( new Entity(world, "crate", b2Vec2(x,y), 0, 0) );
-        }
-    }
+    // Create some objects
+    for(float y = ty/3; y < ty; y+=0.25)
+        for(float x = tx/2+2 + 0.2 * ((int)(y*4)%2) ; x < tx/2+5; x+=0.5)
+            world.Add( new Entity(world, "rock", b2Vec2(x,y), 0, 0) );
 
     // Accept input
     while(control.GetInput(*world.characters.begin())) { // FIXME

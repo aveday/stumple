@@ -40,16 +40,16 @@ void Character::Update(int ms) {
     b2Body &RF = *parts["footR"]->body;
 
     float d = LF.GetPosition().y - HEAD.GetPosition().y;
-    float n = 3.5;
+    float n = 140.0/PPM;
     float forceX = 0, forceY = 0;
 
     float feetD = abs(LF.GetPosition().x - RF.GetPosition().x - 2);
     float feetX = ( LF.GetPosition().x +
-                    RF.GetPosition().x ) / 2;
-    forceX = (feetX - HEAD.GetPosition().x)+1;
+                    RF.GetPosition().x ) / 2.0;
+    forceX = (feetX - HEAD.GetPosition().x) * 100;
 
     if(d < n && d > 0)
-        forceY = -pow((n-d)/n, 1.2) * 1000;
+        forceY = -pow((n-d)/n, 3) * 4000;
 
     HEAD.ApplyForceToCenter(b2Vec2(forceX, forceY), true);
 

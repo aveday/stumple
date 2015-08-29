@@ -17,7 +17,7 @@ Entity::Entity(World &w, const std::string &sid, b2Vec2 pos, int gid, int d):
     b2FixtureDef fDef;
     fDef.shape = model.shape;
     fDef.userData = (void*)&model;
-    fDef.density = 10;
+    fDef.density = 500;
     fDef.filter.groupIndex = -gid; //TODO change filtering to use masks
 	body->CreateFixture(&fDef);
 }
