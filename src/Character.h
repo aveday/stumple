@@ -39,6 +39,8 @@ typedef std::list<std::shared_ptr<Character>> Character_spl;
 typedef std::map<std::string,std::shared_ptr<Character>> Character_spm;
 typedef std::map<std::string, CharacterDef> CharacterDef_m;
 
+typedef std::pair<std::string,std::pair<double,double>> Command;
+
 class Character {
 	public:
 		Character(World &w, std::string cid, b2Vec2, int);
@@ -47,6 +49,7 @@ class Character {
     private:
         void AddPart(World &w, PartDef &p, b2Vec2 pos);
         void JoinPart(World &w, JointDef &j, b2Vec2 pos);
+        void Act(Command);
         int gid;
 };
 #endif

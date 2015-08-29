@@ -34,22 +34,21 @@ Character::Character(World &w, std::string cid, b2Vec2 pos, int g):
         JoinPart(w, *it, pos);
 }
 
+void Character::Act(Command c) {
+    Entity &t = *parts[c.first];
+    t.targetAngle = c.second.first;;
+    t.strength = c.second.second;
+}
+
+
 void Character::Update(int ms) {
     // FIXME character behaviour depends on CharacterDef
-    std::map<std::string,std::pair<double,double>> targets = {
-        {"thighL", {-0.2, 140.0f}},
-        {"thighR", { 0.3, 140.0f}},
-        {"calfL",  {-0.2, 100.0f}},
-        {"calfR",  {-0.2, 100.0f}},
-        {"torso",  { 0.0, 220.0f}},
-        {"head",  { 0.0, 30.0f}},
-    };
-
-    for(auto it = targets.begin(); it != targets.end(); it++) {
-        Entity &t = *parts[it->first];
-        t.targetAngle = it->second.first;
-        t.strength = it->second.second;
-    }
+    Act({"thighL", {-0.2, 140.0f}});
+    Act({"thighR", { 0.3, 140.0f}});
+    Act({"calfL",  {-0.2, 100.0f}});
+    Act({"calfR",  {-0.2, 100.0f}});
+    Act({"torso",  { 0.0, 220.0f}});
+    Act({"head",  { 0.0, 30.0f}});
 
     for(auto it = parts.begin(); it != parts.end(); it++) {
         Entity &t = *it->second;

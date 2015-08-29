@@ -42,6 +42,5 @@ CharacterDef_m characterdefs = {
         }
     }}
 };
-
 #endif
 
