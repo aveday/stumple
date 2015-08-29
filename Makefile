@@ -1,37 +1,28 @@
-CXX := g++
-CXXFLAGS := -Wall -Wextra -std=c++11
+CC := g++
+CPPFLAGS := -Wall -Wextra -std=c++11
 BIN := stumble
 LDFLAGS := -lm -lSDL2 -lSDL2_gfx -lSDL2_image -lBox2D
-CLEAN := rm -f
+RM:= rm -rf
 
-.DEFAULT_GOAL := all
-
-SRCS := $(wildcard *.cc)
-OBJS := $(SRCS:.cc=.o)
-DEPS := $(SRCS:.cc=.d)
-
-ifneq ($(MAKECMDGOALS),clean)
-	-include $(DEPS)
-endif
-
-.PHONY: all clean
+SRCS := $(wildcard src/*.cc)
+OBJS := $(SRCS:src/%.cc=obj/%.o)
 
 all: $(BIN)
-	@echo Finished!
 
 clean:
 	@echo Cleaning...
-	@$(CLEAN) $(OBJS) $(BIN) $(DEPS)
+	@$(RM) obj dep $(BIN)
 
-$(BIN): $(DEPS) $(OBJS)
+$(BIN): $(OBJS)
 	@echo Linking executable $(BIN)
-	@$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $(BIN) $(OBJS)
+	@$(CC) $(LDFLAGS) $(OBJS) -o $@
 
-$(OBJS): %.o : %.cc %.d
+obj/%.o: src/%.cc
 	@echo Compiling $<
-	@$(CXX) $(CXXFLAGS) -c -o $@ $<
+	@mkdir -p dep/$(*D) obj/$(*D)
+	@$(CC) $(CPPFLAGS) -I. -Isrc -MMD -MP -MF dep/$*.d -c -o $@ $<
 
-$(DEPS): %.d : %.cc %.h
-	@echo Generating dependencies for $<
-	@$(CXX) -MM -MF $@ $<
+-include $(OBJS:obj/%.o=dep/%.d)
+
+.PHONY: all clean
 
