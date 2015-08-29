@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
 
     // Create some objects
     for(float y = ty/3; y < ty; y+=0.25)
-        for(float x = tx/2+2 + 0.2 * ((int)(y*4)%2) ; x < tx/2+5; x+=0.5)
+        for(float x = tx/2+2 + 0.2 * ((int)(y*4)%2) ; x < tx/2+3; x+=0.5)
             world.Add( new Entity(world, "rock", b2Vec2(x,y), 0, 0) );
 
     // Accept input

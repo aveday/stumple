@@ -26,8 +26,8 @@ CharacterDef_m characterdefs = {
         { // joints
             {"neck",      "head",   "torso",  b2Vec2(0.0, 6.4), -1.3, 1.1},
             // arms
-            {"shoulderL", "torso",  "upperL", b2Vec2(0.0, 9.6), -1.1, 3.1},
-            {"shoulderR", "torso",  "upperR", b2Vec2(0.0, 9.6), -1.1, 3.1},
+            {"shoulderL", "torso",  "upperL", b2Vec2(0.0, 9.6), -2.1, 1.1},
+            {"shoulderR", "torso",  "upperR", b2Vec2(0.0, 9.6), -2.1, 1.1},
             {"elbowL",    "upperL", "foreL",  b2Vec2(0.0, 28.8),  -2.6, 0.0},
             {"elbowR",    "upperR", "foreR",  b2Vec2(0.0, 28.8),  -2.6, 0.0},
             {"wristL",    "foreL",  "handL",  b2Vec2(0.0, 44.1),  -0.5, 1.0},

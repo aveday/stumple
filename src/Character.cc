@@ -35,25 +35,25 @@ Character::Character(World &w, std::string cid, b2Vec2 pos) {
 
 void Character::Update(int ms) {
     // FIXME character behaviour depends on CharacterDef
-    b2Body &HEAD=*parts["head"]->body;
-    b2Body &LF = *parts["footL"]->body;
-    b2Body &RF = *parts["footR"]->body;
+    std::map<std::string,std::pair<double,double>> targets = {
+        {"thighL", {-0.2, 140.0f}},
+        {"thighR", { 0.3, 140.0f}},
+        {"calfL",  {-0.2, 100.0f}},
+        {"calfR",  {-0.2, 100.0f}},
+        {"torso",  { 0.0, 220.0f}},
+        {"head",  { 0.0, 30.0f}},
+    };
 
-    float d = LF.GetPosition().y - HEAD.GetPosition().y;
-    float n = 140.0/PPM;
-    float forceX = 0, forceY = 0;
+    for(auto it = targets.begin(); it != targets.end(); it++) {
+        Entity &t = *parts[it->first];
+        t.targetAngle = it->second.first;
+        t.strength = it->second.second;
+    }
 
-    float feetD = abs(LF.GetPosition().x - RF.GetPosition().x - 2);
-    float feetX = ( LF.GetPosition().x +
-                    RF.GetPosition().x ) / 2.0;
-    forceX = (feetX - HEAD.GetPosition().x) * 100;
-
-    if(d < n && d > 0)
-        forceY = -pow((n-d)/n, 3) * 4000;
-
-    HEAD.ApplyForceToCenter(b2Vec2(forceX, forceY), true);
-
-    LF.ApplyForceToCenter(b2Vec2(-feetD, 10), true);
-    RF.ApplyForceToCenter(b2Vec2( feetD, 10), true);
+    for(auto it = parts.begin(); it != parts.end(); it++) {
+        Entity &t = *it->second;
+        b2Body &b = *it->second->body;
+        b.ApplyTorque(t.strength * (t.targetAngle - b.GetAngle()), true);
+    }
 }
 

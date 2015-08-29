@@ -20,4 +20,5 @@ Entity::Entity(World &w, const std::string &sid, b2Vec2 pos, int gid, int d):
     fDef.density = 500;
     fDef.filter.groupIndex = -gid; //TODO change filtering to use masks
 	body->CreateFixture(&fDef);
+
 }
