@@ -45,7 +45,6 @@ typedef struct {
     float strength;
 } Command;
 
-//typedef std::pair<std::string,std::pair<double,double>> Command;
 typedef std::list<Command> Command_l;
 
 class Character {

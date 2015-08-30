@@ -29,10 +29,11 @@ Model::Model(const ModelDef &def) {
                 (y + def.grid.y) * def.cellh,
                 def.cellw, def.cellh });
 
-    // set the shape of the fixture // TODO allow for other shapes
+    // set the shape of the fixture
+    // TODO allow for other shapes
     float mx = def.model.x - def.cellw/2.0f;
     float my = def.model.y - def.cellh/2.0f;
-    b2Vec2 points[] = {
+    b2Vec2 points[]{
         1.0/PPM * b2Vec2(mx,     my),
         1.0/PPM * b2Vec2(mx+def.model.w, my),
         1.0/PPM * b2Vec2(mx+def.model.w, my+def.model.h),
