@@ -20,5 +20,12 @@ Entity::Entity(World &w, const std::string &sid, b2Vec2 pos, int gid, int d):
     fDef.density = 500;
     fDef.filter.groupIndex = -gid; //TODO change filtering to use masks
 	body->CreateFixture(&fDef);
-
 }
+
+void Entity::AngleTowards(b2Vec2 pos, float s) {
+    b2Vec2 p = body->GetPosition();
+    targetAngle = atan( (pos.y-p.y) / (pos.x-p.x) );
+    strength = s;
+}
+
+

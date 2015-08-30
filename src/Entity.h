@@ -24,9 +24,10 @@ class Entity {
 	public:
         Entity(World &w, const std::string&, b2Vec2 pos, int gid, int d);
         //Entity(const Entity&) = delete; // FIXME list requires copy constructor?
-		b2Body *body;
+        void AngleTowards(b2Vec2 pos, float s);
+		b2Body *body; // FIXME change to unique_ptr? b2d manages memory...
         int depth = 0;
-        float targetAngle = 0;
+        float targetAngle = 0; // FIXME make these private?
         float strength = 0;
 };
 

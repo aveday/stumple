@@ -3,28 +3,26 @@
 
 Control::Control() { }
 
-int f = 10000;
-
-bool Control::GetInput(Character_sp player) {
-    // get the world position of the mouse
+b2Vec2 GetMousePos() {
     int x, y; 
     SDL_GetMouseState(&x, &y);
     double z = Graphics::zoom;
-    b2Vec2 m( x/z/PPM, y/z/PPM );
-    // get the world position of the head
-    Entity &head = *(*player).parts["head"];
-    b2Vec2 h( head.body->GetPosition() );
-    // make the head target th mouse
-    head.targetAngle = atan( (m.y-h.y) / (m.x-h.x) );
+    return b2Vec2( x/z/PPM, y/z/PPM );
+}
+
+bool Control::GetInput(Character_sp player) {
+    // make the player's head face towards the mouse
+    (*player).parts["head"]->AngleTowards( GetMousePos(), 20);
 
     // handle key input
     while(SDL_PollEvent(&event) != 0 ) {
 
         if ( event.type == SDL_QUIT )
             return false;
+
         if(event.key.type == SDL_KEYDOWN 
 				&& !(event.key.repeat)) {
-
+            int f = 10000;
             switch( event.key.keysym.sym ) {
                 case SDLK_w:
                     (*player).parts["torso"]->body->ApplyForceToCenter(b2Vec2(0, -f), true);
