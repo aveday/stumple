@@ -26,16 +26,16 @@ bool Control::GetInput(Character_sp player) {
 				&& !(event.key.repeat)) {
 
             switch( event.key.keysym.sym ) {
-                case SDLK_UP:
+                case SDLK_w:
                     (*player).parts["torso"]->body->ApplyForceToCenter(b2Vec2(0, -f), true);
                     break;
-                case SDLK_DOWN:
+                case SDLK_s:
                     (*player).parts["torso"]->body->ApplyForceToCenter(b2Vec2(0, f), true);
                     break;
-                case SDLK_LEFT:
+                case SDLK_a:
                     (*player).parts["torso"]->body->ApplyForceToCenter(b2Vec2(-f, 0), true);
                     break;
-                case SDLK_RIGHT:
+                case SDLK_d:
                     (*player).parts["torso"]->body->ApplyForceToCenter(b2Vec2(f, 0), true);
                     break;
                 case SDLK_SPACE:
