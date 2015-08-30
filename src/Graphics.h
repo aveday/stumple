@@ -23,11 +23,11 @@ struct Grid {
 
 class Graphics {
     private:
-        double zoom;
 		Grid* grid;
         SDL_Window* window;
 
     public:
+        static double zoom;
         static SDL_Renderer* renderer;
         Graphics(const Graphics&) = delete;
         Graphics(int z, Grid&);

@@ -5,13 +5,15 @@
 #include "Entity.h"
 #include "Model.h"
 
+double Graphics::zoom = 1;
 static const char* WINDOW_TITLE = "Stumble";
+
 SDL_Renderer* Graphics::renderer;
 
 Graphics::Graphics(int z, Grid &g):
-        zoom(z),
         grid(&g) {
 
+    zoom = z;
     /* init SDL, create window and renderer */
     SDL_Init( SDL_INIT_EVERYTHING );
     window = SDL_CreateWindow(WINDOW_TITLE,
