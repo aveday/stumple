@@ -32,24 +32,25 @@ Character::Character(World &w, std::string cid, b2Vec2 pos, int g):
     // make the joint between the parts
     for(auto it = def.joints.begin(); it != def.joints.end(); it++)
         JoinPart(w, *it, pos);
+
+    // set the starting stance
+    Act({"thighL", -0.2, 140.0f});
+    Act({"thighR",  0.3, 140.0f});
+    Act({"calfL",  -0.2, 100.0f});
+    Act({"calfR",  -0.2, 100.0f});
+    Act({"torso",   0.0, 220.0f});
+    Act({"head",    0.0,  30.0f});
+
 }
 
 void Character::Act(Command c) {
-    Entity &t = *parts[c.first];
-    t.targetAngle = c.second.first;;
-    t.strength = c.second.second;
+    Entity &t = *parts[c.part];
+    t.targetAngle = c.target;
+    t.strength = c.strength;
 }
-
 
 void Character::Update(int ms) {
     // FIXME character behaviour depends on CharacterDef
-    Act({"thighL", {-0.2, 140.0f}});
-    Act({"thighR", { 0.3, 140.0f}});
-    Act({"calfL",  {-0.2, 100.0f}});
-    Act({"calfR",  {-0.2, 100.0f}});
-    Act({"torso",  { 0.0, 220.0f}});
-    Act({"head",  { 0.0, 30.0f}});
-
     for(auto it = parts.begin(); it != parts.end(); it++) {
         Entity &t = *it->second;
         b2Body &b = *it->second->body;

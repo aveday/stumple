@@ -39,7 +39,14 @@ typedef std::list<std::shared_ptr<Character>> Character_spl;
 typedef std::map<std::string,std::shared_ptr<Character>> Character_spm;
 typedef std::map<std::string, CharacterDef> CharacterDef_m;
 
-typedef std::pair<std::string,std::pair<double,double>> Command;
+typedef struct {
+    std::string part;
+    float target;
+    float strength;
+} Command;
+
+//typedef std::pair<std::string,std::pair<double,double>> Command;
+typedef std::list<Command> Command_l;
 
 class Character {
 	public:

@@ -5,6 +5,7 @@ Control::Control() { }
 int f = 10000;
 
 bool Control::GetInput(Character_sp player) {
+    // handle key input
     while(SDL_PollEvent(&event) != 0 ) {
 
         if ( event.type == SDL_QUIT )
