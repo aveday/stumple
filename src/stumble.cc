@@ -25,8 +25,14 @@ int main(int argc, char *argv[]) {
                     world.characters.size()+1) );
 
     // Create tiles
-    for(int x = 0; x < tx; x++)
+    for(int y = 0; y < ty; y++) {
+        world.Tile("brick", 0, y);
+        world.Tile("brick", tx-1, y);
+    }
+    for(int x = 0; x < tx; x++) {
         world.Tile("brick", x, ty);
+        world.Tile("brick", x, 0);
+    }
 
     // Create some objects
     for(float y = ty/3; y < ty; y+=0.25)
