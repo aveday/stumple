@@ -12,6 +12,10 @@ int Clock::GetTimeDiff() {
     return diff;
 }
 
+int Clock::GetTime() {
+    return time;
+}
+
 int Clock::Sleep() {
     int delay = MSPF - GetTimeDiff();
     if(delay < 0)

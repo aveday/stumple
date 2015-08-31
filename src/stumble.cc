@@ -5,7 +5,7 @@ int main(int argc, char *argv[]) {
     double z = (argc > 1) ? atof(argv[1]) : 1;
     
     // Create engine objects
-    b2Vec2 gravity(0, 2);
+    b2Vec2 gravity(0, 9.8);
     Grid grid(0xff101010, 0xff000000);
     World world(gravity);
     Graphics graphics(z, grid);
@@ -38,6 +38,7 @@ int main(int argc, char *argv[]) {
     for(float y = ty/2; y < ty; y+=0.25)
         for(float x = tx/2+1 + 0.25 * ((int)(y*4)%2) ; x < tx/2+3; x+=0.5)
             world.Add( new Entity(world, "rock", b2Vec2(x,y), 0, 0) );
+    world.Add( new Entity(world, "rock", b2Vec2(3,3), 0, 0) );
 
     // Accept input
     while(control.GetInput(**world.characters.begin())) { // FIXME

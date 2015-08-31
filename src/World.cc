@@ -36,8 +36,9 @@ void World::Insert(const Entity_sp &e) {
 void World::Update(int t) {
     for(auto it = characters.begin(); it != characters.end(); it++)
         (*it)->Update(t);
+    //      v dodgy hack
+    Step(SPF/2, velocityIterations, positionIterations);
 
-    Step(SPF, velocityIterations, positionIterations);
     ClearForces();
 }
 
