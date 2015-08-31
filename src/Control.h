@@ -5,10 +5,13 @@
 
 #include "Character.h"
 
+enum Mode { EDIT, RUN };
+
 class Control {
     public:
         SDL_Event event;
         Control();
+        static Mode mode;
         bool GetInput(Character&);
 };
 

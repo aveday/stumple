@@ -43,7 +43,13 @@ int main(int argc, char *argv[]) {
     // Accept input
     while(control.GetInput(**world.characters.begin())) { // FIXME
         int ms = clock.Sleep(); // Delay to maintain FPS
-        world.Update(ms);       // Update the game world
+        switch(Control::mode) {
+            case EDIT:
+                break;
+            case RUN:
+                world.Update(ms);       // Update the game world
+                break;
+        }
         graphics.Draw(world);   // Draw to the screen
     }
 

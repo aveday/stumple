@@ -1,6 +1,7 @@
 #include "Control.h"
 #include "Graphics.h"
 
+Mode Control::mode = EDIT;
 Control::Control() { }
 
 b2Vec2 GetMousePos() {
@@ -37,6 +38,8 @@ bool Control::GetInput(Character &player) {
                     player.parts["torso"]->body->ApplyForceToCenter(b2Vec2(f, 0), true);
                     break;
                 case SDLK_SPACE:
+                    mode = (mode == EDIT) ? RUN : EDIT;
+                    printf("%d\n", mode);
                     break;
             }
         }
