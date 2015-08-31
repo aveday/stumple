@@ -51,10 +51,35 @@ void Character::Act(Command c) {
 
 void Character::Update(int ms) {
     // FIXME character behaviour depends on CharacterDef
+    double n = 0.1;
+    if((parts["torso"]->GetPos().x > parts["footL"]->GetPos().x+n
+    && parts["torso"]->GetPos().x > parts["footL"]->GetPos().x+n)
+    || (parts["torso"]->GetPos().x < parts["footR"]->GetPos().x-n
+    && parts["torso"]->GetPos().x < parts["footR"]->GetPos().x-n)) {
+        parts["head"]->strength = 0;
+        parts["torso"]->strength = 0;
+        parts["calfR"]->strength = 0;
+        parts["calfL"]->strength = 0;
+        parts["thighR"]->strength = 0;
+        parts["thighL"]->strength = 0;
+    } else {
+        parts["head"]->strength   = 100;
+        parts["torso"]->strength  = 1100;
+        parts["calfR"]->strength  = 600;
+        parts["calfL"]->strength  = 600;
+        parts["thighR"]->strength = 600;
+        parts["thighL"]->strength = 600;
+    }
     for(auto it = parts.begin(); it != parts.end(); it++) {
         Entity &t = *it->second;
         b2Body &b = *it->second->body;
-        b.ApplyTorque(t.strength * (t.targetAngle - b.GetAngle()), true);
+        double diff = t.targetAngle - b.GetAngle();
+        double max = 0.5;
+        if(diff > max)
+            diff = max;
+        if(diff < -max)
+            diff = -max;
+        b.ApplyTorque(t.strength * diff, true);
     }
 }
 
