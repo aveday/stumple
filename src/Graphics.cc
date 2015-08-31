@@ -10,7 +10,7 @@ static const char* WINDOW_TITLE = "Stumble";
 
 SDL_Renderer* Graphics::renderer;
 
-Graphics::Graphics(int z, Grid &g):
+Graphics::Graphics(double z, Grid &g):
         grid(&g) {
 
     zoom = z;

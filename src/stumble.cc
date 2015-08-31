@@ -2,7 +2,7 @@
 #include "modeldefs.h"
 
 int main(int argc, char *argv[]) {
-    float z = (argc > 1) ? atoi(argv[1]) : 1;
+    double z = (argc > 1) ? atof(argv[1]) : 1;
     
     // Create engine objects
     b2Vec2 gravity(0, 2);

@@ -30,7 +30,7 @@ class Graphics {
         static double zoom;
         static SDL_Renderer* renderer;
         Graphics(const Graphics&) = delete;
-        Graphics(int z, Grid&);
+        Graphics(double z, Grid&);
         ~Graphics();
         void Draw(const World&);
 		void Draw(const b2Body&);
