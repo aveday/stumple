@@ -22,10 +22,13 @@ Entity::Entity(World &w, const std::string &sid, b2Vec2 pos, int gid, int d):
 	body->CreateFixture(&fDef);
 }
 
+// FIXME move to Character?
 void Entity::AngleTowards(b2Vec2 pos, float s) {
     b2Vec2 p = body->GetPosition();
     targetAngle = atan( (pos.y-p.y) / (pos.x-p.x) );
     strength = s;
 }
 
-
+b2Vec2 Entity::GetPos() {
+    return body->GetPosition();
+}
