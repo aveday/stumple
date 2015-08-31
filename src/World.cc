@@ -21,8 +21,7 @@ void World::Add(Character *c) {
 
 // Add an entity to the world
 void World::Add(Entity *e) {
-    ownEntities.insert(ownEntities.begin(), Entity_sp(e));
-    Insert(*ownEntities.begin());
+    Insert( *ownEntities.insert(ownEntities.begin(), Entity_sp(e)) );
 }
 
 void World::Insert(const Entity_sp &e) {

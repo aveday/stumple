@@ -9,7 +9,7 @@ class Control {
     public:
         SDL_Event event;
         Control();
-        bool GetInput(Character_sp);
+        bool GetInput(Character&);
 };
 
 #endif

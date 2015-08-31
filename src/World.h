@@ -11,8 +11,8 @@ static const int32 positionIterations = 2;
 
 class World : public b2World {
     public:
-        Entity_wpl entities;
-        Character_spl characters;
+        Entity_wpl entities; 
+        Character_spl characters; // make upl
 		b2Body *body;
         void Update(int);
         void Tile(const std::string &sid, int, int);
@@ -21,7 +21,7 @@ class World : public b2World {
         void Add(Entity *e);
         void Add(Character *c);
     private:
-        Entity_spl ownEntities; //FIXME move/rename?
+        Entity_spl ownEntities; //FIXME move/rename? // make upl
 };
 
 #endif
