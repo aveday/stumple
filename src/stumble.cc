@@ -19,7 +19,12 @@ int main(int argc, char *argv[]) {
     int ty = SCR_H/(z*PPM);
 
     // Create player
-    for(int x = 0; x < 3; x++)
+    Character *player = new Character(world, "human",
+                    b2Vec2(tx/2, ty-2),
+                    world.characters.size()+1);
+    world.Add(player);
+    // Create some other characters
+    for(int x = 1; x < 3; x++)
         world.Add( new Character(world, "human",
                     b2Vec2(tx/2 - x, ty-2),
                     world.characters.size()+1) );
@@ -40,7 +45,7 @@ int main(int argc, char *argv[]) {
             world.Add( new Entity(world, "rock", b2Vec2(x,y), 0, 0) );
 
     // Accept input
-    while(control.GetInput(**world.characters.begin())) { // FIXME
+    while(control.GetInput(*player)) {
         int ms = clock.Sleep(); // Delay to maintain FPS
         switch(Control::mode) {
             case EDIT:
