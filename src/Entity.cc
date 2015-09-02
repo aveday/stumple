@@ -6,7 +6,8 @@
 Entity::Entity(World &w, const std::string &sid, b2Vec2 pos, int gid, int d):
         depth(d) {
 
-    Model &model = Model::cache[sid]; //FIXME this looks bad for some reason
+    //FIXME after editor. this looks bad for some reason
+    Model &model = Model::cache[sid];
 	b2BodyDef bDef;
 	bDef.type = b2_dynamicBody;
 	bDef.position = pos;
@@ -22,7 +23,6 @@ Entity::Entity(World &w, const std::string &sid, b2Vec2 pos, int gid, int d):
 	body->CreateFixture(&fDef);
 }
 
-// FIXME move to Character?
 void Entity::AngleTowards(b2Vec2 pos, float s) {
     b2Vec2 p = body->GetPosition();
     targetAngle = atan( (pos.y-p.y) / (pos.x-p.x) );

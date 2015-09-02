@@ -58,8 +58,9 @@ void Graphics::Draw(const b2Body &body) {
 	for(const b2Fixture *f = body.GetFixtureList(); f; f = f->GetNext()) {
 		Model &model = *static_cast<Model*>(f->GetUserData());
 
+        //FIXME this is hacky. maybe add a random seed to each body
 		// select sprite variant based on fixture pointer value
-		int i = (int)(uintptr_t)f / 32 % model.srcs.size(); //FIXME this is hacky
+		int i = (int)(uintptr_t)f / 32 % model.srcs.size();
 		SDL_Rect &src = model.srcs.at(i);
 
 		// calculate the destination rectangle

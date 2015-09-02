@@ -2,7 +2,8 @@
 #include "Entity.h"
 #include "World.h"
 
-#include "characterdefs.h" //FIXME this should probably be somewhere else
+//FIXME after editor. this should probably be somewhere else
+#include "characterdefs.h"
 
 void Character::JoinPart(World &w, JointDef &j, b2Vec2 pos) {
     pos += 1.0/PPM * j.pos;
@@ -23,7 +24,8 @@ void Character::AddPart(World &w, PartDef &p, b2Vec2 pos) {
 
 Character::Character(World &w, std::string cid, b2Vec2 pos, int g):
         gid(g) {
-    CharacterDef def = characterdefs[cid]; // FIXME same as above
+    // FIXME after editor. same as above
+    CharacterDef def = characterdefs[cid];
 
     // create the parts mentions in the definition
     for(auto it = def.parts.begin(); it != def.parts.end(); it++)
@@ -50,7 +52,7 @@ void Character::Act(Command c) {
 }
 
 void Character::Update(int ms) {
-    // FIXME character behaviour depends on CharacterDef
+    // FIXME after editor. character behaviour depends on CharacterDef
     double n = 0.1;
     if((parts["torso"]->GetPos().x > parts["footL"]->GetPos().x+n
     && parts["torso"]->GetPos().x > parts["footL"]->GetPos().x+n)
