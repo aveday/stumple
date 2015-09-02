@@ -11,7 +11,7 @@ static const int32 positionIterations = 2;
 
 class World : public b2World {
     public:
-        Entity_wpl entities; 
+        Entity_upl entities; 
         Character_upl characters;
 		b2Body *body;
         void Update(int);
@@ -20,8 +20,6 @@ class World : public b2World {
         void Insert(const Entity_sp &e);
         void Add(Entity *e);
         void Add(Character *c);
-    private:
-        Entity_spl ownEntities; //FIXME move/rename? // make upl
 };
 
 #endif

@@ -21,16 +21,12 @@ void World::Add(Character *c) {
 
 // Add an entity to the world
 void World::Add(Entity *e) { // FIXME change to accept model and pos?
-    Insert( *ownEntities.insert(ownEntities.begin(), Entity_sp(e)) );
-}
-
-void World::Insert(const Entity_sp &e) {
     auto pos = entities.begin();
     // FIXME there's probably a std method for this
     for(; pos != entities.end(); pos++)
-        if( Entity_sp(*pos)->depth <= (*e).depth )
+        if( (*pos)->depth <= (*e).depth )
             break;
-    entities.insert(pos, Entity_wp(e));
+    entities.insert(pos, Entity_up(e));
 }
 
 void World::Update(int t) {

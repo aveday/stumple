@@ -37,7 +37,7 @@ void Graphics::Draw(const World &world) {
 
     // draw entities
     for(auto it = world.entities.begin(); it != world.entities.end(); it++)
-        Draw(*Entity_sp(*it)->body);
+        Draw(*(*it)->body);
 
     // display the drawn frame
     SDL_RenderPresent(renderer);
