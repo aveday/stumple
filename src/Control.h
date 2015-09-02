@@ -9,10 +9,11 @@ enum Mode { EDIT, RUN };
 
 class Control {
     public:
-        SDL_Event event;
         Control();
         static Mode mode;
         bool GetInput(Character&);
+        void EditorControl(SDL_Event&);
+        void PlayerControl(SDL_Event&, Character&);
 };
 
 #endif

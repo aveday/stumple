@@ -11,38 +11,51 @@ b2Vec2 GetMousePos() {
     return b2Vec2( x/z/PPM, y/z/PPM );
 }
 
-bool Control::GetInput(Character &player) {
+void Control::EditorControl(SDL_Event& event) {
+    if(event.key.type == SDL_KEYDOWN) {
+        switch( event.key.keysym.sym ) {
+            case SDLK_SPACE:
+                mode = RUN;
+                break;
+        }
+    }
+}
+
+void Control::PlayerControl(SDL_Event& event, Character& player) {
     // make the player's head face towards the mouse
     //(*player).parts["head"]->AngleTowards( GetMousePos(), 0);
-    
-    // handle key input
-    while(SDL_PollEvent(&event) != 0 ) {
+    if(event.key.type == SDL_KEYDOWN && !(event.key.repeat)) {
+        int f = 10000;
+        switch( event.key.keysym.sym ) {
+            case SDLK_w:
+                player.parts["torso"]->body->ApplyForceToCenter(b2Vec2(0, -f), true);
+                break;
+            case SDLK_s:
+                player.parts["torso"]->body->ApplyForceToCenter(b2Vec2(0, f), true);
+                break;
+            case SDLK_a:
+                player.parts["torso"]->body->ApplyForceToCenter(b2Vec2(-f, 0), true);
+                break;
+            case SDLK_d:
+                player.parts["torso"]->body->ApplyForceToCenter(b2Vec2(f, 0), true);
+                break;
+            case SDLK_SPACE:
+                mode = EDIT;
+                break;
+        }
+    }
+}
 
+bool Control::GetInput(Character &player) {
+    // handle key input
+    SDL_Event event;
+    while(SDL_PollEvent(&event) != 0 ) {
         if ( event.type == SDL_QUIT )
             return false;
-
-        if(event.key.type == SDL_KEYDOWN 
-				&& !(event.key.repeat)) {
-            int f = 10000;
-            switch( event.key.keysym.sym ) {
-                case SDLK_w:
-                    player.parts["torso"]->body->ApplyForceToCenter(b2Vec2(0, -f), true);
-                    break;
-                case SDLK_s:
-                    player.parts["torso"]->body->ApplyForceToCenter(b2Vec2(0, f), true);
-                    break;
-                case SDLK_a:
-                    player.parts["torso"]->body->ApplyForceToCenter(b2Vec2(-f, 0), true);
-                    break;
-                case SDLK_d:
-                    player.parts["torso"]->body->ApplyForceToCenter(b2Vec2(f, 0), true);
-                    break;
-                case SDLK_SPACE:
-                    mode = (mode == EDIT) ? RUN : EDIT;
-                    printf("%d\n", mode);
-                    break;
-            }
-        }
+        if ( mode == EDIT )
+            EditorControl(event);
+        else if ( mode == RUN )
+            PlayerControl(event, player);
     }
     return true;
 }
