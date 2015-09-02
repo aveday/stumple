@@ -17,7 +17,6 @@ class World : public b2World {
         void Update(int);
         void Tile(const std::string &sid, int, int);
         explicit World(b2Vec2);
-        void Insert(const Entity_sp &e);
         void Add(Entity *e);
         void Add(Character *c);
 };

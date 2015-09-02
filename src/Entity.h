@@ -13,9 +13,7 @@ class Entity;
 
 static const int PPM = 64;
 
-typedef std::shared_ptr<Entity> Entity_sp;
 typedef std::unique_ptr<Entity> Entity_up;
-typedef std::list<std::shared_ptr<Entity>> Entity_spl;
 typedef std::list<std::unique_ptr<Entity>> Entity_upl;
 typedef std::map<std::string,Entity*> Entity_pm;
 
