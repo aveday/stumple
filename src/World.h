@@ -12,7 +12,7 @@ static const int32 positionIterations = 2;
 class World : public b2World {
     public:
         Entity_wpl entities; 
-        Character_spl characters; // make upl
+        Character_upl characters;
 		b2Body *body;
         void Update(int);
         void Tile(const std::string &sid, int, int);

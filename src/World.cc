@@ -16,7 +16,7 @@ World::World(b2Vec2 g):
 
 // Add a character to the world
 void World::Add(Character *c) {
-    characters.insert(characters.begin(), Character_sp(c));
+    characters.insert(characters.begin(), Character_up(c));
 }
 
 // Add an entity to the world

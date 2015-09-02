@@ -34,10 +34,9 @@ typedef struct {
 } CharacterDef;
 
 typedef std::vector<CharacterDef> CharacterDef_v;
-typedef std::shared_ptr<Character> Character_sp;
-typedef std::list<std::shared_ptr<Character>> Character_spl;
-typedef std::map<std::string,std::shared_ptr<Character>> Character_spm;
 typedef std::map<std::string, CharacterDef> CharacterDef_m;
+typedef std::unique_ptr<Character> Character_up;
+typedef std::list<std::unique_ptr<Character>> Character_upl;
 
 typedef struct {
     std::string part;
