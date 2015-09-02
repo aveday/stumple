@@ -50,7 +50,7 @@ class Character {
 	public:
 		Character(World &w, std::string cid, b2Vec2, int);
         void Update(int);
-        Entity_spm parts;
+        Entity_pm parts;
     private:
         void AddPart(World &w, PartDef &p, b2Vec2 pos);
         void JoinPart(World &w, JointDef &j, b2Vec2 pos);

@@ -17,7 +17,7 @@ typedef std::shared_ptr<Entity> Entity_sp;
 typedef std::weak_ptr<Entity> Entity_wp;
 typedef std::list<std::shared_ptr<Entity>> Entity_spl;
 typedef std::list<std::weak_ptr<Entity>> Entity_wpl;
-typedef std::map<std::string,std::shared_ptr<Entity>> Entity_spm;
+typedef std::map<std::string,Entity*> Entity_pm;
 
 // FIXME could probably get rid of entity and just use b2Body...
 class Entity {

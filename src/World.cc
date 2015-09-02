@@ -20,7 +20,7 @@ void World::Add(Character *c) {
 }
 
 // Add an entity to the world
-void World::Add(Entity *e) {
+void World::Add(Entity *e) { // FIXME change to accept model and pos?
     Insert( *ownEntities.insert(ownEntities.begin(), Entity_sp(e)) );
 }
 
