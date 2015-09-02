@@ -46,9 +46,9 @@ void Graphics::Draw(const World &world) {
 void Graphics::Draw(const Grid &g) {
 	// draw background and orthogonal lines
     boxColor(renderer, 0, 0, SCR_W, SCR_H, g.background);
-    for(int x = 0; x < SCR_W; x += PPM)
+    for(int x = 0; x < SCR_W; x += PPM*zoom)
         lineColor(renderer, x, 0, x, SCR_H, g.color);
-    for(int y = 0; y < SCR_H; y += PPM)
+    for(int y = 0; y < SCR_H; y += PPM*zoom)
         lineColor(renderer, 0, y, SCR_W, y, g.color);
 }
 
