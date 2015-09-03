@@ -31,17 +31,12 @@ Graphics::~Graphics() {
 //FIXME probably make Editor its own class
 // maybe subclass into ModelEditor, CharacterEditor, LevelEditor
 void Graphics::DrawEditor() {
+    //FIXME should be handled by Control (or Editor)
     if(Control::editorTextureIt == Model::tCache.end())
         return;
-    SDL_Texture *t = Control::editorTextureIt->second;
-    int w, h, access;
-    uint32_t format;
-    SDL_QueryTexture(t, &format, &access, &w, &h);
-    SDL_Rect src = {0, 0, w, h};
-    SDL_Rect dst = {
-        (int)(SCR_W - w*zoom)/2, (int)(SCR_H - h*zoom)/2,
-        (int)(w*zoom), (int)(h*zoom) };
-    SDL_RenderCopyEx(renderer, t, &src, &dst, 0, NULL, SDL_FLIP_NONE);
+    EditorTexture et = Control::GetEditorTexture();
+    SDL_RenderCopyEx(renderer, et.texture, &et.src, &et.dst,
+            0, NULL, SDL_FLIP_NONE);
 }
 
 void Graphics::Draw(const World &world) {
