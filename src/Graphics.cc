@@ -38,9 +38,8 @@ void Graphics::DrawEditor() {
     SDL_QueryTexture(t, &format, &access, &w, &h);
     SDL_Rect src = {0, 0, w, h};
     SDL_Rect dst = {
-        SCR_W/2 - w*zoom/2, SCR_H/2 - h*zoom/2,
-        (int)(w*zoom),    (int)(h*zoom)
-    };
+        (int)(SCR_W/2 - w*zoom/2), (int)(SCR_H/2 - h*zoom/2),
+        (int)(w*zoom), (int)(h*zoom) };
     SDL_RenderCopyEx(renderer, t, &src, &dst, 0, NULL, SDL_FLIP_NONE);
 
 }
