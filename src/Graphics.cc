@@ -28,7 +28,8 @@ Graphics::~Graphics() {
     SDL_Quit();
 }
 
-//FIXME probably make editor its own class
+//FIXME probably make Editor its own class
+// maybe subclass into ModelEditor, CharacterEditor, LevelEditor
 void Graphics::DrawEditor() {
     if(Control::editorTextureIt == Model::tCache.end())
         return;
@@ -38,26 +39,28 @@ void Graphics::DrawEditor() {
     SDL_QueryTexture(t, &format, &access, &w, &h);
     SDL_Rect src = {0, 0, w, h};
     SDL_Rect dst = {
-        (int)(SCR_W/2 - w*zoom/2), (int)(SCR_H/2 - h*zoom/2),
+        (int)(SCR_W - w*zoom)/2, (int)(SCR_H - h*zoom)/2,
         (int)(w*zoom), (int)(h*zoom) };
     SDL_RenderCopyEx(renderer, t, &src, &dst, 0, NULL, SDL_FLIP_NONE);
-
 }
 
 void Graphics::Draw(const World &world) {
     // clear the screen
     SDL_RenderClear(renderer);
 
-    // draw grid and tiles
+    // draw grid
     Draw(*grid);
-	Draw(*world.body);
 
-    // draw entities
-    for(auto it = world.entities.begin(); it != world.entities.end(); it++)
-        Draw(*(*it)->body);
-
-    if(Control::mode == EDIT)
+    if(Control::mode == RUN) {
+        // draw world
+        Draw(*world.body);
+        // draw entities
+        for(auto it = world.entities.begin(); it != world.entities.end(); it++)
+            Draw(*(*it)->body);
+    }
+    else if(Control::mode == EDIT) {
         DrawEditor();
+    }
 
     // display the drawn frame
     SDL_RenderPresent(renderer);
