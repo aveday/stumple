@@ -28,7 +28,6 @@ class Model {
         SDL_Texture *texture;
         std::vector<SDL_Rect> srcs;
         static ModelCache cache;
-    private:
         static TextureCache tCache;
 };
 

@@ -19,6 +19,9 @@ void Control::EditorControl(SDL_Event& event) {
                 break;
         }
     }
+    else if(event.type == SDL_MOUSEBUTTONDOWN) {
+        b2Vec2 pos = GetMousePos();
+    }
 }
 
 void Control::PlayerControl(SDL_Event& event, Character& player) {

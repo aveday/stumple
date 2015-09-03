@@ -35,6 +35,7 @@ class Graphics {
         void Draw(const World&);
 		void Draw(const b2Body&);
         void Draw(const Grid&);
+        void DrawEditor();
 };
 
 #endif

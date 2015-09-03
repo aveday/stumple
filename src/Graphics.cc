@@ -4,6 +4,7 @@
 #include "Graphics.h"
 #include "Entity.h"
 #include "Model.h"
+#include "Control.h"
 
 double Graphics::zoom = 1;
 static const char* WINDOW_TITLE = "Stumble";
@@ -27,6 +28,18 @@ Graphics::~Graphics() {
     SDL_Quit();
 }
 
+//FIXME probably make editor its own class
+void Graphics::DrawEditor() {
+    SDL_Texture *t = Model::tCache.begin()->second;
+    int w, h, access;
+    uint32_t format;
+    SDL_QueryTexture(t, &format, &access, &w, &h);
+    SDL_Rect src = {0, 0, w, h};
+    SDL_Rect dst = {SCR_W/2-w/2, SCR_H/2-h/2, (int)(w*zoom), (int)(h*zoom)};
+    SDL_RenderCopyEx(renderer, t, &src, &dst,
+            0, NULL, SDL_FLIP_NONE);
+}
+
 void Graphics::Draw(const World &world) {
     // clear the screen
     SDL_RenderClear(renderer);
@@ -38,6 +51,9 @@ void Graphics::Draw(const World &world) {
     // draw entities
     for(auto it = world.entities.begin(); it != world.entities.end(); it++)
         Draw(*(*it)->body);
+
+    if(Control::mode == EDIT)
+        DrawEditor();
 
     // display the drawn frame
     SDL_RenderPresent(renderer);

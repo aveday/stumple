@@ -14,6 +14,7 @@ class Control {
         bool GetInput(Character&);
         void EditorControl(SDL_Event&);
         void PlayerControl(SDL_Event&, Character&);
+        SDL_Texture *editorTexture;
 };
 
 #endif
