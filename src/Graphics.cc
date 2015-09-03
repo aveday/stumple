@@ -6,15 +6,13 @@
 #include "Model.h"
 #include "Control.h"
 
-double Graphics::zoom = 1;
 static const char* WINDOW_TITLE = "Stumble";
 
 SDL_Renderer* Graphics::renderer;
 
-Graphics::Graphics(double z, Grid &g):
+Graphics::Graphics(Grid &g):
         grid(&g) {
 
-    zoom = z;
     /* init SDL, create window and renderer */
     SDL_Init( SDL_INIT_EVERYTHING );
     window = SDL_CreateWindow(WINDOW_TITLE,
@@ -64,9 +62,9 @@ void Graphics::Draw(const World &world) {
 void Graphics::Draw(const Grid &g) {
 	// draw background and orthogonal lines
     boxColor(renderer, 0, 0, SCR_W, SCR_H, g.background);
-    for(int x = 0; x < SCR_W; x += PPM*zoom)
+    for(int x = 0; x < SCR_W; x += PPM*Control::zoom)
         lineColor(renderer, x, 0, x, SCR_H, g.color);
-    for(int y = 0; y < SCR_H; y += PPM*zoom)
+    for(int y = 0; y < SCR_H; y += PPM*Control::zoom)
         lineColor(renderer, 0, y, SCR_W, y, g.color);
 }
 
@@ -84,10 +82,10 @@ void Graphics::Draw(const b2Body &body) {
 		// calculate the destination rectangle
         b2Vec2 center = f->GetAABB(0).GetCenter();
 		SDL_Rect dst = {
-			(int)(zoom * (center.x * PPM - src.w / 2.0)),
-			(int)(zoom * (center.y * PPM - src.h / 2.0)),
-			(int)(zoom * src.w),
-			(int)(zoom * src.h)
+			(int)(Control::zoom * (center.x * PPM - src.w / 2.0)),
+			(int)(Control::zoom * (center.y * PPM - src.h / 2.0)),
+			(int)(Control::zoom * src.w),
+			(int)(Control::zoom * src.h)
 		};
 
 		// draw the fixture sprite

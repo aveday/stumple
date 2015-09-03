@@ -27,10 +27,9 @@ class Graphics {
         SDL_Window* window;
 
     public:
-        static double zoom;
         static SDL_Renderer* renderer;
         Graphics(const Graphics&) = delete;
-        Graphics(double z, Grid&);
+        Graphics(Grid&);
         ~Graphics();
         void Draw(const World&);
 		void Draw(const b2Body&);

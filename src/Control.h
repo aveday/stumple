@@ -2,6 +2,7 @@
 #define CONTROL_H
 
 #include <SDL2/SDL.h>
+#include <Box2D/Box2D.h>
 
 #include "Character.h"
 #include "Model.h"
@@ -22,13 +23,15 @@ typedef struct {
 
 class Control {
     public:
-        Control();
+        Control(double);
         static Mode mode;
+        static double zoom;
         bool GetInput(Character&);
-        //FIXME move to editor class
         static EditorTexture GetEditorTexture();
+        //FIXME move to editor class
         static TextureCache::iterator editorTextureIt;
     private:
+        b2Vec2 GetMouseWorldPos();
         void CycleEditorTexture(Direction);
         gVec2 editorTexturePos;
         void EditorControl(SDL_Event&);

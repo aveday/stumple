@@ -8,8 +8,8 @@ int main(int argc, char *argv[]) {
     b2Vec2 gravity(0, 9.8);
     Grid grid(0xff101010, 0xff000000);
     World world(gravity);
-    Graphics graphics(z, grid);
-    Control control;
+    Graphics graphics(grid);
+    Control control(z);
     Clock clock;
 
     // Load textures and create models

@@ -4,14 +4,16 @@
 
 TextureCache::iterator Control::editorTextureIt = Model::tCache.end();
 Mode Control::mode = EDIT;
+double Control::zoom = 1;
 
-Control::Control() { }
+Control::Control(double z) {
+    zoom = z;
+}
 
-b2Vec2 GetMouseWorldPos() {
+b2Vec2 Control::GetMouseWorldPos() {
     int x, y; 
     SDL_GetMouseState(&x, &y);
-    double z = Graphics::zoom;
-    return b2Vec2( x/z/PPM, y/z/PPM );
+    return b2Vec2( x/zoom/PPM, y/zoom/PPM );
 }
 
 EditorTexture Control::GetEditorTexture() {
@@ -21,11 +23,10 @@ EditorTexture Control::GetEditorTexture() {
     SDL_QueryTexture(t, &format, &access, &w, &h);
     SDL_Rect src = {0, 0, w, h};
     SDL_Rect dst = {
-        (int)(SCR_W - w*Graphics::zoom)/2, (int)(SCR_H - h*Graphics::zoom)/2,
-        (int)(w*Graphics::zoom), (int)(h*Graphics::zoom) };
+        (int)(SCR_W - w*zoom)/2, (int)(SCR_H - h*zoom)/2,
+        (int)(w*zoom), (int)(h*zoom) };
     return {t, src, dst};
 }
-
 
 void Control::CycleEditorTexture(Direction d) {
     if(d == FORWARD)
