@@ -1,7 +1,10 @@
 #include "Control.h"
 #include "Graphics.h"
+#include "Model.h"
 
+TextureCache::iterator Control::editorTextureIt = Model::tCache.end();
 Mode Control::mode = EDIT;
+
 Control::Control() { }
 
 b2Vec2 GetMousePos() {
@@ -14,6 +17,18 @@ b2Vec2 GetMousePos() {
 void Control::EditorControl(SDL_Event& event) {
     if(event.key.type == SDL_KEYDOWN) {
         switch( event.key.keysym.sym ) {
+            case SDLK_RIGHT:
+                if(editorTextureIt == Model::tCache.end())
+                    editorTextureIt = Model::tCache.begin();
+                else
+                    editorTextureIt++;
+                break;
+            case SDLK_LEFT:
+                if(editorTextureIt == Model::tCache.begin())
+                    editorTextureIt = Model::tCache.end();
+                else
+                    editorTextureIt--;
+                break;
             case SDLK_SPACE:
                 mode = RUN;
                 break;

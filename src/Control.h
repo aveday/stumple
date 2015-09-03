@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 
 #include "Character.h"
+#include "Model.h"
 
 enum Mode { EDIT, RUN };
 
@@ -14,7 +15,8 @@ class Control {
         bool GetInput(Character&);
         void EditorControl(SDL_Event&);
         void PlayerControl(SDL_Event&, Character&);
-        SDL_Texture *editorTexture;
+        //FIXME move to editor class
+        static TextureCache::iterator editorTextureIt;
 };
 
 #endif
