@@ -10,12 +10,6 @@
 
 enum Mode { EDIT, RUN };
 
-//FIXME might not be necessary, just using SDL_Rects
-typedef struct {
-    int x;
-    int y;
-} gVec2;
-
 class Control {
     public:
         Control(double);
