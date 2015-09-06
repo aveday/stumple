@@ -11,8 +11,8 @@ class b2Shape;
 typedef struct {
     std::string name;
     std::string texture_file;
-    int cellw, cellh;
-    SDL_Rect grid, model;
+    SDL_Rect box, shape;
+    int xTiles, yTiles;
 } ModelDef;
 
 class Model;

@@ -22,22 +22,22 @@ Model::Model(const ModelDef &def) {
         texture = entry->second;
     
     // construct all the source rectangles of the texture
-    for(int x = 0; x < def.grid.w; x++)
-        for(int y = 0; y < def.grid.h; y++)
+    for(int x = 0; x < def.xTiles; x++)
+        for(int y = 0; y < def.yTiles; y++)
             srcs.push_back( {
-                (x + def.grid.x) * def.cellw,
-                (y + def.grid.y) * def.cellh,
-                def.cellw, def.cellh });
+                def.box.x + def.box.w * x,
+                def.box.y + def.box.h * y,
+                def.box.w, def.box.h });
 
     // set the shape of the fixture
     // TODO allow for other shapes
-    float mx = def.model.x - def.cellw/2.0f;
-    float my = def.model.y - def.cellh/2.0f;
+    float mx = def.shape.x - def.box.w/2.0f;
+    float my = def.shape.y - def.box.h/2.0f;
     b2Vec2 points[]{
         1.0/PPM * b2Vec2(mx,     my),
-        1.0/PPM * b2Vec2(mx+def.model.w, my),
-        1.0/PPM * b2Vec2(mx+def.model.w, my+def.model.h),
-        1.0/PPM * b2Vec2(mx,     my+def.model.h)
+        1.0/PPM * b2Vec2(mx+def.shape.w, my),
+        1.0/PPM * b2Vec2(mx+def.shape.w, my+def.shape.h),
+        1.0/PPM * b2Vec2(mx,     my+def.shape.h)
     };
 
     b2PolygonShape *sh= new b2PolygonShape();
