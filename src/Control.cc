@@ -41,10 +41,10 @@ void Control::Input(SDL_Event& event, Editor& editor) {
 
     if(editor.TextureLoaded) {
         if(event.button.state == SDL_PRESSED) {
-            editor.SetCorner(event.button.x, event.button.y, CLICK);
+            editor.SetCorner(event.button.x, event.button.y, false);
         }
         else if(event.motion.state == SDL_PRESSED) {
-            editor.SetCorner(event.motion.x, event.motion.y, DRAG);
+            editor.SetCorner(event.motion.x, event.motion.y, true);
         }
     }
 }

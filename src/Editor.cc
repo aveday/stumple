@@ -19,27 +19,24 @@ void Editor::CycleTexture(Direction d) {
     TextureLoaded = (textureIt != Model::tCache.end());
 }
 
-void Editor::SetCorner(int x, int y, Mouse action) {
+void Editor::SetCorner(int x, int y, bool drag) {
     x = (x - GetTexture().dst.x) / Control::zoom;
     y = (y - GetTexture().dst.y) / Control::zoom;
 
-    // drawing the bounding box for the model sprite
-    if(tool == BOX) {
-        if(action == CLICK) {
-            // FIXME put something as model name, or get rid of it
-            ModelDef def = {"", textureIt->first, {x, y, 0, 0}, {x,y,0,0}, 1, 1};
-            defs.push_back(def);
-        }
-        else if(action == DRAG) {
-            SDL_Rect &box = defs.back().box;
-            box = {box.x, box.y, x-box.x, y-box.y};
-        }
-    }
-    // drawing the shape for the model body
-    else if(tool == SHAPE) {
-        SDL_Rect &box = defs.back().box;
-        SDL_Rect &shape = defs.back().shape;
+    // create a new modeldef if there aren't any
+    if(defs.empty())
+        defs.push_back( ModelDef() );
+    SDL_Rect &box = defs.back().box;
+    SDL_Rect &shape = defs.back().shape;
 
+    // draw the bounding box for the model sprite
+    if(tool == BOX) {
+        shape = {x, y, 0, 0};
+        if(drag) box = {box.x, box.y, x-box.x, y-box.y};
+            else box = {x, y, 0, 0};
+    }
+    // draw the shape for the model body
+    else if(tool == SHAPE) {
         // FIXME also deal with negatives
         // restrict the shape to stay within the bounding box
         x = std::min(x, box.x+box.w);
@@ -47,10 +44,8 @@ void Editor::SetCorner(int x, int y, Mouse action) {
         x = std::max(x, box.x);
         y = std::max(y, box.y);
 
-        if(action == CLICK)
-            shape = {x, y, 0, 0};
-        else if(action == DRAG)
-            shape = {shape.x, shape.y, x-shape.x, y-shape.y};
+        if(drag) shape = {shape.x, shape.y, x-shape.x, y-shape.y};
+            else shape = {x, y, 0, 0};
     }
 }
 

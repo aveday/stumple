@@ -8,7 +8,6 @@
 
 enum Direction { FORWARD, BACKWARD };
 enum Tool { BOX, SHAPE, MOVE };
-enum Mouse { CLICK, DRAG, RELEASE };
 
 typedef struct {
     SDL_Texture* texture;
@@ -22,7 +21,7 @@ class Editor {
         Tool tool = BOX;
         Entity_upl entities; 
         void CycleTexture(Direction d);
-        void SetCorner(int, int, Mouse);
+        void SetCorner(int, int, bool);
         Texture GetTexture();
         TextureCache::iterator textureIt = Model::tCache.end();
 
