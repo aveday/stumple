@@ -42,7 +42,7 @@ void Graphics::Draw(Editor& editor) {
         int y1 = et.dst.y + editor.box.y * Control::zoom;
         int x2 = x1 + editor.box.w * Control::zoom;
         int y2 = y1 + editor.box.h * Control::zoom;
-        rectangleColor(renderer, x1, y1, x2, y2, 0xff0000ff);
+        rectangleColor(renderer, x1, y1, x2, y2, editor.toolColors[BOX]);
     }
     
     SDL_RenderPresent(renderer);

@@ -39,8 +39,12 @@ void Control::Input(SDL_Event& event, Editor& editor) {
         }
     }
 
-    if(editor.tool == BOX)
-        editor.SetCorner(event.type);
+    if(editor.tool == BOX) {
+        if(event.button.state == SDL_PRESSED)
+            editor.SetCorner(editor.box, event.button.x, event.button.y, CLICK);
+        else if(event.motion.state == SDL_PRESSED)
+            editor.SetCorner(editor.box, event.motion.x, event.motion.y, DRAG);
+    }
 }
 
 void Control::Input(SDL_Event& event, Character& player) {
