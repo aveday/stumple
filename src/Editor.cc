@@ -23,13 +23,25 @@ void Editor::SetCorner(int x, int y, Mouse action) {
     x = (x - GetTexture().dst.x) / Control::zoom;
     y = (y - GetTexture().dst.y) / Control::zoom;
 
-    if(action == CLICK) {
-        ModelDef def = {"", textureIt->first, {x, y, 0, 0}, {0,0,0,0}, 1, 1};
-        defs.push_back(def);
+    // drawing the bounding box for the model sprite
+    if(tool == BOX) {
+        if(action == CLICK) {
+            // FIXME put something as model name, or get rid of it
+            ModelDef def = {"", textureIt->first, {x, y, 0, 0}, {x,y,0,0}, 1, 1};
+            defs.push_back(def);
+        }
+        else if(action == DRAG) {
+            SDL_Rect &rect = defs.back().box;
+            rect = {rect.x, rect.y, x-rect.x, y-rect.y};
+        }
     }
-    else if(action == DRAG) {
-        SDL_Rect &rect = defs.back().box;
-        rect = {rect.x, rect.y, x-rect.x, y-rect.y};
+    // drawing the shape for the model body
+    else if(tool == SHAPE) {
+        SDL_Rect &rect = defs.back().shape;
+        if(action == CLICK)
+            rect = {x, y, 0, 0};
+        else if(action == DRAG)
+            rect = {rect.x, rect.y, x-rect.x, y-rect.y};
     }
 }
 

@@ -29,8 +29,8 @@ class Editor {
         ModelDef_v defs;
 
         std::map<Tool, uint32_t> toolColors = {
-            {BOX,   0xff0000ff},
-            {SHAPE, 0xff00ff00},
+            {BOX,   0xa00000ff},
+            {SHAPE, 0xa000ff00},
         };
 };
 
