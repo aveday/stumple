@@ -27,24 +27,33 @@ Graphics::~Graphics() {
 }
 
 void Graphics::Draw(Editor& editor) {
-
     //FIXME duplication
     SDL_RenderClear(renderer);
     Draw(*grid);
 
-    //FIXME should be handled by Control (or Editor)
-    if(editor.textureIt != Model::tCache.end()) {
+    if(editor.TextureLoaded) {
+
+        // draw the current texture
         Texture et = editor.GetTexture();
         SDL_RenderCopyEx(renderer, et.texture, &et.src, &et.dst,
                 0, NULL, SDL_FLIP_NONE);
 
-        int x1 = et.dst.x + editor.box.x * Control::zoom;
-        int y1 = et.dst.y + editor.box.y * Control::zoom;
-        int x2 = x1 + editor.box.w * Control::zoom;
-        int y2 = y1 + editor.box.h * Control::zoom;
-        rectangleColor(renderer, x1, y1, x2, y2, editor.toolColors[BOX]);
+        // draw boxes for each of the modeldefs
+        for(auto it = editor.defs.begin(); it != editor.defs.end(); it++){
+            int x1 = et.dst.x + it->box.x * Control::zoom;
+            int y1 = et.dst.y + it->box.y * Control::zoom;
+            int x2 = x1 + it->box.w * Control::zoom;
+            int y2 = y1 + it->box.h * Control::zoom;
+            rectangleColor(renderer, x1, y1, x2, y2, editor.toolColors[BOX]);
+
+            x1 = et.dst.x + it->shape.x * Control::zoom;
+            y1 = et.dst.y + it->shape.y * Control::zoom;
+            x2 = x1 + it->shape.w * Control::zoom;
+            y2 = y1 + it->shape.h * Control::zoom;
+            rectangleColor(renderer, x1, y1, x2, y2, editor.toolColors[SHAPE]);
+        }
     }
-    
+
     SDL_RenderPresent(renderer);
 }
 

@@ -18,13 +18,15 @@ typedef struct {
 
 class Editor {
     public:
+        bool TextureLoaded = false;
         Tool tool = BOX;
         Entity_upl entities; 
         void CycleTexture(Direction d);
-        void SetCorner(SDL_Rect&, int, int, Mouse);
+        void SetCorner(int, int, Mouse);
         Texture GetTexture();
         TextureCache::iterator textureIt = Model::tCache.end();
-        SDL_Rect box = {0,0,0,0};//FIXME
+
+        ModelDef_v defs;
 
         std::map<Tool, uint32_t> toolColors = {
             {BOX,   0xff0000ff},
