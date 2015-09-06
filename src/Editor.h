@@ -2,8 +2,10 @@
 #define EDITOR_H
 
 #include "Model.h"
+#include "Entity.h"
 
 enum Direction { FORWARD, BACKWARD };
+enum Tool { BOX, SHAPE, MOVE };
 
 typedef struct {
     SDL_Texture* texture;
@@ -13,6 +15,8 @@ typedef struct {
 
 class Editor {
     public:
+        Tool tool = BOX;
+        Entity_upl entities; 
         void CycleTexture(Direction d);
         void SetCorner(int);
         Texture GetTexture();

@@ -18,17 +18,17 @@ void Editor::CycleTexture(Direction d) {
     }
 }
 
-void Editor::SetCorner(int corner) {
-    if(corner == 1) drag = true;
-    if(corner == 2) drag = false;
-
+void Editor::SetCorner(int type) {
     int x, y; 
     SDL_GetMouseState(&x, &y);
     x = (x - GetTexture().dst.x) / Control::zoom;
     y = (y - GetTexture().dst.y) / Control::zoom;
 
-    if(corner == 1)
+    if(type == SDL_MOUSEBUTTONDOWN) {
         box = {x, y, x-box.x, y-box.y};
+        drag = true;
+    } else if(type == SDL_MOUSEBUTTONUP)
+        drag = false;
     if(drag)
         box = {box.x, box.y, x-box.x, y-box.y};
 }

@@ -27,14 +27,20 @@ void Control::Input(SDL_Event& event, Editor& editor) {
             case SDLK_SPACE:
                 mode = RUN;
                 break;
+            case SDLK_1:
+                editor.tool = BOX;
+                break;
+            case SDLK_2:
+                editor.tool = SHAPE;
+                break;
+            case SDLK_3:
+                editor.tool = MOVE;
+                break;
         }
     }
-    else if(event.type == SDL_MOUSEMOTION)
-        editor.SetCorner(0);
-    else if(event.type == SDL_MOUSEBUTTONDOWN)
-        editor.SetCorner(1);
-    else if(event.type == SDL_MOUSEBUTTONUP)
-        editor.SetCorner(2);
+
+    if(editor.tool == BOX)
+        editor.SetCorner(event.type);
 }
 
 void Control::Input(SDL_Event& event, Character& player) {
