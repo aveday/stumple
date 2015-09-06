@@ -31,17 +31,26 @@ void Editor::SetCorner(int x, int y, Mouse action) {
             defs.push_back(def);
         }
         else if(action == DRAG) {
-            SDL_Rect &rect = defs.back().box;
-            rect = {rect.x, rect.y, x-rect.x, y-rect.y};
+            SDL_Rect &box = defs.back().box;
+            box = {box.x, box.y, x-box.x, y-box.y};
         }
     }
     // drawing the shape for the model body
     else if(tool == SHAPE) {
-        SDL_Rect &rect = defs.back().shape;
+        SDL_Rect &box = defs.back().box;
+        SDL_Rect &shape = defs.back().shape;
+
+        // FIXME also deal with negatives
+        // restrict the shape to stay within the bounding box
+        x = std::min(x, box.x+box.w);
+        y = std::min(y, box.y+box.h);
+        x = std::max(x, box.x);
+        y = std::max(y, box.y);
+
         if(action == CLICK)
-            rect = {x, y, 0, 0};
+            shape = {x, y, 0, 0};
         else if(action == DRAG)
-            rect = {rect.x, rect.y, x-rect.x, y-rect.y};
+            shape = {shape.x, shape.y, x-shape.x, y-shape.y};
     }
 }
 
