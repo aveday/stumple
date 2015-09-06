@@ -10,6 +10,7 @@ int main(int argc, char *argv[]) {
     World world(gravity);
     Graphics graphics(grid);
     Control control(z);
+    Editor editor;
     Clock clock;
 
     // Load textures and create models
@@ -45,16 +46,17 @@ int main(int argc, char *argv[]) {
             world.Add( new Entity(world, "rock", b2Vec2(x,y), 0, 0) );
 
     // Accept input
-    while(control.GetInput(*player)) {
+    while(control.GetInput(*player, editor)) {
         int ms = clock.Sleep(); // Delay to maintain FPS
         switch(Control::mode) {
             case EDIT:
+                graphics.Draw(editor);   // Draw to the screen
                 break;
             case RUN:
                 world.Update(ms);       // Update the game world
+                graphics.Draw(world);   // Draw to the screen
                 break;
         }
-        graphics.Draw(world);   // Draw to the screen
     }
 
     return 0;

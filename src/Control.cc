@@ -2,7 +2,6 @@
 #include "Graphics.h"
 #include "Model.h"
 
-TextureCache::iterator Control::editorTextureIt = Model::tCache.end();
 Mode Control::mode = EDIT;
 double Control::zoom = 1;
 
@@ -16,48 +15,29 @@ b2Vec2 Control::GetMouseWorldPos() {
     return b2Vec2( x/zoom/PPM, y/zoom/PPM );
 }
 
-EditorTexture Control::GetEditorTexture() {
-    int w, h, access;
-    uint32_t format;
-    SDL_Texture *t = editorTextureIt->second;
-    SDL_QueryTexture(t, &format, &access, &w, &h);
-    SDL_Rect src = {0, 0, w, h};
-    SDL_Rect dst = {
-        (int)(SCR_W - w*zoom)/2, (int)(SCR_H - h*zoom)/2,
-        (int)(w*zoom), (int)(h*zoom) };
-    return {t, src, dst};
-}
-
-void Control::CycleEditorTexture(Direction d) {
-    if(d == FORWARD)
-        if(editorTextureIt == Model::tCache.end())
-            editorTextureIt = Model::tCache.begin();
-        else editorTextureIt++;
-    else if(d == BACKWARD)
-        if(editorTextureIt == Model::tCache.begin())
-            editorTextureIt = Model::tCache.end();
-        else editorTextureIt--;
-}
-
-void Control::EditorControl(SDL_Event& event) {
+void Control::Input(SDL_Event& event, Editor& editor) {
     if(event.key.type == SDL_KEYDOWN) {
         switch( event.key.keysym.sym ) {
             case SDLK_RIGHT:
-                CycleEditorTexture(FORWARD);
+                editor.CycleTexture(FORWARD);
                 break;
             case SDLK_LEFT:
-                CycleEditorTexture(BACKWARD);
+                editor.CycleTexture(BACKWARD);
                 break;
             case SDLK_SPACE:
                 mode = RUN;
                 break;
         }
     }
-    else if(event.type == SDL_MOUSEBUTTONDOWN) {
-    }
+    else if(event.type == SDL_MOUSEMOTION)
+        editor.SetCorner(0);
+    else if(event.type == SDL_MOUSEBUTTONDOWN)
+        editor.SetCorner(1);
+    else if(event.type == SDL_MOUSEBUTTONUP)
+        editor.SetCorner(2);
 }
 
-void Control::PlayerControl(SDL_Event& event, Character& player) {
+void Control::Input(SDL_Event& event, Character& player) {
     // make the player's head face towards the mouse
     //(*player).parts["head"]->AngleTowards( GetWorldMousePos(), 0);
     if(event.key.type == SDL_KEYDOWN && !(event.key.repeat)) {
@@ -82,16 +62,16 @@ void Control::PlayerControl(SDL_Event& event, Character& player) {
     }
 }
 
-bool Control::GetInput(Character &player) {
+bool Control::GetInput(Character &player, Editor &editor) {
     // handle key input
     SDL_Event event;
     while(SDL_PollEvent(&event) != 0 ) {
         if ( event.type == SDL_QUIT )
             return false;
         if ( mode == EDIT )
-            EditorControl(event);
+            Input(event, editor);
         else if ( mode == RUN )
-            PlayerControl(event, player);
+            Input(event, player);
     }
     return true;
 }

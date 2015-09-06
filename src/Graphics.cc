@@ -26,15 +26,26 @@ Graphics::~Graphics() {
     SDL_Quit();
 }
 
-//FIXME probably make Editor its own class
-// maybe subclass into ModelEditor, CharacterEditor, LevelEditor
-void Graphics::DrawEditor() {
+void Graphics::Draw(Editor& editor) {
+
+    //FIXME duplication
+    SDL_RenderClear(renderer);
+    Draw(*grid);
+
     //FIXME should be handled by Control (or Editor)
-    if(Control::editorTextureIt == Model::tCache.end())
-        return;
-    EditorTexture et = Control::GetEditorTexture();
-    SDL_RenderCopyEx(renderer, et.texture, &et.src, &et.dst,
-            0, NULL, SDL_FLIP_NONE);
+    if(editor.textureIt != Model::tCache.end()) {
+        Texture et = editor.GetTexture();
+        SDL_RenderCopyEx(renderer, et.texture, &et.src, &et.dst,
+                0, NULL, SDL_FLIP_NONE);
+
+        int x1 = et.dst.x + editor.box.x * Control::zoom;
+        int y1 = et.dst.y + editor.box.y * Control::zoom;
+        int x2 = x1 + editor.box.w * Control::zoom;
+        int y2 = y1 + editor.box.h * Control::zoom;
+        rectangleColor(renderer, x1, y1, x2, y2, 0xff0000ff);
+    }
+    
+    SDL_RenderPresent(renderer);
 }
 
 void Graphics::Draw(const World &world) {
@@ -44,16 +55,11 @@ void Graphics::Draw(const World &world) {
     // draw grid
     Draw(*grid);
 
-    if(Control::mode == RUN) {
-        // draw world
-        Draw(*world.body);
-        // draw entities
-        for(auto it = world.entities.begin(); it != world.entities.end(); it++)
-            Draw(*(*it)->body);
-    }
-    else if(Control::mode == EDIT) {
-        DrawEditor();
-    }
+    // draw world
+    Draw(*world.body);
+    // draw entities
+    for(auto it = world.entities.begin(); it != world.entities.end(); it++)
+        Draw(*(*it)->body);
 
     // display the drawn frame
     SDL_RenderPresent(renderer);

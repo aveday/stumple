@@ -6,36 +6,26 @@
 
 #include "Character.h"
 #include "Model.h"
+#include "Editor.h"
 
 enum Mode { EDIT, RUN };
-enum Direction { FORWARD, BACKWARD };
 
+//FIXME might not be necessary, just using SDL_Rects
 typedef struct {
     int x;
     int y;
 } gVec2;
-
-typedef struct {
-    SDL_Texture* texture;
-    SDL_Rect src;
-    SDL_Rect dst;
-} EditorTexture;
 
 class Control {
     public:
         Control(double);
         static Mode mode;
         static double zoom;
-        bool GetInput(Character&);
-        static EditorTexture GetEditorTexture();
-        //FIXME move to editor class
-        static TextureCache::iterator editorTextureIt;
+        bool GetInput(Character&, Editor&);
     private:
         b2Vec2 GetMouseWorldPos();
-        void CycleEditorTexture(Direction);
-        gVec2 editorTexturePos;
-        void EditorControl(SDL_Event&);
-        void PlayerControl(SDL_Event&, Character&);
+        void Input(SDL_Event&, Editor&);
+        void Input(SDL_Event&, Character&);
 };
 
 #endif

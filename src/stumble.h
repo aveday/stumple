@@ -2,6 +2,7 @@
 #define STUMBLE_H
 
 #include "Graphics.h"
+#include "Editor.h"
 #include "Control.h"
 #include "Clock.h"
 #include "World.h"

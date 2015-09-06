@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #include "World.h"
+#include "Editor.h"
 
 class b2Body;
 class SDL_Window;
@@ -34,7 +35,7 @@ class Graphics {
         void Draw(const World&);
 		void Draw(const b2Body&);
         void Draw(const Grid&);
-        void DrawEditor();
+        void Draw(Editor&);
 };
 
 #endif
