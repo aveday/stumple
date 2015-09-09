@@ -7,6 +7,8 @@
 #include <string>
 #include <Box2D/Box2D.h>
 
+#include "Model.h"
+
 class b2Body;
 class World;
 class Entity;
@@ -20,6 +22,7 @@ typedef std::map<std::string,Entity*> Entity_pm;
 class Entity {
 	public:
         Entity(World &w, const std::string&, b2Vec2 pos, int gid, int d);
+        Entity(World &w, const Model&, b2Vec2 pos, int gid, int d);
         Entity(const Entity&) = delete;
         void AngleTowards(b2Vec2 pos, float s);
         b2Vec2 GetPos();

@@ -16,36 +16,45 @@ b2Vec2 Control::GetMouseWorldPos() {
 }
 
 void Control::Input(SDL_Event& event, Editor& editor) {
-    if(event.key.type == SDL_KEYDOWN) {
-        switch( event.key.keysym.sym ) {
-            case SDLK_RIGHT:
-                editor.CycleTexture(FORWARD);
-                break;
-            case SDLK_LEFT:
-                editor.CycleTexture(BACKWARD);
-                break;
-            case SDLK_SPACE:
-                mode = RUN;
-                break;
-            case SDLK_1:
-                editor.tool = BOX;
-                break;
-            case SDLK_2:
-                editor.tool = SHAPE;
-                break;
-            case SDLK_3:
-                editor.tool = MOVE;
-                break;
-        }
+
+    // keyboard controls
+    if(event.key.type == SDL_KEYDOWN) switch(event.key.keysym.sym) {
+
+        // texture cycling
+        case SDLK_RIGHT: editor.CycleTexture(FORWARD); break;
+        case SDLK_LEFT: editor.CycleTexture(BACKWARD); break;
+        // tool selection
+        case SDLK_1: editor.tool = BOX;     break;
+        case SDLK_2: editor.tool = SHAPE;   break;
+        case SDLK_3: editor.tool = MOVE;    break;
+        // switching back to RUN mode
+        case SDLK_SPACE: mode = RUN;        break;
     }
 
-    if(editor.TextureLoaded) {
-        if(event.button.state == SDL_PRESSED) {
-            editor.SetCorner(event.button.x, event.button.y, false);
-        }
-        else if(event.motion.state == SDL_PRESSED) {
-            editor.SetCorner(event.motion.x, event.motion.y, true);
-        }
+    // handle mouse tools if a texture is loaded
+    if(editor.TextureLoaded) switch(editor.tool) {
+
+        // bounding box construction
+        case BOX:
+        if(event.type == SDL_MOUSEBUTTONDOWN)
+            editor.StartBox(event.button.x, event.button.y);
+        else if(event.motion.state == SDL_PRESSED)
+            editor.DragBox(event.motion.x, event.motion.y);
+        break;
+
+        // box2d shape construction
+        case SHAPE:
+        if(event.type == SDL_MOUSEBUTTONDOWN)
+            editor.StartShape(event.button.x, event.button.y);
+        else if(event.motion.state == SDL_PRESSED)
+            editor.DragShape(event.motion.x, event.motion.y);
+        break;
+
+        // dragging stuff around
+        case MOVE:
+        if(event.button.state == SDL_PRESSED)
+            editor.Grab(event.button.x, event.button.y);
+        break;
     }
 }
 

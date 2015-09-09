@@ -54,6 +54,11 @@ void Graphics::Draw(Editor& editor) {
         }
     }
 
+    for(auto it = editor.entities.begin(); it != editor.entities.end(); it++)
+        Draw(*(*it)->body);
+    if(editor.grabbed!= nullptr)
+        Draw(*editor.grabbed->body);
+
     SDL_RenderPresent(renderer);
 }
 

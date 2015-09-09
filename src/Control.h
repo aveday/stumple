@@ -16,8 +16,8 @@ class Control {
         static Mode mode;
         static double zoom;
         bool GetInput(Character&, Editor&);
+        static b2Vec2 GetMouseWorldPos();
     private:
-        b2Vec2 GetMouseWorldPos();
         void Input(SDL_Event&, Editor&);
         void Input(SDL_Event&, Character&);
 };

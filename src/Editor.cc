@@ -5,6 +5,8 @@
 #include "Control.h"
 #include "Model.h"
 
+Editor::Editor(): World(b2Vec2(0,0)) {}
+
 void Editor::CycleTexture(Direction d) {
     if(d == FORWARD) {
         if(textureIt == Model::tCache.end())
@@ -19,33 +21,106 @@ void Editor::CycleTexture(Direction d) {
     TextureLoaded = (textureIt != Model::tCache.end());
 }
 
-void Editor::SetCorner(int x, int y, bool drag) {
-    x = (x - GetTexture().dst.x) / Control::zoom;
-    y = (y - GetTexture().dst.y) / Control::zoom;
+bool PointInRect(SDL_Point p, SDL_Rect r) {
+    return (p.x >= r.x && p.y >= r.y && p.x < r.x + r.w && p.y < r.y + r.h);
+}
 
-    // create a new modeldef if there aren't any
-    if(defs.empty())
-        defs.push_back( ModelDef() );
-    SDL_Rect &box = defs.back().box;
-    SDL_Rect &shape = defs.back().shape;
+void Editor::MakeRelative(int &x, int &y) {
+    // transform the position to be relative to the texture
+    Texture t = GetTexture();
+    x = (x - t.dst.x) / Control::zoom;
+    y = (y - t.dst.y) / Control::zoom;
+}
 
-    // draw the bounding box for the model sprite
-    if(tool == BOX) {
-        shape = {x, y, 0, 0};
-        if(drag) box = {box.x, box.y, x-box.x, y-box.y};
-            else box = {x, y, 0, 0};
+//TODO make utility file for stuff like this
+void confine(int &n, int min, int max) {
+    n = std::min(n, max);
+    n = std::max(n, min);
+}
+
+void Editor::StartBox(int x, int y) {
+    MakeRelative(x, y);
+    // create a new modeldef with texture_file and box corner
+    defs.push_back({});
+    def = &defs.back();
+    def->name = "editorModel";
+    def->texture_file = textureIt->first;
+    def->box = {x, y, 0, 0};
+    def->shape = {x, y, 0, 0};
+    def->xTiles = 1;
+    def->yTiles = 1;
+
+}
+
+void Editor::DragBox(int x, int y) {
+    if(def == nullptr)
+        return;
+    MakeRelative(x, y);
+    // update the width and height of the box
+    SDL_Rect &box = def->box;
+    box.w = x - box.x;
+    box.h = y - box.y;
+}
+
+void Editor::StartShape(int x, int y) {
+    // check if the shaped is being drawn inside a box
+    def = GetClicked(x, y, false);
+    if(def != nullptr) {
+        // confine the shape inside the box
+        MakeRelative(x, y);
+        SDL_Rect &box = def->box;
+        confine(x, box.x, box.x + box.w);
+        confine(y, box.y, box.y + box.h);
+        // draw a new shape for the current bounding box
+        def->shape = {x, y, 0, 0};
     }
-    // draw the shape for the model body
-    else if(tool == SHAPE) {
-        // FIXME also deal with negatives
-        // restrict the shape to stay within the bounding box
-        x = std::min(x, box.x+box.w);
-        y = std::min(y, box.y+box.h);
-        x = std::max(x, box.x);
-        y = std::max(y, box.y);
+}
 
-        if(drag) shape = {shape.x, shape.y, x-shape.x, y-shape.y};
-            else shape = {x, y, 0, 0};
+void Editor::DragShape(int x, int y) {
+    if(def == nullptr)
+        return;
+    MakeRelative(x, y);
+    // confine the shape inside the box
+    SDL_Rect &box = def->box;
+    confine(x, box.x, box.x + box.w);
+    confine(y, box.y, box.y + box.h);
+    // update the width and height of the shape
+    SDL_Rect &shape = def->shape;
+    shape.w = x - shape.x;
+    shape.h = y - shape.y;
+}
+
+ModelDef* Editor::GetClicked(int x, int y, bool shape) {
+    // get unzoomed screen position of the mouse click
+    SDL_Point mouse = {
+        (int)(x/Control::zoom),
+        (int)(y/Control::zoom)};
+
+    // get unzoomed screen rect of each shape or box
+    Texture t = GetTexture();
+    for(auto def = defs.rbegin(); def != defs.rend(); def++) {
+        SDL_Rect src = shape ? def->shape : def->box;
+        SDL_Rect rect = {
+            (int)(t.dst.x/Control::zoom) + src.x,
+            (int)(t.dst.y/Control::zoom) + src.y,
+            src.w, src.h, };
+
+        // check if the click was inside the rect
+        if( PointInRect(mouse, rect) )
+            return &*def;
+    }
+    return nullptr;
+}
+
+void Editor::Grab(int x, int y) {
+    def = GetClicked(x, y, true);
+    if(def != nullptr) {
+        // get world position of mouse 
+        b2Vec2 wPos(
+            (double)x/Control::zoom/PPM,
+            (double)y/Control::zoom/PPM);
+        models.push_back( Model(*def) ); //FIXME duplicates
+        grabbed = new Entity((World&)*this, models.back(), wPos, 1, 1);
     }
 }
 

@@ -4,10 +4,11 @@
 #include "World.h"
 
 Entity::Entity(World &w, const std::string &sid, b2Vec2 pos, int gid, int d):
+    Entity(w, Model::cache[sid], pos, gid, d) { }
+
+Entity::Entity(World &w, const Model& model, b2Vec2 pos, int gid, int d):
         depth(d) {
 
-    //FIXME after editor. this looks bad for some reason
-    Model &model = Model::cache[sid];
 	b2BodyDef bDef;
 	bDef.type = b2_dynamicBody;
 	bDef.position = pos;

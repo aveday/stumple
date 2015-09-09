@@ -50,6 +50,7 @@ int main(int argc, char *argv[]) {
         int ms = clock.Sleep(); // Delay to maintain FPS
         switch(Control::mode) {
             case EDIT:
+                editor.Update(ms);
                 graphics.Draw(editor);   // Draw to the screen
                 break;
             case RUN:
