@@ -26,12 +26,14 @@ class Graphics {
     private:
 		Grid* grid;
         SDL_Window* window;
+        double zoom = 1;
 
     public:
         static SDL_Renderer* renderer;
         Graphics(const Graphics&) = delete;
-        Graphics(Grid&);
+        Graphics(Grid&, double);
         ~Graphics();
+        void MakeAbsolute(int &x, int &y);
         void Draw(const World&);
 		void Draw(const b2Body&);
         void Draw(const Grid&);

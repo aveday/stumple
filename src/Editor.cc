@@ -2,7 +2,6 @@
 #include <Box2D/Box2D.h>
 
 #include "Editor.h"
-#include "Control.h"
 #include "Model.h"
 
 Editor::Editor(): World(b2Vec2(0,0)) {}
@@ -28,8 +27,8 @@ bool PointInRect(SDL_Point p, SDL_Rect r) {
 void Editor::MakeRelative(int &x, int &y) {
     // transform the position to be relative to the texture
     Texture t = GetTexture();
-    x = (x - t.dst.x) / Control::zoom;
-    y = (y - t.dst.y) / Control::zoom;
+    x = (x - t.pos.x);
+    y = (y - t.pos.y);
 }
 
 //TODO make utility file for stuff like this
@@ -92,17 +91,15 @@ void Editor::DragShape(int x, int y) {
 
 ModelDef* Editor::GetClicked(int x, int y, bool shape) {
     // get unzoomed screen position of the mouse click
-    SDL_Point mouse = {
-        (int)(x/Control::zoom),
-        (int)(y/Control::zoom)};
+    SDL_Point mouse = {x, y};
 
     // get unzoomed screen rect of each shape or box
     Texture t = GetTexture();
     for(auto def = defs.rbegin(); def != defs.rend(); def++) {
         SDL_Rect src = shape ? def->shape : def->box;
         SDL_Rect rect = {
-            (int)(t.dst.x/Control::zoom) + src.x,
-            (int)(t.dst.y/Control::zoom) + src.y,
+            t.pos.x + src.x,
+            t.pos.y + src.y,
             src.w, src.h, };
 
         // check if the click was inside the rect
@@ -116,9 +113,9 @@ void Editor::Grab(int x, int y) {
     def = GetClicked(x, y, true);
     if(def != nullptr) {
         // get world position of mouse 
-        b2Vec2 wPos(
-            (double)x/Control::zoom/PPM,
-            (double)y/Control::zoom/PPM);
+        b2Vec2 wPos( (double)x/PPM, (double)y/PPM);
+        printf("box: %d, %d\n", def->box.w, def->box.h);
+
         models.push_back( Model(*def) ); //FIXME duplicates
         grabbed = new Entity((World&)*this, models.back(), wPos, 1, 1);
     }
@@ -130,8 +127,6 @@ Texture Editor::GetTexture() {
     SDL_Texture *t = textureIt->second;
     SDL_QueryTexture(t, &format, &access, &w, &h);
     SDL_Rect src = {0, 0, w, h};
-    SDL_Rect dst = {
-        (int)(100), (int)(100), //FIXME recenter
-        (int)(w*Control::zoom), (int)(h*Control::zoom) };
-    return {t, src, dst};
+    SDL_Point pos = {10, 10}; // FIXME recenter
+    return {t, src, pos};
 }

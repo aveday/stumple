@@ -8,8 +8,8 @@ int main(int argc, char *argv[]) {
     b2Vec2 gravity(0, 9.8);
     Grid grid(0xff101010, 0xff000000);
     World world(gravity);
-    Graphics graphics(grid);
-    Control control(z);
+    Graphics graphics(grid, z);
+    Control control;
     Editor editor;
     Clock clock;
 
@@ -46,7 +46,7 @@ int main(int argc, char *argv[]) {
             world.Add( new Entity(world, "rock", b2Vec2(x,y), 0, 0) );
 
     // Accept input
-    while(control.GetInput(*player, editor)) {
+    while(control.GetInput(graphics, *player, editor)) {
         int ms = clock.Sleep(); // Delay to maintain FPS
         switch(Control::mode) {
             case EDIT:

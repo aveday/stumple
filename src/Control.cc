@@ -1,21 +1,11 @@
+#include <SDL2/SDL.h>
+
 #include "Control.h"
 #include "Graphics.h"
-#include "Model.h"
 
 Mode Control::mode = EDIT;
-double Control::zoom = 1;
 
-Control::Control(double z) {
-    zoom = z;
-}
-
-b2Vec2 Control::GetMouseWorldPos() {
-    int x, y; 
-    SDL_GetMouseState(&x, &y);
-    return b2Vec2( x/zoom/PPM, y/zoom/PPM );
-}
-
-void Control::Input(SDL_Event& event, Editor& editor) {
+void Control::Input(SDL_Event& event, Graphics &graphics, Editor& editor) {
 
     // keyboard controls
     if(event.key.type == SDL_KEYDOWN) switch(event.key.keysym.sym) {
@@ -31,38 +21,45 @@ void Control::Input(SDL_Event& event, Editor& editor) {
         case SDLK_SPACE: mode = RUN;        break;
     }
 
-    // handle mouse tools if a texture is loaded
-    if(editor.TextureLoaded) switch(editor.tool) {
+    // handle mouse tools only if a texture is loaded
+    if(!editor.TextureLoaded)
+        return;
+
+    // determine mouse action
+    bool click = (event.type == SDL_MOUSEBUTTONDOWN);
+    bool drag = (event.motion.state == SDL_PRESSED);
+
+    // account for zoom in mouse position
+    int x = drag ? event.motion.x : event.button.x;
+    int y = drag ? event.motion.y : event.button.y;
+    graphics.MakeAbsolute(x, y);
+
+    switch(editor.tool) {
 
         // bounding box construction
         case BOX:
-        if(event.type == SDL_MOUSEBUTTONDOWN)
-            editor.StartBox(event.button.x, event.button.y);
-        else if(event.motion.state == SDL_PRESSED)
-            editor.DragBox(event.motion.x, event.motion.y);
-        break;
+            if(click) editor.StartBox(x, y);
+            if(drag)  editor.DragBox(x, y);
+            break;
 
         // box2d shape construction
         case SHAPE:
-        if(event.type == SDL_MOUSEBUTTONDOWN)
-            editor.StartShape(event.button.x, event.button.y);
-        else if(event.motion.state == SDL_PRESSED)
-            editor.DragShape(event.motion.x, event.motion.y);
-        break;
+            if(click) editor.StartShape(x, y);
+            if(drag)  editor.DragShape(x, y);
+            break;
 
         // dragging stuff around
         case MOVE:
-        if(event.button.state == SDL_PRESSED)
-            editor.Grab(event.button.x, event.button.y);
-        break;
+            if(click) editor.Grab(x, y);
+            break;
     }
 }
 
-void Control::Input(SDL_Event& event, Character& player) {
+void Control::Input(SDL_Event& event, Graphics &graphics, Character& player) {
     // make the player's head face towards the mouse
     //(*player).parts["head"]->AngleTowards( GetWorldMousePos(), 0);
     if(event.key.type == SDL_KEYDOWN && !(event.key.repeat)) {
-        int f = 10000;
+        int f = 40000;
         switch( event.key.keysym.sym ) {
             case SDLK_w:
                 player.parts["torso"]->body->ApplyForceToCenter(b2Vec2(0, -f), true);
@@ -83,16 +80,16 @@ void Control::Input(SDL_Event& event, Character& player) {
     }
 }
 
-bool Control::GetInput(Character &player, Editor &editor) {
+bool Control::GetInput(Graphics &graphics, Character &player, Editor &editor) {
     // handle key input
     SDL_Event event;
     while(SDL_PollEvent(&event) != 0 ) {
         if ( event.type == SDL_QUIT )
             return false;
         if ( mode == EDIT )
-            Input(event, editor);
+            Input(event, graphics, editor);
         else if ( mode == RUN )
-            Input(event, player);
+            Input(event, graphics, player);
     }
     return true;
 }

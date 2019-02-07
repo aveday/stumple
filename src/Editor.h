@@ -5,8 +5,9 @@
 #include <list>
 
 #include "Model.h"
-#include "Entity.h"
 #include "World.h"
+
+class Entity;
 
 enum Direction { FORWARD, BACKWARD };
 enum Tool { BOX, SHAPE, MOVE };
@@ -14,7 +15,7 @@ enum Tool { BOX, SHAPE, MOVE };
 typedef struct {
     SDL_Texture* texture;
     SDL_Rect src;
-    SDL_Rect dst;
+    SDL_Point pos;
 } Texture; //FIXME rename
 
 class Editor : public World {
@@ -24,7 +25,6 @@ class Editor : public World {
         Tool tool = BOX;
         void CycleTexture(Direction d);
         void MakeRelative(int &x, int &y);
-        void MakeGlobal(int &x, int &y);
         void StartBox(int x, int y);
         void DragBox(int x, int y);
         void StartShape(int x, int y);

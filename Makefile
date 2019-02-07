@@ -22,7 +22,7 @@ obj/%.o: src/%.cc
 	@mkdir -p dep/$(*D) obj/$(*D)
 	@$(CC) $(CPPFLAGS) -I. -Isrc -MMD -MP -MF dep/$*.d -c -o $@ $<
 
--include $(OBJS:obj/%.o=dep/%.d)
+-include dep
 
 .PHONY: all clean
 

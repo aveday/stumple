@@ -2,24 +2,20 @@
 #define CONTROL_H
 
 #include <SDL2/SDL.h>
-#include <Box2D/Box2D.h>
 
-#include "Character.h"
-#include "Model.h"
-#include "Editor.h"
+class Graphics;
+class Character;
+class Editor;
 
 enum Mode { EDIT, RUN };
 
 class Control {
     public:
-        Control(double);
         static Mode mode;
-        static double zoom;
-        bool GetInput(Character&, Editor&);
-        static b2Vec2 GetMouseWorldPos();
+        bool GetInput(Graphics&, Character&, Editor&);
     private:
-        void Input(SDL_Event&, Editor&);
-        void Input(SDL_Event&, Character&);
+        void Input(SDL_Event&, Graphics&, Editor&);
+        void Input(SDL_Event&, Graphics&, Character&);
 };
 
 #endif
